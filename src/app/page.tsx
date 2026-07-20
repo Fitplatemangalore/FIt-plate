@@ -183,7 +183,6 @@ export default async function Home() {
                       src={v.image_url || `/assets/pot/pot-${(i % 4) + 1}.png`} 
                       alt={`${v.name} pot`} 
                       className="pot-image" 
-                      style={{ objectFit: v.image_url ? "cover" : "contain", height: "100%", width: "100%" }}
                     />
                   </div>
                   <h3 className="pot-name" style={{ textTransform: "uppercase" }}>{v.name}</h3>
