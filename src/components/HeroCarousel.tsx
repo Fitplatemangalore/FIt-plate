@@ -52,7 +52,13 @@ const defaultSlides: Slide[] = [
 ];
 
 export default function HeroCarousel({ slides }: { slides?: Slide[] }) {
-  const activeSlides = slides && slides.length > 0 ? slides : defaultSlides;
+  const activeSlides = (slides && slides.length > 0 ? slides : defaultSlides).map((slide, idx) => ({
+    tray: slide.tray || defaultSlides[idx % defaultSlides.length].tray,
+    bgText: slide.bgText || defaultSlides[idx % defaultSlides.length].bgText,
+    leaves: (slide.leaves && slide.leaves.length >= 4)
+      ? slide.leaves
+      : defaultSlides[idx % defaultSlides.length].leaves,
+  }));
   const containerRef = useRef<HTMLDivElement>(null);
   const bgTextRef = useRef<HTMLDivElement>(null);
   const leafRefs = useRef<(HTMLImageElement | null)[]>([]);
