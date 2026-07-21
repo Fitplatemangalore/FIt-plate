@@ -249,45 +249,60 @@ export default async function Home() {
 
           <div className="blogs-grid reveal stagger">
             {blogsDb && blogsDb.length > 0 ? (
-              blogsDb.map((b, i) => (
-                <div key={b.id} className="blog-card" style={{ "--i": i } as React.CSSProperties}>
-                  <img src={b.image_url} alt={b.title} className="blog-card-image" style={{ objectFit: "cover" }} />
-                  <div className="blog-card-body">
-                    <div className="blog-card-meta">
-                      <span className="tag-pill">{b.category}</span>
-                      <span className="blog-card-date">
-                        {new Date(b.published_date).toLocaleDateString("en-IN", {
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                        })}
-                      </span>
-                    </div>
-                    <h3 className="blog-card-title">{b.title}</h3>
-                    <p className="blog-card-desc">{b.excerpt}</p>
-                    <Link href={`/blogs#${b.slug}`} className="blog-card-link">
-                      Read more
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M5 12h14" />
-                        <path d="m12 5 7 7-7 7" />
-                      </svg>
+              blogsDb.map((b, i) => {
+                const slug = b.slug || b.id || b.title.toLowerCase().replace(/\s+/g, "-");
+                return (
+                  <div key={b.id} className="blog-card" style={{ "--i": i } as React.CSSProperties}>
+                    <Link href={`/blogs/${slug}`}>
+                      <img src={b.image_url} alt={b.title} className="blog-card-image" style={{ objectFit: "cover" }} />
                     </Link>
+                    <div className="blog-card-body">
+                      <div className="blog-card-meta">
+                        <span className="tag-pill">{b.category}</span>
+                        <span className="blog-card-date">
+                          {new Date(b.published_date).toLocaleDateString("en-IN", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
+                        </span>
+                      </div>
+                      <h3 className="blog-card-title">
+                        <Link href={`/blogs/${slug}`} style={{ color: "inherit", textDecoration: "none" }}>
+                          {b.title}
+                        </Link>
+                      </h3>
+                      <p className="blog-card-desc">{b.excerpt}</p>
+                      <Link href={`/blogs/${slug}`} className="blog-card-link">
+                        Read more
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M5 12h14" />
+                          <path d="m12 5 7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))
+                );
+              })
             ) : (
               // Hardcoded default fallbacks
               <>
                 <div className="blog-card" style={{ "--i": 0 } as React.CSSProperties}>
-                  <img src="https://images.unsplash.com/photo-1640671510956-8c8e1deb0dd9?auto=format&fit=crop&w=900&q=80" alt="History of Microgreens" className="blog-card-image" />
+                  <Link href="/blogs/history-of-microgreens">
+                    <img src="https://images.unsplash.com/photo-1640671510956-8c8e1deb0dd9?auto=format&fit=crop&w=900&q=80" alt="History of Microgreens" className="blog-card-image" />
+                  </Link>
                   <div className="blog-card-body">
                     <div className="blog-card-meta">
                       <span className="tag-pill">Origins</span>
                       <span className="blog-card-date">July 10, 2026</span>
                     </div>
-                    <h3 className="blog-card-title">From Chef's Garnish to Kitchen Staple: A Short History of Microgreens</h3>
+                    <h3 className="blog-card-title">
+                      <Link href="/blogs/history-of-microgreens" style={{ color: "inherit", textDecoration: "none" }}>
+                        From Chef's Garnish to Kitchen Staple: A Short History of Microgreens
+                      </Link>
+                    </h3>
                     <p className="blog-card-desc">Explore the fascinating history of microgreens, from their origins as a gourmet garnish in California fine dining during the 1980s to becoming an everyday superfood.</p>
-                    <Link href="/blogs" className="blog-card-link">
+                    <Link href="/blogs/history-of-microgreens" className="blog-card-link">
                       Read more
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14" />
@@ -298,15 +313,21 @@ export default async function Home() {
                 </div>
 
                 <div className="blog-card" style={{ "--i": 1 } as React.CSSProperties}>
-                  <img src="https://images.unsplash.com/photo-1593629718347-283811841101?auto=format&fit=crop&w=900&q=80" alt="Science of Microgreen density" className="blog-card-image" />
+                  <Link href="/blogs/science-behind-microgreen-density">
+                    <img src="https://images.unsplash.com/photo-1593629718347-283811841101?auto=format&fit=crop&w=900&q=80" alt="Science of Microgreen density" className="blog-card-image" />
+                  </Link>
                   <div className="blog-card-body">
                     <div className="blog-card-meta">
                       <span className="tag-pill">Nutrition</span>
                       <span className="blog-card-date">July 5, 2026</span>
                     </div>
-                    <h3 className="blog-card-title">Why 40x the Nutrients? The Science Behind Microgreen Density</h3>
+                    <h3 className="blog-card-title">
+                      <Link href="/blogs/science-behind-microgreen-density" style={{ color: "inherit", textDecoration: "none" }}>
+                        Why 40x the Nutrients? The Science Behind Microgreen Density
+                      </Link>
+                    </h3>
                     <p className="blog-card-desc">Why do these tiny seedlings pack up to 40 times more nutrients than mature vegetables? We dive into the plant biology and science behind their nutritional density.</p>
-                    <Link href="/blogs" className="blog-card-link">
+                    <Link href="/blogs/science-behind-microgreen-density" className="blog-card-link">
                       Read more
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14" />
@@ -317,15 +338,21 @@ export default async function Home() {
                 </div>
 
                 <div className="blog-card" style={{ "--i": 2 } as React.CSSProperties}>
-                  <img src="https://images.unsplash.com/photo-1647613233056-fc9918256a8d?auto=format&fit=crop&w=900&q=80" alt="Hotels & Restaurants Using Microgreens" className="blog-card-image" />
+                  <Link href="/blogs/10-ways-hotels-and-restaurants-use-microgreens">
+                    <img src="https://images.unsplash.com/photo-1647613233056-fc9918256a8d?auto=format&fit=crop&w=900&q=80" alt="Hotels & Restaurants Using Microgreens" className="blog-card-image" />
+                  </Link>
                   <div className="blog-card-body">
                     <div className="blog-card-meta">
                       <span className="tag-pill">For Business</span>
                       <span className="blog-card-date">June 28, 2026</span>
                     </div>
-                    <h3 className="blog-card-title">10 Ways Hotels & Restaurants Are Using Microgreens on the Menu</h3>
+                    <h3 className="blog-card-title">
+                      <Link href="/blogs/10-ways-hotels-and-restaurants-use-microgreens" style={{ color: "inherit", textDecoration: "none" }}>
+                        10 Ways Hotels & Restaurants Are Using Microgreens on the Menu
+                      </Link>
+                    </h3>
                     <p className="blog-card-desc">From visual freshness in hotel buffets to year-round culinary consistency, learn why leading kitchens are shifting from garnish to building microgreens directly into the menu.</p>
-                    <Link href="/blogs" className="blog-card-link">
+                    <Link href="/blogs/10-ways-hotels-and-restaurants-use-microgreens" className="blog-card-link">
                       Read more
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14" />
