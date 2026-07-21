@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Slide {
   title: string;
@@ -29,98 +29,78 @@ const defaultSlides: Slide[] = [
   },
 ];
 
+// Position state for each image slot
+type SlidePos = "left" | "center" | "right" | "hidden";
+
 export default function UsesSlider({ slides }: { slides?: Slide[] }) {
-  // Support up to 5 slides
   const activeSlides =
     slides && slides.length > 0 ? slides.slice(0, 5) : defaultSlides;
 
-  const [activeUsesIdx, setActiveUsesIdx] = useState(0);
+  const count = activeSlides.length;
 
+  // Track the active slide index
+  const [activeIdx, setActiveIdx] = useState(0);
+  // Track which slide is currently transitioning out (so we hold its position during animation)
+  const [outgoingIdx, setOutgoingIdx] = useState<number | null>(null);
+  // Info block fade
+  const [infoVisible, setInfoVisible] = useState(true);
+  // Corner image
+  const [cornerSrc, setCornerSrc] = useState(
+    activeSlides[(1) % count]?.main_image_url
+  );
+  const [cornerVisible, setCornerVisible] = useState(true);
+
+  const activeIdxRef = useRef(activeIdx);
+  const outgoingIdxRef = useRef<number | null>(null);
+  const isTransitioningRef = useRef(false);
+
+  const getPos = (idx: number): SlidePos => {
+    if (idx === activeIdx) return "center";
+    if (idx === outgoingIdx) return "left";
+    return "hidden";
+  };
+
+  const goTo = (nextIdx: number) => {
+    const currentIdx = activeIdxRef.current;
+    if (nextIdx === currentIdx || isTransitioningRef.current) return;
+
+    isTransitioningRef.current = true;
+
+    // Fade info and corner out
+    setInfoVisible(false);
+    setCornerVisible(false);
+
+    // Set outgoing so it slides left, incoming slides in from right
+    setOutgoingIdx(currentIdx);
+    outgoingIdxRef.current = currentIdx;
+
+    // Move new slide to center (incoming from right via CSS default)
+    setActiveIdx(nextIdx);
+    activeIdxRef.current = nextIdx;
+
+    // After transition completes, clear outgoing
+    setTimeout(() => {
+      setOutgoingIdx(null);
+      outgoingIdxRef.current = null;
+      isTransitioningRef.current = false;
+
+      // Update info and corner
+      setInfoVisible(true);
+      setCornerSrc(activeSlides[(nextIdx + 1) % count]?.main_image_url);
+      setCornerVisible(true);
+    }, 650);
+  };
+
+  // Autoplay
   useEffect(() => {
-    let usesTimer: NodeJS.Timeout | null = null;
-    let currentIdx = activeUsesIdx;
-
-    const startUsesAutoplay = () => {
-      stopUsesAutoplay();
-      if (activeSlides.length <= 1) return;
-      usesTimer = setInterval(() => {
-        const nextIdx = (currentIdx + 1) % activeSlides.length;
-        updateUsesSlide(nextIdx);
-      }, 4500);
-    };
-
-    const stopUsesAutoplay = () => {
-      if (usesTimer) {
-        clearInterval(usesTimer);
-        usesTimer = null;
-      }
-    };
-
-    const applySlideClass = (el: Element | null, targetClass: string) => {
-      if (!el) return;
-      el.classList.remove("uses-img-left", "uses-img-center", "uses-img-right");
-      if (targetClass) el.classList.add(targetClass);
-    };
-
-    const updateUsesSlide = (idx: number) => {
-      if (idx === currentIdx) return;
-
-      const usesInfoBlock = document.getElementById("uses-info-block");
-      const cornerImg = document.querySelector(
-        ".uses-corner-image"
-      ) as HTMLImageElement;
-
-      if (usesInfoBlock) usesInfoBlock.classList.add("fade-out");
-      if (cornerImg) cornerImg.classList.add("fade-out");
-
-      const outgoingMain = document.getElementById(`uses-main-img-${currentIdx}`);
-      const incomingMain = document.getElementById(`uses-main-img-${idx}`);
-
-      if (incomingMain) {
-        incomingMain.classList.add("no-transition");
-        applySlideClass(incomingMain, "uses-img-right");
-        void (incomingMain as HTMLElement).offsetWidth;
-        incomingMain.classList.remove("no-transition");
-        applySlideClass(incomingMain, "uses-img-center");
-      }
-
-      if (outgoingMain) {
-        applySlideClass(outgoingMain, "uses-img-left");
-      }
-
-      setTimeout(() => {
-        setActiveUsesIdx(idx);
-        currentIdx = idx;
-
-        if (usesInfoBlock) usesInfoBlock.classList.remove("fade-out");
-        if (cornerImg) {
-          const nextCornerIdx = (idx + 1) % activeSlides.length;
-          cornerImg.src = activeSlides[nextCornerIdx].main_image_url;
-          cornerImg.classList.remove("fade-out");
-        }
-      }, 600);
-    };
-
-    startUsesAutoplay();
-
-    // Attach dot click handlers
-    const dots = document.querySelectorAll(".uses-dot");
-    const onDotClick = (e: Event) => {
-      const target = e.currentTarget as HTMLElement;
-      const idx = parseInt(target.dataset.index || "0", 10);
-      updateUsesSlide(idx);
-      startUsesAutoplay();
-    };
-
-    dots.forEach((dot) => dot.addEventListener("click", onDotClick));
-
-    return () => {
-      stopUsesAutoplay();
-      dots.forEach((dot) => dot.removeEventListener("click", onDotClick));
-    };
-  }, [activeSlides]);
-
-  const nextCornerIdx = (activeUsesIdx + 1) % activeSlides.length;
+    if (count <= 1) return;
+    const timer = setInterval(() => {
+      const next = (activeIdxRef.current + 1) % count;
+      goTo(next);
+    }, 4500);
+    return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count]);
 
   return (
     <section className="uses-section" id="uses">
@@ -138,22 +118,24 @@ export default function UsesSlider({ slides }: { slides?: Slide[] }) {
 
         <div className="uses-grid">
           <div className="uses-info-wrapper reveal">
-            <div className="uses-info" id="uses-info-block">
-              <h3 id="uses-title">{activeSlides[activeUsesIdx]?.title}</h3>
+            <div
+              className={`uses-info${infoVisible ? "" : " fade-out"}`}
+              id="uses-info-block"
+            >
+              <h3 id="uses-title">{activeSlides[activeIdx]?.title}</h3>
               <p id="uses-description">
-                {activeSlides[activeUsesIdx]?.description}
+                {activeSlides[activeIdx]?.description}
               </p>
             </div>
 
-            {activeSlides.length > 1 && (
+            {count > 1 && (
               <div className="uses-dots">
                 {activeSlides.map((_, idx) => (
                   <div
                     key={idx}
-                    className={`uses-dot ${
-                      idx === activeUsesIdx ? "active" : ""
-                    }`}
+                    className={`uses-dot${idx === activeIdx ? " active" : ""}`}
                     data-index={idx}
+                    onClick={() => goTo(idx)}
                   />
                 ))}
               </div>
@@ -161,25 +143,30 @@ export default function UsesSlider({ slides }: { slides?: Slide[] }) {
           </div>
 
           <div className="uses-visual-container reveal">
-            {/* Corner preview image auto-pulls from next slide's main image */}
+            {/* Corner preview image */}
             <img
-              src={activeSlides[nextCornerIdx]?.main_image_url}
+              src={cornerSrc}
               alt="Next slide preview"
-              className="uses-corner-image"
+              className={`uses-corner-image${cornerVisible ? "" : " fade-out"}`}
             />
 
             <div className="uses-main-image-frame">
-              {activeSlides.map((slide, idx) => (
-                <img
-                  key={idx}
-                  src={slide.main_image_url}
-                  alt={slide.title}
-                  className={`uses-main-image ${
-                    idx === activeUsesIdx ? "uses-img-center" : ""
-                  }`}
-                  id={`uses-main-img-${idx}`}
-                />
-              ))}
+              {activeSlides.map((slide, idx) => {
+                const pos = getPos(idx);
+                let posClass = "";
+                if (pos === "center") posClass = " uses-img-center";
+                else if (pos === "left") posClass = " uses-img-left";
+                // "hidden" = default CSS (translateX(150%) off-right, invisible)
+                return (
+                  <img
+                    key={idx}
+                    src={slide.main_image_url}
+                    alt={slide.title}
+                    className={`uses-main-image${posClass}`}
+                    id={`uses-main-img-${idx}`}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
