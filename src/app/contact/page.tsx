@@ -31,14 +31,17 @@ export default function Contact() {
 
     const { error: dbError } = await supabase.from("inquiries").insert([
       {
+        name: name.trim(),
         first_name: firstName,
         last_name: lastName,
-        business_name: business || null,
-        email: email,
-        phone: phone || null,
+        business: business.trim() || null,
+        business_name: business.trim() || null,
+        email: email.trim(),
+        phone: phone.trim() || null,
         subject: requestType,
         type: requestType,
-        message: message,
+        request_type: requestType,
+        message: message.trim(),
       },
     ]);
 

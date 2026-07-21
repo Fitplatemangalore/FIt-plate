@@ -6,11 +6,16 @@ export const metadata: Metadata = { title: "Inquiries | Fit Plate Admin" };
 interface Inquiry {
   id: string;
   created_at: string;
-  name: string;
-  business: string | null;
+  name?: string;
+  first_name?: string;
+  last_name?: string;
+  business?: string | null;
+  business_name?: string | null;
   email: string;
   phone: string | null;
-  request_type: string | null;
+  type?: string | null;
+  request_type?: string | null;
+  subject?: string | null;
   message: string | null;
 }
 
@@ -63,36 +68,44 @@ export default async function AdminDashboard() {
               </tr>
             </thead>
             <tbody>
-              {(inquiries as Inquiry[]).map((inq) => (
-                <tr key={inq.id}>
-                  <td className="admin-td-meta">
-                    {new Date(inq.created_at).toLocaleDateString("en-IN", {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </td>
-                  <td><strong>{inq.name}</strong></td>
-                  <td>{inq.business ?? <span className="admin-muted">—</span>}</td>
-                  <td>
-                    <a href={`mailto:${inq.email}`} className="admin-link">{inq.email}</a>
-                  </td>
-                  <td>
-                    {inq.phone
-                      ? <a href={`tel:${inq.phone}`} className="admin-link">{inq.phone}</a>
-                      : <span className="admin-muted">—</span>
-                    }
-                  </td>
-                  <td>
-                    {inq.request_type && (
-                      <span className="admin-tag">{inq.request_type}</span>
-                    )}
-                  </td>
-                  <td className="admin-td-message">
-                    <span title={inq.message ?? ""}>{inq.message ?? "—"}</span>
-                  </td>
-                </tr>
-              ))}
+              {(inquiries as Inquiry[]).map((inq) => {
+                const name = inq.name || [inq.first_name, inq.last_name].filter(Boolean).join(" ").trim();
+                const business = inq.business || inq.business_name;
+                const type = inq.type || inq.request_type || inq.subject;
+
+                return (
+                  <tr key={inq.id}>
+                    <td className="admin-td-meta">
+                      {new Date(inq.created_at).toLocaleDateString("en-IN", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </td>
+                    <td><strong>{name || <span className="admin-muted">—</span>}</strong></td>
+                    <td>{business ? business : <span className="admin-muted">—</span>}</td>
+                    <td>
+                      <a href={`mailto:${inq.email}`} className="admin-link">{inq.email}</a>
+                    </td>
+                    <td>
+                      {inq.phone
+                        ? <a href={`tel:${inq.phone}`} className="admin-link">{inq.phone}</a>
+                        : <span className="admin-muted">—</span>
+                      }
+                    </td>
+                    <td>
+                      {type ? (
+                        <span className="admin-tag">{type}</span>
+                      ) : (
+                        <span className="admin-muted">—</span>
+                      )}
+                    </td>
+                    <td className="admin-td-message">
+                      <span title={inq.message ?? ""}>{inq.message ?? "—"}</span>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
