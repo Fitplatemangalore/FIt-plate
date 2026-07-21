@@ -1,29 +1,29 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function SplashScreen() {
+  const [visible, setVisible] = useState(true);
+  const [isFading, setIsFading] = useState(false);
+
   useEffect(() => {
-    // Skip splash if navigating internally (not a fresh page load)
+    // Skip splash if navigating internally (not a fresh session load)
     if (typeof window !== "undefined" && sessionStorage.getItem("fitplate_nav")) {
-      sessionStorage.removeItem("fitplate_nav");
+      setVisible(false);
       return;
     }
 
-    const splashScreen = document.getElementById("splash-screen");
-    if (!splashScreen) return;
-
-    const wrapper = splashScreen.querySelector(".splash-logo-wrapper") as HTMLElement | null;
-    if (!wrapper) return;
-
-    // Lock scrolling while splash is visible
+    // Lock scrolling while splash is active
     document.body.classList.add("splash-active");
+
+    const wrapper = document.querySelector(".splash-logo-wrapper") as HTMLElement | null;
+    if (!wrapper) return;
 
     const img = new Image();
     img.src = "/assets/logo.png";
 
     const showFallback = () => {
-      if (!wrapper.querySelector(".splash-fallback-logo")) {
+      if (wrapper && !wrapper.querySelector(".splash-fallback-logo")) {
         wrapper.innerHTML = "";
         const fallback = document.createElement("img");
         fallback.src = "/assets/logo.png";
@@ -134,7 +134,7 @@ export default function SplashScreen() {
           wrapper.appendChild(canvases[i]);
         }
       } catch (err) {
-        console.warn("Splash canvas animation error, using fallback logo:", err);
+        console.warn("Splash animation error, using fallback logo:", err);
         showFallback();
       }
     };
@@ -143,20 +143,15 @@ export default function SplashScreen() {
       showFallback();
     };
 
-    // Add tagline
-    if (!splashScreen.querySelector(".splash-tagline")) {
-      const tagline = document.createElement("div");
-      tagline.className = "splash-tagline";
-      tagline.textContent = "Pure · Fresh · Nutritious";
-      splashScreen.appendChild(tagline);
-    }
-
-    // Fade out after ~5s and remove from DOM
+    // Fade out after ~4.5s and unmount safely using React state (no direct element.remove())
     const fadeTimer = setTimeout(() => {
-      splashScreen.classList.add("fade-out");
+      setIsFading(true);
       document.body.classList.remove("splash-active");
-      setTimeout(() => splashScreen.remove(), 1000);
-    }, 5000);
+      setTimeout(() => {
+        setVisible(false);
+        sessionStorage.setItem("fitplate_nav", "1");
+      }, 1000);
+    }, 4500);
 
     return () => {
       clearTimeout(fadeTimer);
@@ -164,29 +159,12 @@ export default function SplashScreen() {
     };
   }, []);
 
-  // Track internal link clicks so the splash is skipped on navigation
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      const link = (e.target as HTMLElement).closest("a[href]") as HTMLAnchorElement | null;
-      if (!link) return;
-      const href = link.getAttribute("href") || "";
-      if (
-        href &&
-        !href.startsWith("#") &&
-        !href.startsWith("http") &&
-        !href.startsWith("mailto") &&
-        !href.startsWith("tel")
-      ) {
-        sessionStorage.setItem("fitplate_nav", "1");
-      }
-    };
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  }, []);
+  if (!visible) return null;
 
   return (
-    <div id="splash-screen">
+    <div id="splash-screen" className={isFading ? "fade-out" : ""}>
       <div className="splash-logo-wrapper" />
+      <div className="splash-tagline">Pure · Fresh · Nutritious</div>
     </div>
   );
 }
