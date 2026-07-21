@@ -48,7 +48,7 @@ export default function Header() {
           <img
             src="/assets/logo.png"
             alt="Fit Plate logo"
-            style={{ height: 'auto', width: 'auto', maxHeight: '50px' }}
+            style={{ height: 'auto', width: 'auto' }}
           />
         </Link>
         <nav className={`main-nav ${isOpen ? 'open' : ''}`}>
