@@ -14,12 +14,12 @@ export default async function Home() {
     .select("*")
     .order("sort_order", { ascending: true });
 
-  const heroSlides = heroDb && heroDb.length > 0 
+  const heroSlides = heroDb && heroDb.length > 0
     ? heroDb.map((s) => ({
-        tray: s.tray_image,
-        bgText: s.bg_text,
-        leaves: s.leaves || [],
-      }))
+      tray: s.tray_image,
+      bgText: s.bg_text,
+      leaves: s.leaves || [],
+    }))
     : undefined;
 
   // 2. Fetch Varieties (Featured or top 4)
@@ -37,10 +37,10 @@ export default async function Home() {
 
   const usesSlides = usesDb && usesDb.length > 0
     ? usesDb.slice(0, 5).map((s) => ({
-        title: s.title,
-        description: s.description,
-        main_image_url: s.main_image_url,
-      }))
+      title: s.title,
+      description: s.description,
+      main_image_url: s.main_image_url,
+    }))
     : undefined;
 
   // 4. Fetch Blogs (Latest 3)
@@ -154,9 +154,9 @@ export default async function Home() {
               <Link href="/about" className="btn btn-gold btn-radius-20">Read more</Link>
             </div>
             <div className="about-microgreens-image reveal">
-              <img 
-                src={getContent("about-image", "/assets/img/micro-sec.png")} 
-                alt="Microgreens overview" 
+              <img
+                src={getContent("about-image", "/assets/img/micro-sec.png")}
+                alt="Microgreens overview"
               />
             </div>
           </div>
@@ -178,10 +178,10 @@ export default async function Home() {
                 <div key={v.id} className="pot-card" style={{ "--i": i } as React.CSSProperties}>
                   <div className="pot-image-wrapper">
                     {/* Fallback to default pot image layout if it matches local set, otherwise render upload card */}
-                    <img 
-                      src={v.image_url || `/assets/pot/pot-${(i % 4) + 1}.png`} 
-                      alt={`${v.name} pot`} 
-                      className="pot-image" 
+                    <img
+                      src={v.image_url || `/assets/pot/pot-${(i % 4) + 1}.png`}
+                      alt={`${v.name} pot`}
+                      className="pot-image"
                     />
                   </div>
                   <h3 className="pot-name" style={{ textTransform: "uppercase" }}>{v.name}</h3>
@@ -343,12 +343,12 @@ export default async function Home() {
           <div className="testimonials-grid reveal stagger">
             {testimonialsDb && testimonialsDb.length > 0 ? (
               testimonialsDb.map((t, i) => (
-                <a 
+                <a
                   key={t.id}
-                  href={t.link || "https://maps.google.com/?q=Fitplate+Ventures+Mangalore"} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="testimonial-link-card" 
+                  href={t.link || "https://maps.google.com/?q=Fitplate+Ventures+Mangalore"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="testimonial-link-card"
                   style={{ "--i": i } as React.CSSProperties}
                 >
                   <div className="testimonial-card">
