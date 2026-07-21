@@ -1495,6 +1495,8 @@ footer a:hover {
   align-items: flex-start;
   text-align: left;
   border: none;
+  text-decoration: none;
+  cursor: pointer;
   transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 

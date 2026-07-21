@@ -174,54 +174,61 @@ export default async function Home() {
 
           <div className="our-microgreens-grid reveal stagger">
             {varietiesDb && varietiesDb.length > 0 ? (
-              varietiesDb.map((v, i) => (
-                <div key={v.id} className="pot-card" style={{ "--i": i } as React.CSSProperties}>
-                  <div className="pot-image-wrapper">
-                    {/* Fallback to default pot image layout if it matches local set, otherwise render upload card */}
-                    <img 
-                      src={v.image_url || `/assets/pot/pot-${(i % 4) + 1}.png`} 
-                      alt={`${v.name} pot`} 
-                      className="pot-image" 
-                    />
-                  </div>
-                  <h3 className="pot-name" style={{ textTransform: "uppercase" }}>{v.name}</h3>
-                  <div className="pot-tag">{v.tag}</div>
-                </div>
-              ))
+              varietiesDb.map((v, i) => {
+                const slug = v.slug || v.name.toLowerCase().replace(/\s+/g, "-");
+                return (
+                  <Link
+                    key={v.id}
+                    href={`/varieties/${slug}`}
+                    className="pot-card"
+                    style={{ "--i": i, textDecoration: "none" } as React.CSSProperties}
+                  >
+                    <div className="pot-image-wrapper">
+                      <img 
+                        src={v.image_url || `/assets/pot/pot-${(i % 4) + 1}.png`} 
+                        alt={`${v.name} pot`} 
+                        className="pot-image" 
+                      />
+                    </div>
+                    <h3 className="pot-name" style={{ textTransform: "uppercase" }}>{v.name}</h3>
+                    <div className="pot-tag">{v.tag}</div>
+                  </Link>
+                );
+              })
             ) : (
               // Hardcoded default fallbacks
               <>
-                <div className="pot-card" style={{ "--i": 0 } as React.CSSProperties}>
+                <Link href="/varieties/broccoli" className="pot-card" style={{ "--i": 0, textDecoration: "none" } as React.CSSProperties}>
                   <div className="pot-image-wrapper">
                     <img src="/assets/pot/pot-1.png" alt="Broccoli Microgreens pot" className="pot-image" />
                   </div>
                   <h3 className="pot-name">BROCCOLI</h3>
                   <div className="pot-tag">Microgreen</div>
-                </div>
+                </Link>
 
-                <div className="pot-card" style={{ "--i": 1 } as React.CSSProperties}>
+                <Link href="/varieties/purple-kale" className="pot-card" style={{ "--i": 1, textDecoration: "none" } as React.CSSProperties}>
                   <div className="pot-image-wrapper">
                     <img src="/assets/pot/pot-2.png" alt="Purple Kale Microgreens pot" className="pot-image" />
                   </div>
                   <h3 className="pot-name">PURPLE KALE</h3>
                   <div className="pot-tag">Microgreen</div>
-                </div>
+                </Link>
 
-                <div className="pot-card" style={{ "--i": 2 } as React.CSSProperties}>
+                <Link href="/varieties/fenugreek" className="pot-card" style={{ "--i": 0, textDecoration: "none" } as React.CSSProperties}>
                   <div className="pot-image-wrapper">
                     <img src="/assets/pot/pot-3.png" alt="Fenugreek Microgreens pot" className="pot-image" />
                   </div>
                   <h3 className="pot-name">FENUGREEK</h3>
                   <div className="pot-tag">Microgreen</div>
-                </div>
+                </Link>
 
-                <div className="pot-card" style={{ "--i": 3 } as React.CSSProperties}>
+                <Link href="/varieties/beetroot" className="pot-card" style={{ "--i": 3, textDecoration: "none" } as React.CSSProperties}>
                   <div className="pot-image-wrapper">
                     <img src="/assets/pot/pot-4.png" alt="Beetroot Microgreens pot" className="pot-image" />
                   </div>
                   <h3 className="pot-name">BEETROOT</h3>
                   <div className="pot-tag">Microgreen</div>
-                </div>
+                </Link>
               </>
             )}
           </div>
