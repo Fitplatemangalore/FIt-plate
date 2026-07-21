@@ -8,7 +8,6 @@ interface UsesSlide {
   title: string;
   description: string;
   main_image_url: string;
-  corner_image_url: string;
   sort_order: number;
 }
 
@@ -19,13 +18,11 @@ export default function AdminUsesSlides() {
     title: "",
     description: "",
     main_image_url: "",
-    corner_image_url: "",
     sort_order: 0,
   });
   const [loading, setLoading] = useState(false);
   const [saveLoading, setSaveLoading] = useState(false);
   const [uploadingMain, setUploadingMain] = useState(false);
-  const [uploadingCorner, setUploadingCorner] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const supabase = createClient();
 
@@ -54,28 +51,29 @@ export default function AdminUsesSlides() {
       title: slide.title,
       description: slide.description || "",
       main_image_url: slide.main_image_url || "",
-      corner_image_url: slide.corner_image_url || "",
       sort_order: slide.sort_order || 0,
     });
   };
 
   const handleAddNew = () => {
+    if (slides.length >= 5) {
+      setMessage({ type: "error", text: "Maximum of 5 slides allowed for the Uses section." });
+      return;
+    }
     setSelectedId(null);
     setFormData({
       title: "",
       description: "",
       main_image_url: "",
-      corner_image_url: "",
       sort_order: slides.length,
     });
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: "main_image_url" | "corner_image_url") => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (field === "main_image_url") setUploadingMain(true);
-    else setUploadingCorner(true);
+    setUploadingMain(true);
     setMessage(null);
 
     try {
@@ -93,13 +91,12 @@ export default function AdminUsesSlides() {
         .from("fitplate-assets")
         .getPublicUrl(filePath);
 
-      setFormData((prev) => ({ ...prev, [field]: publicUrl }));
-      setMessage({ type: "success", text: "Image uploaded successfully!" });
+      setFormData((prev) => ({ ...prev, main_image_url: publicUrl }));
+      setMessage({ type: "success", text: "Main image uploaded successfully!" });
     } catch (err: any) {
       setMessage({ type: "error", text: `Image upload failed: ${err.message}` });
     } finally {
-      if (field === "main_image_url") setUploadingMain(false);
-      else setUploadingCorner(false);
+      setUploadingMain(false);
     }
   };
 
@@ -114,19 +111,32 @@ export default function AdminUsesSlides() {
       if (selectedId) {
         const { error: err } = await supabase
           .from("uses_slides")
-          .update(formData)
+          .update({
+            title: formData.title,
+            description: formData.description,
+            main_image_url: formData.main_image_url,
+            sort_order: formData.sort_order,
+          })
           .eq("id", selectedId);
         error = err;
       } else {
+        if (slides.length >= 5) {
+          throw new Error("Maximum of 5 slides allowed for the Uses section.");
+        }
         const { error: err } = await supabase
           .from("uses_slides")
-          .insert([formData]);
+          .insert([{
+            title: formData.title,
+            description: formData.description,
+            main_image_url: formData.main_image_url,
+            sort_order: formData.sort_order,
+          }]);
         error = err;
       }
 
       if (error) throw error;
 
-      setMessage({ type: "success", text: "Slide saved successfully!" });
+      setMessage({ type: "success", text: "Uses slide saved successfully!" });
       
       // Trigger On-Demand ISR Revalidation
       await fetch("/api/revalidate?path=/");
@@ -167,10 +177,14 @@ export default function AdminUsesSlides() {
       <div className="admin-page-header">
         <div>
           <h1>Uses Slides Content Manager</h1>
-          <p>Create, edit, or delete slides shown in the "Uses of Microgreens" section on the home page.</p>
+          <p>Manage up to 5 slides for the "Uses of Microgreens" section on the home page.</p>
         </div>
-        <button className="btn btn-gold btn-sm" onClick={handleAddNew}>
-          + Add New Slide
+        <button
+          className="btn btn-gold btn-sm"
+          onClick={handleAddNew}
+          disabled={slides.length >= 5 && !selectedId}
+        >
+          {slides.length >= 5 ? "Max 5 Slides Reached" : "+ Add New Slide"}
         </button>
       </div>
 
@@ -183,7 +197,10 @@ export default function AdminUsesSlides() {
       <div className="admin-editor-grid">
         {/* Left Side: Slides List */}
         <div className="admin-card">
-          <h2 className="admin-card-title">All Slides</h2>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+            <h2 className="admin-card-title" style={{ margin: 0 }}>All Slides</h2>
+            <span className="admin-tag">{slides.length}/5 configured</span>
+          </div>
           {loading ? (
             <div style={{ textAlign: "center", padding: "20px" }}>
               <span className="admin-spinner" />
@@ -232,7 +249,7 @@ export default function AdminUsesSlides() {
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
-                placeholder="e.g. Salads & Grain Bowls"
+                placeholder="e.g. Add to Salads"
                 required
               />
             </div>
@@ -253,46 +270,25 @@ export default function AdminUsesSlides() {
               <input
                 type="file"
                 accept="image/*"
-                onChange={(e) => handleImageUpload(e, "main_image_url")}
+                onChange={handleImageUpload}
                 disabled={uploadingMain}
               />
-              {uploadingMain && <p className="admin-muted" style={{ fontSize: "12px", marginTop: "4px" }}>Uploading main image...</p>}
+              {uploadingMain && <p className="admin-muted" style={{ fontSize: "12px", marginTop: "4px" }}>Uploading image...</p>}
               <input
                 type="text"
                 value={formData.main_image_url}
                 onChange={(e) => setFormData((prev) => ({ ...prev, main_image_url: e.target.value }))}
                 placeholder="Or paste main image URL"
                 style={{ marginTop: "8px" }}
+                required
               />
+              <p className="admin-muted" style={{ fontSize: "12px", marginTop: "6px", color: "var(--forest-700)" }}>
+                ✨ Note: The small top-right corner preview image will automatically pull from the next slide's main image. No separate corner image upload required!
+              </p>
               {formData.main_image_url && (
                 <img
                   src={formData.main_image_url}
                   alt="Main Preview"
-                  className="admin-image-preview"
-                />
-              )}
-            </div>
-
-            <div className="field" style={{ marginTop: "16px" }}>
-              <label>Corner Image (Floating overlay image)</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleImageUpload(e, "corner_image_url")}
-                disabled={uploadingCorner}
-              />
-              {uploadingCorner && <p className="admin-muted" style={{ fontSize: "12px", marginTop: "4px" }}>Uploading corner image...</p>}
-              <input
-                type="text"
-                value={formData.corner_image_url}
-                onChange={(e) => setFormData((prev) => ({ ...prev, corner_image_url: e.target.value }))}
-                placeholder="Or paste corner image URL"
-                style={{ marginTop: "8px" }}
-              />
-              {formData.corner_image_url && (
-                <img
-                  src={formData.corner_image_url}
-                  alt="Corner Preview"
                   className="admin-image-preview"
                 />
               )}
@@ -309,7 +305,7 @@ export default function AdminUsesSlides() {
             </div>
 
             <div className="admin-btn-row">
-              <button type="submit" className="btn btn-gold btn-sm" disabled={saveLoading || uploadingMain || uploadingCorner}>
+              <button type="submit" className="btn btn-gold btn-sm" disabled={saveLoading || uploadingMain}>
                 {saveLoading ? <><span className="admin-spinner" /> Saving...</> : "Save Uses Slide"}
               </button>
               <button type="button" className="btn btn-forest btn-sm" onClick={handleAddNew}>

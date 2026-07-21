@@ -36,11 +36,10 @@ export default async function Home() {
     .order("sort_order", { ascending: true });
 
   const usesSlides = usesDb && usesDb.length > 0
-    ? usesDb.map((s) => ({
+    ? usesDb.slice(0, 5).map((s) => ({
         title: s.title,
         description: s.description,
         main_image_url: s.main_image_url,
-        corner_image_url: s.corner_image_url,
       }))
     : undefined;
 
