@@ -26,6 +26,19 @@ async function getVariety(slug: string): Promise<VarietyData | null> {
   );
 
   if (dbData) {
+    // Parse benefits — DB may store as a JSON array, a comma-separated string, or a Postgres array
+    let dbBenefits: string[] | undefined;
+    if (Array.isArray(dbData.benefits) && dbData.benefits.length > 0) {
+      dbBenefits = dbData.benefits;
+    } else if (typeof dbData.benefits === "string" && dbData.benefits.trim()) {
+      try {
+        const parsed = JSON.parse(dbData.benefits);
+        if (Array.isArray(parsed)) dbBenefits = parsed;
+      } catch {
+        dbBenefits = dbData.benefits.split(",").map((s: string) => s.trim()).filter(Boolean);
+      }
+    }
+
     return {
       id: dbData.id || dbData.slug || slug,
       slug: dbData.slug || slug,
@@ -36,14 +49,14 @@ async function getVariety(slug: string): Promise<VarietyData | null> {
       description: dbData.description || fallback?.description || "",
       best_in: dbData.best_in || fallback?.best_in || "",
       image_url: dbData.image_url || fallback?.image_url || "/assets/pot/pot-1.png",
-      benefits: fallback?.benefits || [
+      benefits: dbBenefits || fallback?.benefits || [
         "Rich in essential vitamins and antioxidant compounds",
         "Supports cellular health and immune defense",
         "Harvested at peak nutrient concentration",
         "Fresh, crisp texture and vibrant flavor profile",
       ],
-      growing_time: fallback?.growing_time || "7 – 14 days",
-      flavor_profile: fallback?.flavor_profile || "Fresh, clean and vibrant",
+      growing_time: dbData.growing_time || fallback?.growing_time || "7 – 14 days",
+      flavor_profile: dbData.flavor_profile || fallback?.flavor_profile || "Fresh, clean and vibrant",
     };
   }
 
@@ -84,8 +97,7 @@ export default async function VarietyDetailPage({ params }: PageProps) {
         <div
           className="hero-bg"
           style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1640671509786-7ddd9d77c866?auto=format&fit=crop&w=1920&q=80')",
+            backgroundImage: `url('${variety.image_url}')`,
           }}
         ></div>
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
