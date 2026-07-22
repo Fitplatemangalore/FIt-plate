@@ -818,28 +818,28 @@ button {
 }
 
 .page-hero .eyebrow {
-  color: var(--gold-300);
+  color: var(--forest-700);
 }
 
 .page-hero .eyebrow::before {
-  background: var(--gold-300);
+  background: var(--forest-700);
 }
 
 .page-hero h1 {
-  color: #fff;
+  color: var(--forest-900);
   font-size: clamp(32px, 4.6vw, 52px);
   margin-top: 10px;
 }
 
 .page-hero p {
-  color: rgba(255, 255, 255, .82);
+  color: var(--forest-800);
   max-width: 560px;
   margin-top: 14px;
   font-size: 16px;
 }
 
 .crumbs {
-  color: rgba(255, 255, 255, .65);
+  color: var(--forest-700);
   font-size: 13px;
   font-weight: 600;
   margin-top: 18px;
@@ -848,7 +848,7 @@ button {
 }
 
 .crumbs a:hover {
-  color: #fff;
+  color: var(--forest-900);
 }
 
 /* ---------- Sections shared ---------- */
