@@ -149,10 +149,10 @@ export default async function Blogs() {
         );
       })}
 
-      <section className="section deep">
+      <section className="section deep" style={{ paddingBottom: 0 }}>
         <div
           className="container reveal"
-          style={{ textAlign: "center", maxWidth: "560px", margin: "0 auto" }}
+          style={{ textAlign: "center", maxWidth: "560px", margin: "0 auto", paddingBottom: "76px" }}
         >
           <div className="icon-badge" style={{ margin: "0 auto" }}>
             <svg
@@ -179,6 +179,9 @@ export default async function Blogs() {
               Contact Us
             </Link>
           </div>
+        </div>
+        <div className="container">
+          <hr style={{ border: "none", borderTop: "1px solid rgba(255, 255, 255, 0.15)", margin: 0 }} />
         </div>
       </section>
     </main>

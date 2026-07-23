@@ -189,8 +189,11 @@ export default async function BlogDetailPage({ params }: PageProps) {
       </section>
 
       {/* Bottom CTA */}
-      <section className="section deep">
-        <div className="container reveal" style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto" }}>
+      <section className="section deep" style={{ paddingBottom: 0 }}>
+        <div
+          className="container reveal"
+          style={{ textAlign: "center", maxWidth: "560px", margin: "0 auto", paddingBottom: "76px" }}
+        >
           <div className="icon-badge" style={{ margin: "0 auto" }}>
             <svg
               width="22"
@@ -215,6 +218,9 @@ export default async function BlogDetailPage({ params }: PageProps) {
               Contact Us
             </Link>
           </div>
+        </div>
+        <div className="container">
+          <hr style={{ border: "none", borderTop: "1px solid rgba(255, 255, 255, 0.15)", margin: 0 }} />
         </div>
       </section>
     </main>
