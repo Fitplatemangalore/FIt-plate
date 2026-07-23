@@ -21,16 +21,9 @@ const whyPoints = [
 export default function About() {
   return (
     <main>
-      {/* ── Hero ── */}
-      <section className="page-hero">
-        <div
-          className="hero-bg"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1640671510956-8c8e1deb0dd9?auto=format&fit=crop&w=1920&q=80')",
-          }}
-        />
-        <div className="container" style={{ position: "relative", zIndex: 1 }}>
+      {/* ── Hero — soft textured background, no photo ── */}
+      <section className="about-hero">
+        <div className="container">
           <div className="crumbs">
             <Link href="/">Home</Link> / <span>About Us</span>
           </div>
@@ -44,10 +37,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── Main content card ── */}
-      <section className="section alt">
+      {/* ── Main content — transparent so leaf background shows through ── */}
+      <section className="section about-content-section">
         <div className="container">
-          <div className="about-content-card reveal">
+          <div className="about-content-body reveal">
 
             {/* Section 1 – Elevating Everyday Nutrition */}
             <div className="about-section">

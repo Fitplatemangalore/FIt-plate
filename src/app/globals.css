@@ -2819,7 +2819,54 @@ body.splash-active {
    deep-forest section headings, antique-gold accents & tagline.
 ================================================================= */
 
+
+/* ── Hero: soft parchment header, no photo background ── */
+.about-hero {
+  position: relative;
+  background: linear-gradient(160deg, var(--cream-50) 0%, var(--cream-100) 60%, var(--gold-100) 100%);
+  padding: 140px 0 56px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Subtle texture ring decoration (pure CSS, no image) */
+.about-hero::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(190,143,52,0.10) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.about-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(18,82,47,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.about-hero .crumbs {
+  color: var(--forest-700);
+  position: relative;
+  z-index: 1;
+}
+
+.about-hero .about-headline-wrap {
+  position: relative;
+  z-index: 1;
+}
+
 /* ── Hero headline: italic script "About" + bold brand name ── */
+
 .about-headline-wrap {
   display: flex;
   flex-direction: column;
@@ -2855,13 +2902,13 @@ body.splash-active {
   color: var(--gold-600);
 }
 
-/* ── White content card that wraps all copy ── */
-.about-content-card {
-  background: rgba(255, 255, 255, 0.96);
-  border-radius: var(--radius-lg);
-  padding: clamp(32px, 5vw, 64px);
-  box-shadow: 0 8px 48px -12px rgba(10, 51, 32, 0.12);
-  border: 1px solid var(--line);
+/* ── Content section: transparent so leaf background shows through ── */
+.about-content-section {
+  background: transparent;
+}
+
+.about-content-body {
+  padding: clamp(24px, 4vw, 56px) 0;
 }
 
 /* ── Individual named sections inside the card ── */
@@ -2987,8 +3034,8 @@ body.splash-active {
 
 /* ── Responsive adjustments ── */
 @media (max-width: 640px) {
-  .about-content-card {
-    padding: 28px 20px;
+  .about-content-body {
+    padding: 16px 0;
   }
 
   .about-logo-divider {
