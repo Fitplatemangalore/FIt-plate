@@ -1470,17 +1470,36 @@ footer a:hover {
   background: transparent;
 }
 
-.our-microgreens-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 100px 24px;
-  /* large row-gap for overflowing pot images, 24px column-gap */
-  margin-top: 100px;
-  /* space at the top of the grid for the first row's overflow */
+.our-microgreens-carousel-wrapper {
+  overflow: hidden;
+  padding-top: 140px; /* Space for the overflowing pot images */
+  margin-top: -40px; /* Offset to match the original 100px margin */
   margin-bottom: 48px;
+  width: 100%;
+}
+
+.our-microgreens-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+}
+
+.our-microgreens-track.auto-scroll {
+  animation: scroll-microgreens 40s linear infinite;
+}
+
+.our-microgreens-track.auto-scroll:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-microgreens {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 12px)); } /* -50% of the duplicated track width minus half the gap */
 }
 
 .pot-card {
+  width: 280px;
+  flex-shrink: 0;
   position: relative;
   background: rgba(12, 72, 41, 0.2);
   /* #0C4829 (forest green) at 20% opacity */
@@ -1568,15 +1587,15 @@ footer a:hover {
   box-shadow: 0 12px 24px rgba(197, 154, 54, 0.45) !important;
 }
 
-@media (max-width: 980px) {
-  .our-microgreens-grid {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 992px) {
+  .pot-card {
+    width: 260px;
   }
 }
 
 @media (max-width: 560px) {
-  .our-microgreens-grid {
-    grid-template-columns: 1fr;
+  .pot-card {
+    width: 240px;
   }
 }
 
