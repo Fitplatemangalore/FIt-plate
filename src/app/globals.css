@@ -2820,10 +2820,12 @@ body.splash-active {
 ================================================================= */
 
 
-/* ── Hero: soft parchment header, no photo background ── */
+/* ── Hero: soft parchment header with subtle background image ── */
 .about-hero {
   position: relative;
-  background: linear-gradient(160deg, var(--cream-50) 0%, var(--cream-100) 60%, var(--gold-100) 100%);
+  background: 
+    linear-gradient(160deg, rgba(250, 247, 240, 0.88) 0%, rgba(243, 237, 224, 0.88) 60%, rgba(243, 226, 187, 0.90) 100%),
+    url('https://images.unsplash.com/photo-1640671510956-8c8e1deb0dd9?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
   padding: 140px 0 56px;
   overflow: hidden;
   z-index: 2;
@@ -2853,13 +2855,6 @@ body.splash-active {
   border-radius: 50%;
   background: radial-gradient(circle, rgba(18,82,47,0.07) 0%, transparent 70%);
   pointer-events: none;
-}
-
-.about-hero .crumbs {
-  color: var(--forest-700);
-  position: relative;
-  z-index: 1;
-  justify-content: center;
 }
 
 .about-hero .about-headline-wrap {

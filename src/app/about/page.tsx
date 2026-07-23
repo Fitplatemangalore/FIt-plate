@@ -24,9 +24,6 @@ export default function About() {
       {/* ── Hero — soft textured background, no photo ── */}
       <section className="about-hero">
         <div className="container">
-          <div className="crumbs">
-            <Link href="/">Home</Link> / <span>About Us</span>
-          </div>
           <div className="about-headline-wrap">
             <span className="about-headline-script">About</span>
             <h1 className="about-headline-brand">
