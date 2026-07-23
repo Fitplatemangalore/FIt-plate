@@ -13,12 +13,18 @@ interface PageProps {
 async function getVariety(slug: string): Promise<VarietyData | null> {
   const supabase = await createClient();
 
-  // Try fetching from Supabase by slug or id
-  const { data: dbData } = await supabase
-    .from("varieties")
-    .select("*")
-    .or(`slug.eq.${slug},id.eq.${slug}`)
-    .maybeSingle();
+  // Try fetching from Supabase by slug or id, avoiding Postgres type errors by checking if slug is a valid UUID or number
+  const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug);
+  const isNumber = /^\d+$/.test(slug);
+  
+  let query = supabase.from("varieties").select("*");
+  if (isUUID || isNumber) {
+    query = query.or(`slug.eq.${slug},id.eq.${slug}`);
+  } else {
+    query = query.eq("slug", slug);
+  }
+  
+  const { data: dbData } = await query.maybeSingle();
 
   // Match default fallback item if any
   const fallback = defaultVarieties.find(

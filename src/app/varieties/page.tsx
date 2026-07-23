@@ -92,7 +92,7 @@ export default async function Varieties() {
                         />
                       </Link>
                     </div>
-                    <div style={{ padding: "24px 22px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                    <div style={{ padding: "24px 22px", flex: 1, minWidth: 0, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                       <div>
                         {v.tag_pill && <div className="tag-pill">{v.tag_pill}</div>}
                         <h3 style={{ fontSize: "22px", marginTop: v.tag_pill ? "10px" : "0" }}>
@@ -136,9 +136,8 @@ export default async function Varieties() {
                               fontSize: "12.5px",
                               color: "var(--ink-500)",
                               marginBottom: "10px",
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
+                              overflowWrap: "break-word",
+                              wordWrap: "break-word",
                             }}
                           >
                             <strong style={{ color: "var(--forest-900)" }}>Best in:</strong>{" "}
