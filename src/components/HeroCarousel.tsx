@@ -86,7 +86,7 @@ export default function HeroCarousel({ slides }: { slides?: Slide[] }) {
             if (initialTray) {
               initialTray.classList.add("floating");
             }
-          }, 1400);
+          }, 3400); // 2400ms entrance delay + 1000ms animation = 3400ms
         });
       });
     }
@@ -151,23 +151,31 @@ export default function HeroCarousel({ slides }: { slides?: Slide[] }) {
 
       void newTrayImg.offsetWidth;
 
+      // 1. Text fades in alone first at 250ms
       setTimeout(() => {
         bgTextEl.textContent = toSlide.bgText;
         fitBgText();
         bgTextEl.classList.remove("fade-out");
-        newTrayImg.classList.remove("enter-prepare");
-        newTrayImg.classList.add("active");
       }, 250);
 
+      // 2. Tray image animation delayed by 2 seconds (starts at 2250ms)
+      setTimeout(() => {
+        newTrayImg.classList.remove("enter-prepare");
+        newTrayImg.classList.add("active");
+      }, 2250);
+
+      // 3. Remove old tray after exit
       setTimeout(() => {
         oldTrayImg.remove();
-      }, 750);
+      }, 3000);
 
+      // 4. Start float animation after tray settles
       setTimeout(() => {
         leafRefs.current.forEach((leaf) => leaf?.classList.add(exitClass));
         newTrayImg.classList.add("floating");
-      }, 1250);
+      }, 3250);
 
+      // 5. Update leaves and release lock
       setTimeout(() => {
         leafRefs.current.forEach((leaf, idx) => {
           if (leaf) {
@@ -182,7 +190,7 @@ export default function HeroCarousel({ slides }: { slides?: Slide[] }) {
         trayImg = newTrayImg;
         currentSlideIdx = nextIndex;
         isHeroAnimating = false;
-      }, 2050);
+      }, 4050);
     };
 
     const nextSlide = () => {
@@ -197,7 +205,7 @@ export default function HeroCarousel({ slides }: { slides?: Slide[] }) {
 
     const startHeroAutoPlay = () => {
       stopHeroAutoPlay();
-      heroAutoPlayTimer = setInterval(nextSlide, 5000); // 5s instead of 2s because animation takes 2s
+      heroAutoPlayTimer = setInterval(nextSlide, 7500);
     };
 
     const stopHeroAutoPlay = () => {

@@ -726,11 +726,11 @@ button {
   transition-delay: 400ms;
 }
 
-/* 550ms: Tray settles up into place last — the "hero product" moment */
+/* 2400ms: Tray settles up into place last — 2s after background text appears */
 .hero-container.hero-loaded .tray-image:not(.exit-left):not(.enter-prepare) {
   opacity: 1;
   transform: translate(0, 0) scale(1) rotate(0deg);
-  transition-delay: 550ms;
+  transition-delay: 2400ms;
 }
 
 /* Continuous smooth float and zoom animation */
