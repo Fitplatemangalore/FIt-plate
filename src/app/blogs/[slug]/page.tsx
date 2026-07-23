@@ -13,12 +13,18 @@ interface PageProps {
 async function getBlog(slug: string): Promise<BlogData | null> {
   const supabase = await createClient();
 
-  // Query Supabase by slug or id
-  const { data: dbData } = await supabase
-    .from("blogs")
-    .select("*")
-    .or(`slug.eq.${slug},id.eq.${slug}`)
-    .maybeSingle();
+  // Query Supabase by slug or id, avoiding Postgres type errors by checking if slug is a valid UUID or number
+  const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug);
+  const isNumber = /^\d+$/.test(slug);
+  
+  let query = supabase.from("blogs").select("*");
+  if (isUUID || isNumber) {
+    query = query.or(`slug.eq.${slug},id.eq.${slug}`);
+  } else {
+    query = query.eq("slug", slug);
+  }
+  
+  const { data: dbData } = await query.maybeSingle();
 
   const fallback = defaultBlogs.find(
     (item) => item.slug === slug || item.id === slug
