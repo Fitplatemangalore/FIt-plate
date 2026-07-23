@@ -162,7 +162,7 @@ export default function About() {
       </section>
 
       {/* ── Existing bottom CTA — preserved as-is ── */}
-      <section className="section">
+      <section className="section" style={{ paddingTop: '32px' }}>
         <div className="container reveal" style={{ textAlign: "center" }}>
           <h2 style={{ fontSize: "clamp(26px,4vw,36px)" }}>
             Curious how Fit Plate can supply your kitchen?

@@ -2827,6 +2827,7 @@ body.splash-active {
   padding: 140px 0 56px;
   overflow: hidden;
   z-index: 2;
+  text-align: center;
 }
 
 /* Subtle texture ring decoration (pure CSS, no image) */
@@ -2858,6 +2859,7 @@ body.splash-active {
   color: var(--forest-700);
   position: relative;
   z-index: 1;
+  justify-content: center;
 }
 
 .about-hero .about-headline-wrap {
@@ -2870,7 +2872,7 @@ body.splash-active {
 .about-headline-wrap {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 0;
   margin-top: 10px;
 }
@@ -2905,6 +2907,7 @@ body.splash-active {
 /* ── Content section: transparent so leaf background shows through ── */
 .about-content-section {
   background: transparent;
+  padding-bottom: 0;
 }
 
 .about-content-body {
