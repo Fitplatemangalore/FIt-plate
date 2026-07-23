@@ -230,13 +230,13 @@ button {
 }
 
 .brand img {
-  height: 65px;
+  height: 58px;
   width: auto;
   transition: height .4s var(--ease);
 }
 
 .site-header.is-scrolled .brand img {
-  height: 52px;
+  height: 50px;
 }
 
 .main-nav {
