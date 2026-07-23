@@ -2812,3 +2812,196 @@ body.splash-active {
     grid-template-columns: 1fr;
   }
 }
+
+/* ================================================================
+   ABOUT PAGE — redesigned content styles
+   Matches reference: Fraunces display headings, Manrope body,
+   deep-forest section headings, antique-gold accents & tagline.
+================================================================= */
+
+/* ── Hero headline: italic script "About" + bold brand name ── */
+.about-headline-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  margin-top: 10px;
+}
+
+.about-headline-script {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(28px, 4vw, 52px);
+  color: var(--forest-800);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.about-headline-brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(52px, 9vw, 112px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.about-headline-fit {
+  color: var(--forest-900);
+}
+
+.about-headline-plate {
+  color: var(--gold-600);
+}
+
+/* ── White content card that wraps all copy ── */
+.about-content-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: var(--radius-lg);
+  padding: clamp(32px, 5vw, 64px);
+  box-shadow: 0 8px 48px -12px rgba(10, 51, 32, 0.12);
+  border: 1px solid var(--line);
+}
+
+/* ── Individual named sections inside the card ── */
+.about-section {
+  padding: 4px 0;
+}
+
+/* ── Section headings: all-caps, bold, forest green (matching reference) ── */
+.about-section-heading {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.6vw, 18px);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forest-800);
+  margin: 0 0 14px;
+  line-height: 1.2;
+}
+
+/* ── Body paragraphs ── */
+.about-body {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.2vw, 15.5px);
+  line-height: 1.78;
+  color: var(--ink-700);
+  margin: 0 0 14px;
+}
+
+.about-body:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Horizontal rule between sections ── */
+.about-divider {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 28px 0;
+}
+
+/* ── Why FitPlate inline pipe-separated list (matches reference) ── */
+.about-why-list {
+  font-family: var(--font-body);
+  font-size: clamp(13.5px, 1.15vw, 15px);
+  line-height: 1.8;
+  color: var(--ink-700);
+  margin: 0;
+}
+
+.about-why-item {
+  display: inline;
+}
+
+.about-why-separator {
+  color: var(--gold-600);
+  font-weight: 700;
+  margin: 0 2px;
+}
+
+/* ── Closing tagline row ── */
+.about-tagline-row {
+  text-align: center;
+  padding: 8px 0 4px;
+}
+
+.about-tagline {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--forest-900);
+  margin: 0;
+}
+
+.about-tagline-gold {
+  color: var(--gold-600);
+}
+
+/* ── Logo row below tagline ── */
+.about-logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.about-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-logo-divider {
+  width: 1.5px;
+  height: 80px;
+  background: var(--line);
+  flex-shrink: 0;
+}
+
+/* ── Placeholder for the second logo (remove once image is supplied) ── */
+.about-logo-placeholder {
+  width: 160px;
+  height: 120px;
+  border: 2px dashed var(--line);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-logo-placeholder-text {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-300);
+  text-align: center;
+  padding: 8px;
+}
+
+/* ── Responsive adjustments ── */
+@media (max-width: 640px) {
+  .about-content-card {
+    padding: 28px 20px;
+  }
+
+  .about-logo-divider {
+    width: 80px;
+    height: 1.5px;
+  }
+
+  .about-logo-row {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .about-headline-brand {
+    font-size: clamp(48px, 18vw, 80px);
+  }
+}
