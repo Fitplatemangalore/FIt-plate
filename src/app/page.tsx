@@ -8,31 +8,23 @@ export const revalidate = 3600; // Cache pages, but allow on-demand ISR to reval
 export default async function Home() {
   const supabase = await createClient();
 
-  // 1. Fetch Hero Slides (if any)
-  const { data: heroDb } = await supabase
-    .from("hero_slides")
-    .select("*")
-    .order("sort_order", { ascending: true });
+  // Fetch all data in parallel (instead of 6 sequential round-trips)
+  const [heroDb, varietiesDb, usesDb, blogsDb, testimonialsDb, contentDb] = await Promise.all([
+    supabase.from("hero_slides").select("*").order("sort_order", { ascending: true }).then(r => r.data),
+    supabase.from("varieties").select("*").order("sort_order", { ascending: true }).then(r => r.data),
+    supabase.from("uses_slides").select("*").order("sort_order", { ascending: true }).then(r => r.data),
+    supabase.from("blogs").select("*").order("sort_order", { ascending: true }).order("published_date", { ascending: false }).limit(3).then(r => r.data),
+    supabase.from("testimonials").select("*").order("sort_order", { ascending: true }).then(r => r.data),
+    supabase.from("site_content").select("*").eq("page", "home").then(r => r.data),
+  ]);
 
-  const heroSlides = heroDb && heroDb.length > 0 
+  const heroSlides = heroDb && heroDb.length > 0
     ? heroDb.map((s) => ({
         tray: s.tray_image,
         bgText: s.bg_text,
         leaves: s.leaves || [],
       }))
     : undefined;
-
-  // 2. Fetch Varieties (Featured or top 4)
-  const { data: varietiesDb } = await supabase
-    .from("varieties")
-    .select("*")
-    .order("sort_order", { ascending: true });
-
-  // 3. Fetch Uses Slides
-  const { data: usesDb } = await supabase
-    .from("uses_slides")
-    .select("*")
-    .order("sort_order", { ascending: true });
 
   const usesSlides = usesDb && usesDb.length > 0
     ? usesDb.slice(0, 5).map((s) => ({
@@ -41,26 +33,6 @@ export default async function Home() {
         main_image_url: s.main_image_url,
       }))
     : undefined;
-
-  // 4. Fetch Blogs (Latest 3)
-  const { data: blogsDb } = await supabase
-    .from("blogs")
-    .select("*")
-    .order("sort_order", { ascending: true })
-    .order("published_date", { ascending: false })
-    .limit(3);
-
-  // 5. Fetch Testimonials
-  const { data: testimonialsDb } = await supabase
-    .from("testimonials")
-    .select("*")
-    .order("sort_order", { ascending: true });
-
-  // 6. Fetch Page Content (General editable text fields)
-  const { data: contentDb } = await supabase
-    .from("site_content")
-    .select("*")
-    .eq("page", "home");
 
   const getContent = (key: string, fallback: string) => {
     return contentDb?.find((c) => c.key === key)?.value || fallback;
