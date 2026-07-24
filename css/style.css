@@ -59,7 +59,7 @@ html {
 }
 
 body {
-  background-image: url('../assets/leaves-bg.png');
+  background-image: url('../assets/leaves-bg.jpg');
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -2142,7 +2142,7 @@ body.splash-active {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: url('../assets/leaves-bg.png') center / cover no-repeat;
+  background: url('../assets/leaves-bg.jpg') center / cover no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: center;
