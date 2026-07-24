@@ -34,7 +34,6 @@ export default function Contact() {
         name: name.trim(),
         first_name: firstName,
         last_name: lastName,
-        business: business.trim() || null,
         business_name: business.trim() || null,
         email: email.trim(),
         phone: phone.trim() || null,
