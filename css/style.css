@@ -820,7 +820,7 @@ button {
 
 .page-hero .eyebrow {
   color: var(--brand-secondary);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 5);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .page-hero .eyebrow::before {
