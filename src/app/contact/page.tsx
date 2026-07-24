@@ -36,7 +36,7 @@ export default function Contact() {
         business_name: business.trim() || null,
         email: email.trim(),
         phone: phone.trim() || null,
-        request_type: requestType,
+        subject: requestType,
         message: message.trim(),
       },
     ]);
