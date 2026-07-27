@@ -115,7 +115,14 @@ export default function UsesSlider({ slides }: { slides?: Slide[] }) {
               className={`uses-info${infoVisible ? "" : " fade-out"}`}
               id="uses-info-block"
             >
-              <h3 id="uses-title">{activeSlides[activeIdx]?.title}</h3>
+              <div className="uses-heading-row">
+                <h3 id="uses-title">{activeSlides[activeIdx]?.title}</h3>
+                <img
+                  src={cornerSrc}
+                  alt="Next slide preview"
+                  className={`uses-corner-image mobile-corner-icon${cornerVisible ? "" : " fade-out"}`}
+                />
+              </div>
               <p id="uses-description">
                 {activeSlides[activeIdx]?.description}
               </p>
@@ -144,11 +151,11 @@ export default function UsesSlider({ slides }: { slides?: Slide[] }) {
               aria-hidden="true"
             />
 
-            {/* Corner preview image */}
+            {/* Corner preview image (Desktop) */}
             <img
               src={cornerSrc}
               alt="Next slide preview"
-              className={`uses-corner-image${cornerVisible ? "" : " fade-out"}`}
+              className={`uses-corner-image desktop-corner-icon${cornerVisible ? "" : " fade-out"}`}
             />
 
             <div className="uses-main-image-frame">
