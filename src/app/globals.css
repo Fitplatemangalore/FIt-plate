@@ -1469,6 +1469,35 @@ footer a:hover {
   }
 }
 
+/* On mobile, restore side-by-side layout to match desktop appearance */
+@media (max-width: 768px) {
+  .about-microgreens-section {
+    padding: 60px 0 16px 0;
+  }
+
+  .about-microgreens-grid {
+    grid-template-columns: 55% 45%;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .about-microgreens-content h2 {
+    font-size: clamp(18px, 5vw, 26px);
+    margin-bottom: 12px;
+  }
+
+  .about-microgreens-content p {
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+
+  .about-microgreens-image img {
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
 /* ---------- Section 4: Our Microgreens ---------- */
 .our-microgreens-section {
   padding: 24px 0 104px 0;
