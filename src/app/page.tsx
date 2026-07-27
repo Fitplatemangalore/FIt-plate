@@ -244,7 +244,7 @@ export default async function Home() {
               ];
             }
 
-            const shouldScroll = items.length > 1;
+            const shouldScroll = items.length > 4;
 
             return (
               <div className="our-microgreens-carousel-wrapper reveal stagger">

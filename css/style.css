@@ -1525,11 +1525,15 @@ footer a:hover {
 .our-microgreens-track {
   display: flex;
   gap: 24px;
-  width: max-content;
+  justify-content: center;
+  flex-wrap: wrap;
   touch-action: pan-x;
 }
 
 .our-microgreens-track.auto-scroll {
+  width: max-content;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   animation: scroll-microgreens 35s linear infinite;
 }
 
