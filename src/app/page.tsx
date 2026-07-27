@@ -179,8 +179,8 @@ export default async function Home() {
 
       <section className="our-microgreens-section" id="varieties">
         <div className="container">
-          <div className="section-head reveal">
-            <div className="eyebrow" style={{ color: "var(--brand-secondary)" }}>
+          <div className="section-head center reveal">
+            <div className="eyebrow" style={{ justifyContent: "center", color: "var(--brand-secondary)" }}>
               OUR VARIETIES
             </div>
             <h2 style={{ color: "var(--brand-primary)", marginTop: "10px" }}>Our Microgreens</h2>
