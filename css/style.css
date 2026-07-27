@@ -1945,6 +1945,58 @@ h2.uses-section-title {
   gap: 28px;
 }
 
+.blogs-carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.blogs-carousel-track-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.blogs-carousel-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.blogs-carousel-page {
+  min-width: 100%;
+  width: 100%;
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  box-sizing: border-box;
+}
+
+.blogs-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.blogs-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.blogs-dot.active {
+  background: var(--brand-secondary);
+  width: 24px;
+  border-radius: 5px;
+}
+
 .blog-card {
   background: var(--cream-50);
   border: 1px solid var(--line);
@@ -2019,6 +2071,13 @@ h2.uses-section-title {
 @media (max-width: 980px) {
   .blogs-grid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .blogs-carousel-page {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 }
 
