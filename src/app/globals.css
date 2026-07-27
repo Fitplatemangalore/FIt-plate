@@ -1962,7 +1962,7 @@ h2.uses-section-title {
 
 /* ---------- Section 6: Latest From Our Blogs ---------- */
 .blogs-section {
-  padding: 104px 0;
+  padding: 64px 0 24px 0;
   background: transparent;
 }
 
@@ -2116,8 +2116,18 @@ h2.uses-section-title {
 
 /* ---------- Section 7: Testimonials ---------- */
 .testimonials-section {
-  padding: 104px 0;
+  padding: 24px 0 64px 0;
   background: transparent;
+}
+
+@media (max-width: 768px) {
+  .blogs-section {
+    padding: 40px 0 16px 0;
+  }
+
+  .testimonials-section {
+    padding: 16px 0 40px 0;
+  }
 }
 
 .testimonials-grid {
