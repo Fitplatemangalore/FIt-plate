@@ -104,13 +104,6 @@ export default function UsesSlider({ slides }: { slides?: Slide[] }) {
 
   return (
     <section className="uses-section" id="uses">
-      <img
-        src="/assets/img/vec1.png"
-        alt=""
-        className="uses-organic-shape"
-        aria-hidden="true"
-      />
-
       <div className="container">
         <div className="uses-section-header reveal">
           <h2 className="uses-section-title">USES OF MICROGREEN</h2>
@@ -143,6 +136,14 @@ export default function UsesSlider({ slides }: { slides?: Slide[] }) {
           </div>
 
           <div className="uses-visual-container reveal">
+            {/* Organic shape background anchored inside visual container */}
+            <img
+              src="/assets/img/vec1.png"
+              alt=""
+              className="uses-organic-shape"
+              aria-hidden="true"
+            />
+
             {/* Corner preview image */}
             <img
               src={cornerSrc}
