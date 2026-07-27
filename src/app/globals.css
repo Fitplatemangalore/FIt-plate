@@ -1496,6 +1496,21 @@ footer a:hover {
     width: 100%;
     object-fit: contain;
   }
+
+  .our-microgreens-carousel-wrapper {
+    padding-top: 110px;
+    margin-top: -30px;
+    margin-bottom: 36px;
+  }
+
+  .pot-card {
+    width: 240px;
+    padding: 20px;
+  }
+
+  .our-microgreens-track {
+    gap: 16px;
+  }
 }
 
 /* ---------- Section 4: Our Microgreens ---------- */
@@ -1505,26 +1520,37 @@ footer a:hover {
 }
 
 .our-microgreens-carousel-wrapper {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: visible;
   padding-top: 140px;
   /* Space for the overflowing pot images */
   margin-top: -40px;
   /* Offset to match the original 100px margin */
   margin-bottom: 48px;
   width: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.our-microgreens-carousel-wrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .our-microgreens-track {
   display: flex;
   gap: 24px;
   width: max-content;
+  touch-action: pan-x;
 }
 
 .our-microgreens-track.auto-scroll {
-  animation: scroll-microgreens 40s linear infinite;
+  animation: scroll-microgreens 35s linear infinite;
 }
 
-.our-microgreens-track.auto-scroll:hover {
+.our-microgreens-track.auto-scroll:hover,
+.our-microgreens-track.auto-scroll:active,
+.our-microgreens-track.auto-scroll:focus-within {
   animation-play-state: paused;
 }
 
