@@ -2,6 +2,7 @@ import HeroCarousel from "@/components/HeroCarousel";
 import UsesSlider from "@/components/UsesSlider";
 import BlogsSlider, { BlogItem } from "@/components/BlogsSlider";
 import VarietiesSlider, { VarietyItem } from "@/components/VarietiesSlider";
+import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 
@@ -231,7 +232,8 @@ export default async function Home() {
             <p style={{ color: "var(--ink-700)", marginTop: "20px" }}>See what our client & partners are saying about Fit Plate microgreens.</p>
           </div>
 
-          <div className="testimonials-grid reveal stagger">
+          {/* Desktop view */}
+          <div className="testimonials-grid desktop-only reveal stagger">
             {testimonialsDb && testimonialsDb.length > 0 ? (
               testimonialsDb.map((t, i) => (
                 <a 
@@ -272,7 +274,7 @@ export default async function Home() {
                 </a>
               ))
             ) : (
-              // Hardcoded default fallbacks
+              // Hardcoded default fallbacks for desktop
               <>
                 <a href="https://maps.google.com/?q=Fitplate+Ventures+Mangalore" target="_blank" rel="noopener noreferrer" className="testimonial-link-card" style={{ "--i": 0 } as React.CSSProperties}>
                   <div className="testimonial-card">
@@ -284,8 +286,8 @@ export default async function Home() {
                         </svg>
                       </div>
                       <div className="testimonial-user-info">
-                        <h4>Shwetha Initiative</h4>
-                        <span>Cafe Partner</span>
+                        <h4>Arun Kumar</h4>
+                        <span>Cafe Partner, Mangalore</span>
                       </div>
                     </div>
                     <p className="testimonial-quote">"Vibrant color, excellent texture. Highly recommend."</p>
@@ -314,8 +316,8 @@ export default async function Home() {
                         </svg>
                       </div>
                       <div className="testimonial-user-info">
-                        <h4>Milagres Catering</h4>
-                        <span>Event Caterer</span>
+                        <h4>Jhanvi Shenoy</h4>
+                        <span>Kobe Sizzler</span>
                       </div>
                     </div>
                     <p className="testimonial-quote">"Consistently fresh and delivered cold. Perfect for our large buffets."</p>
@@ -336,6 +338,30 @@ export default async function Home() {
               </>
             )}
           </div>
+
+          {/* Mobile View Carousel */}
+          <TestimonialsCarousel
+            testimonials={
+              testimonialsDb && testimonialsDb.length > 0
+                ? testimonialsDb
+                : [
+                    {
+                      id: "1",
+                      name: "Arun Kumar",
+                      role: "Cafe Partner, Mangalore",
+                      quote: "Vibrant color, excellent texture. Highly recommend.",
+                      stars: 5,
+                    },
+                    {
+                      id: "2",
+                      name: "Jhanvi Shenoy",
+                      role: "Kobe Sizzler",
+                      quote: "Consistently fresh and delivered cold. Perfect for our dishes.",
+                      stars: 5,
+                    },
+                  ]
+            }
+          />
         </div>
       </section>
     </main>
