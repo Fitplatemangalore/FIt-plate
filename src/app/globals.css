@@ -1993,6 +1993,7 @@ h2.uses-section-title {
     order: 3;
     max-width: 540px;
     margin: 0 auto 20px;
+    min-height: 260px;
   }
 
   .uses-dots {
@@ -2035,6 +2036,7 @@ h2.uses-section-title {
     line-height: 1.65;
     margin-bottom: 16px;
     padding: 0 8px;
+    min-height: 275px;
   }
 }
 
