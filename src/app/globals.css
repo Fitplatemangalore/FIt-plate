@@ -3549,20 +3549,36 @@ body.splash-active {
   padding: 8px;
 }
 
-/* ── Responsive adjustments ── */
 @media (max-width: 640px) {
   .about-content-body {
     padding: 16px 0;
   }
 
-  .about-logo-divider {
-    width: 80px;
-    height: 1.5px;
+  .about-logo-row {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 16px;
+    margin-top: 24px;
+    padding-top: 20px;
   }
 
-  .about-logo-row {
-    flex-direction: column;
-    gap: 24px;
+  .about-logo-divider {
+    width: 1px;
+    height: 54px;
+    background: var(--line);
+    flex-shrink: 0;
+  }
+
+  .about-logo-item {
+    flex: 1;
+    max-width: 130px;
+  }
+
+  .about-logo-item img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 110px;
+    object-fit: contain;
   }
 
   .about-headline-brand {
