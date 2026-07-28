@@ -1529,8 +1529,16 @@ footer a:hover {
   display: flex;
   gap: 24px;
   justify-content: flex-start;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   touch-action: pan-x;
+}
+
+/* Static (≤4 varieties): cards flex to fill the row evenly */
+.our-microgreens-track:not(.auto-scroll) .pot-card {
+  flex: 1 1 0;
+  width: auto;
+  min-width: 0;
+  flex-shrink: 1;
 }
 
 .our-microgreens-track.auto-scroll {
