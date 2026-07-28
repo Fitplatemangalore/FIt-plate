@@ -1582,6 +1582,14 @@ footer a:hover {
   animation-play-state: paused;
 }
 
+.our-microgreens-track.user-interacting {
+  animation: none !important;
+}
+
+.our-microgreens-track.user-interacting .dup-item {
+  display: none !important;
+}
+
 @media (min-width: 769px) {
   /* Static desktop (≤4 varieties): cards flex to fill row evenly */
   .our-microgreens-track:not(.auto-scroll-desktop) .pot-card {

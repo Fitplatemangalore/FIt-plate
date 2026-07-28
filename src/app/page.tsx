@@ -1,6 +1,7 @@
 import HeroCarousel from "@/components/HeroCarousel";
 import UsesSlider from "@/components/UsesSlider";
 import BlogsSlider, { BlogItem } from "@/components/BlogsSlider";
+import VarietiesSlider, { VarietyItem } from "@/components/VarietiesSlider";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 
@@ -187,79 +188,22 @@ export default async function Home() {
           </div>
 
           {(() => {
-            let items: React.ReactNode[] = [];
-            
-            if (varietiesDb && varietiesDb.length > 0) {
-              items = varietiesDb.map((v, i) => {
-                const slug = v.slug || v.name.toLowerCase().replace(/\s+/g, "-");
-                return (
-                  <Link
-                    key={`var-${v.id}-${i}`}
-                    href={`/varieties/${slug}`}
-                    className="pot-card"
-                    style={{ "--i": i, textDecoration: "none" } as React.CSSProperties}
-                  >
-                    <div className="pot-image-wrapper">
-                      <img 
-                        src={v.image_url || `/assets/pot/pot-${(i % 4) + 1}.png`} 
-                        alt={`${v.name} pot`} 
-                        className="pot-image" 
-                      />
-                    </div>
-                    <h3 className="pot-name" style={{ textTransform: "uppercase" }}>{v.name}</h3>
-                    <div className="pot-tag">{v.tag}</div>
-                  </Link>
-                );
-              });
-            } else {
-              items = [
-                <Link key="hc-1" href="/varieties/broccoli" className="pot-card" style={{ "--i": 0, textDecoration: "none" } as React.CSSProperties}>
-                  <div className="pot-image-wrapper">
-                    <img src="/assets/pot/pot-1.png" alt="Broccoli Microgreens pot" className="pot-image" />
-                  </div>
-                  <h3 className="pot-name">BROCCOLI</h3>
-                  <div className="pot-tag">Microgreen</div>
-                </Link>,
-                <Link key="hc-2" href="/varieties/purple-kale" className="pot-card" style={{ "--i": 1, textDecoration: "none" } as React.CSSProperties}>
-                  <div className="pot-image-wrapper">
-                    <img src="/assets/pot/pot-2.png" alt="Purple Kale Microgreens pot" className="pot-image" />
-                  </div>
-                  <h3 className="pot-name">PURPLE KALE</h3>
-                  <div className="pot-tag">Microgreen</div>
-                </Link>,
-                <Link key="hc-3" href="/varieties/fenugreek" className="pot-card" style={{ "--i": 0, textDecoration: "none" } as React.CSSProperties}>
-                  <div className="pot-image-wrapper">
-                    <img src="/assets/pot/pot-3.png" alt="Fenugreek Microgreens pot" className="pot-image" />
-                  </div>
-                  <h3 className="pot-name">FENUGREEK</h3>
-                  <div className="pot-tag">Microgreen</div>
-                </Link>,
-                <Link key="hc-4" href="/varieties/beetroot" className="pot-card" style={{ "--i": 3, textDecoration: "none" } as React.CSSProperties}>
-                  <div className="pot-image-wrapper">
-                    <img src="/assets/pot/pot-4.png" alt="Beetroot Microgreens pot" className="pot-image" />
-                  </div>
-                  <h3 className="pot-name">BEETROOT</h3>
-                  <div className="pot-tag">Microgreen</div>
-                </Link>
-              ];
-            }
+            const list: VarietyItem[] = (varietiesDb && varietiesDb.length > 0)
+              ? varietiesDb.map((v) => ({
+                  id: v.id,
+                  name: v.name,
+                  tag: v.tag,
+                  image_url: v.image_url,
+                  slug: v.slug,
+                }))
+              : [
+                  { id: "hc-1", name: "BROCCOLI", tag: "Microgreen", image_url: "/assets/pot/pot-1.png", slug: "broccoli" },
+                  { id: "hc-2", name: "PURPLE KALE", tag: "Microgreen", image_url: "/assets/pot/pot-2.png", slug: "purple-kale" },
+                  { id: "hc-3", name: "FENUGREEK", tag: "Microgreen", image_url: "/assets/pot/pot-3.png", slug: "fenugreek" },
+                  { id: "hc-4", name: "BEETROOT", tag: "Microgreen", image_url: "/assets/pot/pot-4.png", slug: "beetroot" },
+                ];
 
-            const shouldScrollDesktop = items.length > 4;
-            const shouldScrollMobile = items.length > 2;
-            const shouldDuplicate = shouldScrollDesktop || shouldScrollMobile;
-
-            return (
-              <div className="our-microgreens-carousel-wrapper reveal stagger">
-                <div className={`our-microgreens-track ${shouldScrollDesktop ? 'auto-scroll-desktop' : ''} ${shouldScrollMobile ? 'auto-scroll-mobile' : ''}`}>
-                  {items}
-                  {shouldDuplicate && items.map((item, idx) => (
-                    <div key={`dup-${idx}`} className="dup-item" style={{ display: "contents" }}>
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
+            return <VarietiesSlider varieties={list} />;
           })()}
 
           <div style={{ textAlign: "center" }} className="reveal">
