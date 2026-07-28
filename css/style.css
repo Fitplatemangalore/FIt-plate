@@ -774,10 +774,9 @@ button {
   }
 
   .hero-container {
-    padding-top: 110px;
-    justify-content: flex-end;
-    gap: 24px;
-    padding-bottom: 0;
+    padding-top: 130px;
+    padding-bottom: 16px;
+    justify-content: space-between;
   }
 
   /* Scale each leaf proportionally on mobile using clamp — no hard override needed */
