@@ -1499,6 +1499,46 @@ footer a:hover {
     width: 100%;
     object-fit: contain;
   }
+
+  .our-microgreens-carousel-wrapper {
+    padding-top: 110px;
+    margin-top: -30px;
+    margin-bottom: 36px;
+  }
+
+  .our-microgreens-track {
+    gap: 16px;
+  }
+
+  /* Static mobile (≤2 varieties): 2-column static row */
+  .our-microgreens-track:not(.auto-scroll-mobile) {
+    width: 100%;
+  }
+
+  .our-microgreens-track:not(.auto-scroll-mobile) .pot-card {
+    flex: 1 1 0;
+    width: 50%;
+    min-width: 0;
+    flex-shrink: 1;
+    padding: 16px;
+  }
+
+  .our-microgreens-track:not(.auto-scroll-mobile) .dup-item {
+    display: none !important;
+  }
+
+  /* Auto-scroll mobile (>2 varieties): continuous carousel */
+  .our-microgreens-track.auto-scroll-mobile {
+    width: max-content;
+    flex-wrap: nowrap;
+    animation: scroll-microgreens 30s linear infinite;
+  }
+
+  .our-microgreens-track.auto-scroll-mobile .pot-card {
+    width: 220px;
+    flex-shrink: 0;
+    padding: 16px 20px;
+  }
 }
 
 /* ---------- Section 4: Our Microgreens ---------- */
@@ -1533,25 +1573,34 @@ footer a:hover {
   touch-action: pan-x;
 }
 
-/* Static (≤4 varieties): cards flex to fill the row evenly */
-.our-microgreens-track:not(.auto-scroll) .pot-card {
-  flex: 1 1 0;
-  width: auto;
-  min-width: 0;
-  flex-shrink: 1;
-}
-
-.our-microgreens-track.auto-scroll {
-  width: max-content;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  animation: scroll-microgreens 35s linear infinite;
-}
-
-.our-microgreens-track.auto-scroll:hover,
-.our-microgreens-track.auto-scroll:active,
-.our-microgreens-track.auto-scroll:focus-within {
+.our-microgreens-track.auto-scroll-desktop:hover,
+.our-microgreens-track.auto-scroll-desktop:active,
+.our-microgreens-track.auto-scroll-desktop:focus-within,
+.our-microgreens-track.auto-scroll-mobile:hover,
+.our-microgreens-track.auto-scroll-mobile:active,
+.our-microgreens-track.auto-scroll-mobile:focus-within {
   animation-play-state: paused;
+}
+
+@media (min-width: 769px) {
+  /* Static desktop (≤4 varieties): cards flex to fill row evenly */
+  .our-microgreens-track:not(.auto-scroll-desktop) .pot-card {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  .our-microgreens-track:not(.auto-scroll-desktop) .dup-item {
+    display: none !important;
+  }
+
+  .our-microgreens-track.auto-scroll-desktop {
+    width: max-content;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    animation: scroll-microgreens 35s linear infinite;
+  }
 }
 
 @keyframes scroll-microgreens {

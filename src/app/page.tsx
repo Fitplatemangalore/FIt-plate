@@ -244,14 +244,16 @@ export default async function Home() {
               ];
             }
 
-            const shouldScroll = items.length > 4;
+            const shouldScrollDesktop = items.length > 4;
+            const shouldScrollMobile = items.length > 2;
+            const shouldDuplicate = shouldScrollDesktop || shouldScrollMobile;
 
             return (
               <div className="our-microgreens-carousel-wrapper reveal stagger">
-                <div className={`our-microgreens-track ${shouldScroll ? 'auto-scroll' : ''}`}>
+                <div className={`our-microgreens-track ${shouldScrollDesktop ? 'auto-scroll-desktop' : ''} ${shouldScrollMobile ? 'auto-scroll-mobile' : ''}`}>
                   {items}
-                  {shouldScroll && items.map((item, idx) => (
-                    <div key={`dup-${idx}`} style={{ display: "contents" }}>
+                  {shouldDuplicate && items.map((item, idx) => (
+                    <div key={`dup-${idx}`} className="dup-item" style={{ display: "contents" }}>
                       {item}
                     </div>
                   ))}
