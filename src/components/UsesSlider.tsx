@@ -118,9 +118,20 @@ export default function UsesSlider({ slides }: { slides?: Slide[] }) {
               <h3 id="uses-title" className="uses-title">
                 {activeSlides[activeIdx]?.title}
               </h3>
-              <p id="uses-description" className="uses-description">
-                {activeSlides[activeIdx]?.description}
-              </p>
+
+              {/* Stack all descriptions; tallest one sizes the container; only active is visible */}
+              <div className="uses-description-sizer">
+                {activeSlides.map((slide, idx) => (
+                  <p
+                    key={idx}
+                    id={idx === 0 ? "uses-description" : undefined}
+                    className={`uses-description ${idx === activeIdx ? "uses-desc-active" : "uses-desc-hidden"}`}
+                    aria-hidden={idx !== activeIdx}
+                  >
+                    {slide.description}
+                  </p>
+                ))}
+              </div>
             </div>
 
             {count > 1 && (

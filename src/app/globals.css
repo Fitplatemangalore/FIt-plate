@@ -1798,12 +1798,36 @@ h2.uses-section-title {
 }
 
 .uses-info p {
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--ink-700);
-  max-width: 580px;
-  margin: 0;
+  font-size: clamp(16px, 1.5vw, 18px);
+  color: var(--forest-800);
+  line-height: 1.7;
+  max-width: 460px;
+  margin: 0 auto;
   text-align: center;
+}
+
+/* Stack all descriptions in same grid cell so tallest one always sizes the container */
+.uses-description-sizer {
+  display: grid;
+  grid-template-rows: 1fr;
+  width: 100%;
+}
+
+.uses-description {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.uses-desc-active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.uses-desc-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .uses-dots {
@@ -1993,7 +2017,6 @@ h2.uses-section-title {
     order: 3;
     max-width: 540px;
     margin: 0 auto 20px;
-    min-height: 260px;
   }
 
   .uses-dots {
@@ -2036,7 +2059,6 @@ h2.uses-section-title {
     line-height: 1.65;
     margin-bottom: 16px;
     padding: 0 8px;
-    min-height: 275px;
   }
 }
 
