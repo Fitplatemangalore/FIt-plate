@@ -1982,8 +1982,15 @@ h2.uses-section-title {
     margin-bottom: 8px;
   }
 
-  .uses-visual-container {
+  .uses-description-sizer,
+  .uses-description {
     order: 2;
+    max-width: 540px;
+    margin: 0 auto 20px;
+  }
+
+  .uses-visual-container {
+    order: 3;
     height: 370px;
     width: 100%;
     max-width: 450px;
@@ -2011,12 +2018,6 @@ h2.uses-section-title {
     height: 54px;
     top: 15px;
     right: 25px;
-  }
-
-  .uses-description {
-    order: 3;
-    max-width: 540px;
-    margin: 0 auto 20px;
   }
 
   .uses-dots {
