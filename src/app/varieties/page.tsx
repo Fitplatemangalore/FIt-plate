@@ -77,16 +77,16 @@ export default async function Varieties() {
                   }
                 >
                   <div style={{ display: "flex", width: "100%", flex: 1 }}>
-                    <div style={{ flex: "0 0 42%", position: "relative" }}>
-                      <Link href={`/varieties/${slug}`} style={{ display: "block", height: "100%" }}>
+                    <div style={{ flex: "0 0 42%", position: "relative", overflow: "hidden", background: "#f5f8f2" }}>
+                      <Link href={`/varieties/${slug}`} style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", minHeight: "220px" }}>
                         <img
                           src={v.image_url || "/assets/pot/pot-1.png"}
                           alt={`${v.name} microgreens`}
                           style={{
                             width: "100%",
                             height: "100%",
-                            objectFit: "cover",
-                            minHeight: "220px",
+                            objectFit: "contain",
+                            padding: "12px",
                           }}
                           loading="lazy"
                         />
