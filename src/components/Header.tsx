@@ -68,6 +68,11 @@ export default function Header() {
               </Link>
             </li>
             <li>
+              <Link href="/recipes" className={isActive('/recipes')}>
+                Recipes
+              </Link>
+            </li>
+            <li>
               <Link href="/blogs" className={isActive('/blogs')}>
                 Blogs
               </Link>
