@@ -195,7 +195,7 @@ export default function AdminRecipes() {
       if (error) throw error;
 
       setMessage({ type: "success", text: "Recipe saved successfully!" });
-      
+
       // Trigger On-Demand ISR Revalidation
       await fetch("/api/revalidate?path=/recipes");
       await fetch("/api/revalidate?path=/");
@@ -218,7 +218,7 @@ export default function AdminRecipes() {
       if (error) throw error;
 
       setMessage({ type: "success", text: "Recipe deleted successfully." });
-      
+
       // Trigger On-Demand ISR Revalidation
       await fetch("/api/revalidate?path=/recipes");
       await fetch("/api/revalidate?path=/");
@@ -254,7 +254,7 @@ export default function AdminRecipes() {
                 The <code style={{ background: "#eee", padding: "2px 6px", borderRadius: "4px" }}>recipes</code> table has not been created in your Supabase database yet. Run the following SQL script once in your <strong>Supabase SQL Editor</strong>:
               </p>
               <pre style={{ background: "#1e1e1e", color: "#d4d4d4", padding: "14px", borderRadius: "8px", fontSize: "12.5px", overflowX: "auto", margin: "0 0 12px 0", lineHeight: 1.5 }}>
-{`CREATE TABLE IF NOT EXISTS public.recipes (
+                {`CREATE TABLE IF NOT EXISTS public.recipes (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   slug TEXT NOT NULL UNIQUE,
   title TEXT NOT NULL,
@@ -368,7 +368,7 @@ NOTIFY pgrst, 'reload schema';`;
                     title="Delete"
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>
+                      <polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" />
                     </svg>
                   </button>
                 </div>
@@ -472,7 +472,7 @@ NOTIFY pgrst, 'reload schema';`;
             </div>
 
             <div className="field">
-              <label>Short Description / Excerpt</label>
+              <label>Short Description</label>
               <textarea
                 value={formData.excerpt}
                 onChange={(e) => setFormData((prev) => ({ ...prev, excerpt: e.target.value }))}
