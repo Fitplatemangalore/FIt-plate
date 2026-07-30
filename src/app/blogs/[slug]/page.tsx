@@ -114,12 +114,13 @@ export default async function BlogDetailPage({ params }: PageProps) {
               overflow: "hidden",
               marginBottom: "36px",
               boxShadow: "0 16px 40px rgba(12, 72, 41, 0.12)",
+              height: "480px",
             }}
           >
             <img
               src={blog.image_url}
               alt={blog.title}
-              style={{ width: "100%", maxHeight: "480px", objectFit: "cover", display: "block" }}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
           </div>
 

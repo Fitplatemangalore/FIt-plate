@@ -70,16 +70,17 @@ export default async function Blogs() {
                     borderRadius: "var(--radius-lg)",
                     overflow: "hidden",
                     width: "100%",
+                    aspectRatio: "4 / 3.2",
                   }}
                 >
                   <img
                     src={b.image_url}
                     alt={b.title}
                     style={{
-                      borderRadius: "var(--radius-lg)",
                       width: "100%",
-                      aspectRatio: "4/3.2",
+                      height: "100%",
                       objectFit: "cover",
+                      display: "block",
                       transition: "transform 0.4s ease",
                     }}
                     loading="lazy"
