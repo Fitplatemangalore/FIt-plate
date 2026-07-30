@@ -108,7 +108,7 @@ export default async function RecipeDetailPage({ params }: PageProps) {
           
           {/* Header Card for Print View */}
           <div className="print-only-header" style={{ display: "none" }}>
-            <div style={{ fontSize: "12px", textTransform: "uppercase", tracking: "1px", color: "#666" }}>Fit Plate Microgreen Recipe</div>
+            <div style={{ fontSize: "12px", textTransform: "uppercase", letterSpacing: "1px", color: "#666" }}>Fit Plate Microgreen Recipe</div>
             <h1 style={{ fontSize: "28px", margin: "8px 0" }}>{recipe.title}</h1>
             <p style={{ fontStyle: "italic", margin: "4px 0 16px 0", color: "#444" }}>{recipe.excerpt}</p>
             <div style={{ fontSize: "13px", margin: "8px 0 16px 0", color: "#333", borderBottom: "2px solid #164e2e", paddingBottom: "8px" }}>
