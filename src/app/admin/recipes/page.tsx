@@ -42,6 +42,8 @@ export default function AdminRecipes() {
   const [saveLoading, setSaveLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [tableMissing, setTableMissing] = useState(false);
+  const [copiedSql, setCopiedSql] = useState(false);
   const supabase = createClient();
 
   useEffect(() => {
@@ -50,13 +52,18 @@ export default function AdminRecipes() {
 
   const fetchRecipes = async () => {
     setLoading(true);
+    setTableMissing(false);
     const { data, error } = await supabase
       .from("recipes")
       .select("*")
       .order("sort_order", { ascending: true });
 
     if (error) {
-      setMessage({ type: "error", text: `Error loading recipes from Supabase: ${error.message}` });
+      if (error.message.includes("schema cache") || error.message.includes("does not exist")) {
+        setTableMissing(true);
+      } else {
+        setMessage({ type: "error", text: `Error loading recipes from Supabase: ${error.message}` });
+      }
     } else {
       setRecipes(data || []);
     }
@@ -236,6 +243,93 @@ export default function AdminRecipes() {
           + Add New Recipe
         </button>
       </div>
+
+      {tableMissing && (
+        <div className="admin-card" style={{ border: "2px dashed var(--gold-600)", background: "#FFFDF9", marginBottom: "24px", padding: "20px 24px" }}>
+          <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+            <span style={{ fontSize: "24px" }}>⚠️</span>
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: "0 0 6px 0", color: "var(--forest-900)" }}>Supabase Database Setup Required</h3>
+              <p style={{ margin: "0 0 12px 0", fontSize: "14px", color: "#555" }}>
+                The <code style={{ background: "#eee", padding: "2px 6px", borderRadius: "4px" }}>recipes</code> table has not been created in your Supabase database yet. Run the following SQL script once in your <strong>Supabase SQL Editor</strong>:
+              </p>
+              <pre style={{ background: "#1e1e1e", color: "#d4d4d4", padding: "14px", borderRadius: "8px", fontSize: "12.5px", overflowX: "auto", margin: "0 0 12px 0", lineHeight: 1.5 }}>
+{`CREATE TABLE IF NOT EXISTS public.recipes (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  slug TEXT NOT NULL UNIQUE,
+  title TEXT NOT NULL,
+  category TEXT NOT NULL DEFAULT 'Breakfast & Brunch',
+  prep_time TEXT,
+  cook_time TEXT,
+  servings TEXT,
+  image_url TEXT,
+  excerpt TEXT,
+  ingredients JSONB DEFAULT '[]'::jsonb,
+  instructions JSONB DEFAULT '[]'::jsonb,
+  health_benefits JSONB DEFAULT '[]'::jsonb,
+  microgreens_used JSONB DEFAULT '[]'::jsonb,
+  sort_order INT DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+GRANT ALL ON TABLE public.recipes TO anon, authenticated, service_role;
+ALTER TABLE public.recipes ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Allow public read access" ON public.recipes;
+CREATE POLICY "Allow public read access" ON public.recipes FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Allow authenticated full access" ON public.recipes;
+CREATE POLICY "Allow authenticated full access" ON public.recipes FOR ALL USING (true);
+
+NOTIFY pgrst, 'reload schema';`}
+              </pre>
+              <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                <button
+                  className="btn btn-gold btn-sm"
+                  onClick={() => {
+                    const sql = `CREATE TABLE IF NOT EXISTS public.recipes (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  slug TEXT NOT NULL UNIQUE,
+  title TEXT NOT NULL,
+  category TEXT NOT NULL DEFAULT 'Breakfast & Brunch',
+  prep_time TEXT,
+  cook_time TEXT,
+  servings TEXT,
+  image_url TEXT,
+  excerpt TEXT,
+  ingredients JSONB DEFAULT '[]'::jsonb,
+  instructions JSONB DEFAULT '[]'::jsonb,
+  health_benefits JSONB DEFAULT '[]'::jsonb,
+  microgreens_used JSONB DEFAULT '[]'::jsonb,
+  sort_order INT DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+GRANT ALL ON TABLE public.recipes TO anon, authenticated, service_role;
+ALTER TABLE public.recipes ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Allow public read access" ON public.recipes;
+CREATE POLICY "Allow public read access" ON public.recipes FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Allow authenticated full access" ON public.recipes;
+CREATE POLICY "Allow authenticated full access" ON public.recipes FOR ALL USING (true);
+
+NOTIFY pgrst, 'reload schema';`;
+                    navigator.clipboard.writeText(sql);
+                    setCopiedSql(true);
+                    setTimeout(() => setCopiedSql(false), 3000);
+                  }}
+                >
+                  {copiedSql ? "✓ SQL Copied!" : "📋 Copy SQL Script"}
+                </button>
+                <button className="btn btn-forest btn-sm" onClick={fetchRecipes}>
+                  🔄 Refresh & Verify Table
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {message && (
         <div className={`admin-alert admin-alert-${message.type}`}>
