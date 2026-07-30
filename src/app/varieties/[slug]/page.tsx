@@ -134,11 +134,11 @@ export default async function VarietyDetailPage({ params }: PageProps) {
                 background: "var(--cream-100)",
               }}
             >
-              <div style={{ width: "100%", height: "380px", overflow: "hidden", position: "relative" }}>
+              <div style={{ width: "100%", height: "380px", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", background: "var(--cream-100)" }}>
                 <img
                   src={variety.image_url}
                   alt={variety.name}
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  style={{ width: "100%", height: "100%", objectFit: "contain", padding: "24px" }}
                 />
               </div>
               <div style={{ padding: "24px", textAlign: "center" }}>
