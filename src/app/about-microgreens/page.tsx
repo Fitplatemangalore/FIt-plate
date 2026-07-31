@@ -37,8 +37,7 @@ export default function AboutMicrogreens() {
           <article
             className="reveal"
             style={{
-              maxWidth: "840px",
-              margin: "0 auto",
+              maxWidth: "920px",
             }}
           >
             {/* Section 1: Introduction */}
@@ -233,10 +232,10 @@ export default function AboutMicrogreens() {
           <div
             className="reveal"
             style={{
-              maxWidth: "840px",
-              margin: "40px auto 0",
-              textAlign: "center",
-              padding: "40px 24px",
+              maxWidth: "920px",
+              margin: "48px 0 0",
+              textAlign: "left",
+              padding: "36px 32px",
               backgroundColor: "var(--forest-900)",
               color: "#ffffff",
               borderRadius: "20px",
@@ -248,7 +247,7 @@ export default function AboutMicrogreens() {
             <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "15px", marginBottom: "24px" }}>
               Explore our range of locally grown varieties harvested fresh for peak nutrition and flavor.
             </p>
-            <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", gap: "16px", justifyContent: "flex-start", flexWrap: "wrap" }}>
               <Link href="/varieties" className="btn btn-gold">
                 Explore Varieties &rarr;
               </Link>
