@@ -27,8 +27,7 @@ export default async function Varieties() {
         <div
           className="hero-bg"
           style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1640671509786-7ddd9d77c866?auto=format&fit=crop&w=1920&q=80')",
+            backgroundImage: "url('/assets/img/varieties-hero-bg.jpg')",
           }}
         ></div>
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
