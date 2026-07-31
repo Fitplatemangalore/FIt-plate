@@ -96,7 +96,7 @@ export default async function Varieties() {
                     <div style={{ padding: "24px 22px", flex: 1, minWidth: 0, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                       <div>
                         {v.tag_pill && <div className="tag-pill">{v.tag_pill}</div>}
-                        <h3 style={{ fontSize: "22px", marginTop: v.tag_pill ? "10px" : "0" }}>
+                        <h3 className="variety-name" style={{ fontSize: "22px", marginTop: v.tag_pill ? "10px" : "0" }}>
                           <Link href={`/varieties/${slug}`} style={{ color: "inherit", textDecoration: "none" }}>
                             {v.name}
                           </Link>

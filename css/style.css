@@ -881,6 +881,7 @@ button {
 
 .hero-text-card .crumbs {
   margin-top: 0;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .hero-text-card .eyebrow {
@@ -888,6 +889,11 @@ button {
 }
 
 .hero-text-card h1 {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.variety-name,
+.card-title {
   font-family: 'Ubuntu', sans-serif;
 }
 

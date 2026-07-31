@@ -105,7 +105,7 @@ export default async function RecipesPage() {
                     )}
                   </div>
 
-                  <h2 style={{ fontSize: "clamp(22px,2.8vw,30px)", marginTop: "14px" }}>
+                  <h2 className="card-title" style={{ fontSize: "clamp(22px,2.8vw,30px)", marginTop: "14px" }}>
                     <Link
                       href={`/recipes/${slug}`}
                       style={{ color: "inherit", textDecoration: "none" }}

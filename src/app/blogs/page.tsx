@@ -104,7 +104,7 @@ export default async function Blogs() {
                     )}
                   </div>
 
-                  <h2 style={{ fontSize: "clamp(22px,2.8vw,30px)", marginTop: "14px" }}>
+                  <h2 className="card-title" style={{ fontSize: "clamp(22px,2.8vw,30px)", marginTop: "14px" }}>
                     <Link
                       href={`/blogs/${slug}`}
                       style={{ color: "inherit", textDecoration: "none" }}
