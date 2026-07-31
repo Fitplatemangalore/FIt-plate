@@ -167,7 +167,7 @@ export default async function Home() {
                   "Microgreens are young edible seedlings of vegetables, herbs, and other plants harvested 7-21 days after germination, usually after the cotyledon and first true leaves appear. They are valued for their intense flavor, vibrant colors, delicate texture, and high nutrient density."
                 )}
               </p>
-              <Link href="/about" className="btn btn-yellow-20">Read more</Link>
+              <Link href="/about-microgreens" className="btn btn-yellow-20">Read more</Link>
             </div>
             <div className="about-microgreens-image reveal">
               <img 
