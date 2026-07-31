@@ -39,11 +39,6 @@ export default function AboutMicrogreens() {
             style={{
               maxWidth: "840px",
               margin: "0 auto",
-              backgroundColor: "#ffffff",
-              padding: "48px 40px",
-              borderRadius: "20px",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
-              border: "1px solid rgba(0, 0, 0, 0.05)",
             }}
           >
             {/* Section 1: Introduction */}
