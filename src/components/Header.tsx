@@ -35,8 +35,8 @@ export default function Header() {
 
   // Active check helper
   const isActive = (path: string) => {
-    if (path === '/' && pathname === '/') return 'active'
-    if (path !== '/' && pathname.startsWith(path)) return 'active'
+    if (path === '/') return pathname === '/' ? 'active' : ''
+    if (pathname === path || pathname.startsWith(path + '/')) return 'active'
     return ''
   }
 
