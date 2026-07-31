@@ -60,10 +60,12 @@ export default function Contact() {
       <section className="page-hero" style={{ minHeight: "38vh" }}>
         <div className="hero-bg" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1593850684282-82029c1ac6be?auto=format&fit=crop&w=1920&q=80')" }}></div>
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="crumbs"><Link href="/">Home</Link> / <span>Contact Us</span></div>
-          <div className="eyebrow">Get In Touch</div>
-          <h1>Let's grow a healthier tomorrow, together.</h1>
-          <p>Questions about varieties, bulk pricing, or delivery? We'd love to hear from you.</p>
+          <div className="hero-text-card">
+            <div className="crumbs"><Link href="/">Home</Link> / <span>Contact Us</span></div>
+            <div className="eyebrow">Get In Touch</div>
+            <h1>Let's grow a healthier tomorrow, together.</h1>
+            <p>Questions about varieties, bulk pricing, or delivery? We'd love to hear from you.</p>
+          </div>
         </div>
       </section>
 

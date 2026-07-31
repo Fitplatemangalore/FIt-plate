@@ -33,12 +33,14 @@ export default async function Blogs() {
           }}
         ></div>
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="crumbs">
-            <Link href="/">Home</Link> / <span>Blogs</span>
+          <div className="hero-text-card">
+            <div className="crumbs">
+              <Link href="/">Home</Link> / <span>Blogs</span>
+            </div>
+            <div className="eyebrow">The Journal</div>
+            <h1>Notes on greens, growing &amp; good food.</h1>
+            <p>Short reads on the story, science and everyday uses of microgreens.</p>
           </div>
-          <div className="eyebrow">The Journal</div>
-          <h1>Notes on greens, growing &amp; good food.</h1>
-          <p>Short reads on the story, science and everyday uses of microgreens.</p>
         </div>
       </section>
 

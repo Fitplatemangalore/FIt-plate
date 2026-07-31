@@ -867,6 +867,34 @@ button {
   text-align: left;
 }
 
+.hero-text-card {
+  display: inline-block;
+  max-width: 780px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 24px 30px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.hero-text-card .crumbs {
+  margin-top: 0;
+}
+
+.hero-text-card p {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .hero-text-card {
+    padding: 18px 20px;
+    border-radius: 12px;
+    width: 100%;
+  }
+}
+
 .crumbs {
   color: var(--forest-700);
   font-size: 13px;

@@ -31,15 +31,17 @@ export default async function Varieties() {
           }}
         ></div>
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="crumbs">
-            <Link href="/">Home</Link> / <span>Our Microgreens</span>
+          <div className="hero-text-card">
+            <div className="crumbs">
+              <Link href="/">Home</Link> / <span>Our Microgreens</span>
+            </div>
+            <div className="eyebrow">Our Microgreens</div>
+            <h1>Ten varieties, each with its own flavour and function.</h1>
+            <p>
+              Every tray is harvested 7&ndash;21 days after germination, at the
+              point of peak flavour, colour and nutrient density.
+            </p>
           </div>
-          <div className="eyebrow">Our Microgreens</div>
-          <h1>Ten varieties, each with its own flavour and function.</h1>
-          <p>
-            Every tray is harvested 7&ndash;21 days after germination, at the
-            point of peak flavour, colour and nutrient density.
-          </p>
         </div>
       </section>
 

@@ -40,12 +40,14 @@ export default async function RecipesPage() {
           }}
         ></div>
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div className="crumbs">
-            <Link href="/">Home</Link> / <span>Recipes</span>
+          <div className="hero-text-card">
+            <div className="crumbs">
+              <Link href="/">Home</Link> / <span>Recipes</span>
+            </div>
+            <div className="eyebrow">Culinary Inspiration</div>
+            <h1>Nourishing Microgreen Recipes</h1>
+            <p>Chef-crafted dishes and easy home recipes designed to bring out peak microgreen flavor and nutrition.</p>
           </div>
-          <div className="eyebrow">Culinary Inspiration</div>
-          <h1>Nourishing Microgreen Recipes</h1>
-          <p>Chef-crafted dishes and easy home recipes designed to bring out peak microgreen flavor and nutrition.</p>
         </div>
       </section>
 
