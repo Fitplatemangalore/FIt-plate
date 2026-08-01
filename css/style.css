@@ -2993,6 +2993,10 @@ body.splash-active {
   }
 }
 
+.about-headline-script {
+  font-style: normal !important;
+}
+
 .about-headline-script,
 .about-headline-brand {
   font-family: 'Ubuntu', sans-serif !important;

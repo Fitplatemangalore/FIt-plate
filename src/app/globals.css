@@ -3435,7 +3435,7 @@ body.splash-active {
 
 .about-headline-script {
   font-family: 'Ubuntu', sans-serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   font-size: clamp(28px, 4vw, 52px);
   color: var(--forest-800);
