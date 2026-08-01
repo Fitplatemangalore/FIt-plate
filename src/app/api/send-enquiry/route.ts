@@ -4,7 +4,7 @@ import { Resend } from "resend";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, business, requestType, message, submittedAt } = body;
+    const { name, email, phone, business, requestType, selectedVarieties, quantityGrams, message, submittedAt } = body;
 
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
@@ -24,6 +24,11 @@ export async function POST(request: Request) {
         })
       : new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
+    // Varieties: array or empty
+    const varietiesList: string[] = Array.isArray(selectedVarieties) ? selectedVarieties : [];
+    const varietiesDisplay = varietiesList.length > 0 ? varietiesList.join(", ") : "Not specified";
+    const quantityDisplay = quantityGrams ? `${quantityGrams} grams` : "Not specified";
+
     const htmlContent = `
       <!DOCTYPE html>
       <html>
@@ -39,6 +44,7 @@ export async function POST(request: Request) {
             .field-group { margin-bottom: 18px; }
             .field-label { font-size: 12px; text-transform: uppercase; color: #617765; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
             .field-value { font-size: 15px; color: #1c2e1f; font-weight: 500; }
+            .tag { display: inline-block; background-color: #e6f0e9; color: #2e6039; padding: 3px 10px; border-radius: 12px; font-size: 13px; font-weight: 600; margin: 2px 3px 2px 0; }
             .message-box { background-color: #f8faf7; border-left: 4px solid #3e6b48; padding: 14px 18px; border-radius: 4px; margin-top: 8px; font-size: 15px; line-height: 1.6; color: #2d3e30; white-space: pre-wrap; }
             .footer { background-color: #f8faf7; padding: 16px; text-align: center; font-size: 12px; color: #768a7a; border-top: 1px solid #e8eee6; }
           </style>
@@ -71,6 +77,18 @@ export async function POST(request: Request) {
                 <div class="field-value">${requestType || "General enquiry"}</div>
               </div>
               <div class="field-group">
+                <div class="field-label">Varieties Interested In</div>
+                <div class="field-value">
+                  ${varietiesList.length > 0
+                    ? varietiesList.map((v) => `<span class="tag">${v}</span>`).join("")
+                    : "<span style='color:#999'>Not specified</span>"}
+                </div>
+              </div>
+              <div class="field-group">
+                <div class="field-label">Quantity Required</div>
+                <div class="field-value">${quantityDisplay}</div>
+              </div>
+              <div class="field-group">
                 <div class="field-label">Date & Time</div>
                 <div class="field-value">${dateFormatted} (IST)</div>
               </div>
@@ -92,7 +110,7 @@ export async function POST(request: Request) {
       to: "greens@fitplate.in",
       subject: `New Contact Enquiry: ${name} (${requestType || "General"})`,
       html: htmlContent,
-      text: `New Website Enquiry\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}\nBusiness: ${business || "N/A"}\nRequest Type: ${requestType}\nDate: ${dateFormatted}\n\nMessage:\n${message}`,
+      text: `New Website Enquiry\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}\nBusiness: ${business || "N/A"}\nRequest Type: ${requestType}\nVarieties Interested In: ${varietiesDisplay}\nQuantity Required: ${quantityDisplay}\nDate: ${dateFormatted}\n\nMessage:\n${message}`,
     });
 
     if (data.error) {

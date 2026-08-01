@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { createClient } from "@/utils/supabase/client";
 
@@ -15,9 +15,36 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [requestType, setRequestType] = useState("Wholesale / bulk pricing");
+  const [selectedVarieties, setSelectedVarieties] = useState<string[]>([]);
+  const [quantityGrams, setQuantityGrams] = useState("");
   const [message, setMessage] = useState("");
 
+  // Dynamic varieties list from Supabase
+  const [varietyOptions, setVarietyOptions] = useState<string[]>([]);
+
   const supabase = createClient();
+
+  // Fetch variety names from the same Supabase table used on /varieties
+  useEffect(() => {
+    async function fetchVarieties() {
+      const { data } = await supabase
+        .from("varieties")
+        .select("name")
+        .order("sort_order", { ascending: true });
+      if (data && data.length > 0) {
+        setVarietyOptions(data.map((v: { name: string }) => v.name));
+      }
+    }
+    fetchVarieties();
+  }, []);
+
+  const handleVarietyToggle = (varietyName: string) => {
+    setSelectedVarieties((prev) =>
+      prev.includes(varietyName)
+        ? prev.filter((v) => v !== varietyName)
+        : [...prev, varietyName]
+    );
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +58,21 @@ export default function Contact() {
 
     const submittedAt = new Date().toISOString();
 
+    // Build the full message including optional varieties & quantity
+    let fullMessage = message.trim();
+    const extras: string[] = [];
+    if (selectedVarieties.length > 0) {
+      extras.push(`Varieties Requested: ${selectedVarieties.join(", ")}`);
+    }
+    if (quantityGrams.trim()) {
+      extras.push(`Quantity Required: ${quantityGrams.trim()} grams`);
+    }
+    if (extras.length > 0) {
+      fullMessage = fullMessage
+        ? `${fullMessage}\n\n--- Additional Details ---\n${extras.join("\n")}`
+        : `--- Additional Details ---\n${extras.join("\n")}`;
+    }
+
     const { error: dbError } = await supabase.from("inquiries").insert([
       {
         first_name: firstName,
@@ -39,7 +81,7 @@ export default function Contact() {
         email: email.trim(),
         phone: phone.trim() || null,
         subject: requestType,
-        message: message.trim(),
+        message: fullMessage,
       },
     ]);
 
@@ -59,6 +101,8 @@ export default function Contact() {
             phone: phone.trim(),
             business: business.trim(),
             requestType,
+            selectedVarieties,
+            quantityGrams: quantityGrams.trim(),
             message: message.trim(),
             submittedAt,
           }),
@@ -81,6 +125,8 @@ export default function Contact() {
       setBusiness("");
       setEmail("");
       setPhone("");
+      setSelectedVarieties([]);
+      setQuantityGrams("");
       setMessage("");
     }
     setLoading(false);
@@ -197,6 +243,78 @@ export default function Contact() {
                   <option>General enquiry</option>
                 </select>
               </div>
+
+              {/* Varieties multi-select — dynamically populated from Supabase */}
+              {varietyOptions.length > 0 && (
+                <div className="field">
+                  <label>
+                    Varieties Interested In{" "}
+                    <span style={{ fontSize: "12px", color: "var(--ink-500)", fontWeight: 400 }}>
+                      (optional — select one or more)
+                    </span>
+                  </label>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "8px",
+                      marginTop: "8px",
+                    }}
+                  >
+                    {varietyOptions.map((v) => {
+                      const isSelected = selectedVarieties.includes(v);
+                      return (
+                        <button
+                          key={v}
+                          type="button"
+                          onClick={() => handleVarietyToggle(v)}
+                          style={{
+                            padding: "6px 14px",
+                            borderRadius: "20px",
+                            border: isSelected
+                              ? "1.5px solid var(--forest-700)"
+                              : "1.5px solid var(--line)",
+                            backgroundColor: isSelected
+                              ? "var(--forest-700)"
+                              : "#ffffff",
+                            color: isSelected ? "#ffffff" : "var(--ink-700)",
+                            fontSize: "13.5px",
+                            fontWeight: isSelected ? 600 : 400,
+                            cursor: "pointer",
+                            transition: "all 0.18s ease",
+                          }}
+                        >
+                          {v}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {selectedVarieties.length > 0 && (
+                    <p style={{ marginTop: "8px", fontSize: "12.5px", color: "var(--forest-700)", fontWeight: 500 }}>
+                      Selected: {selectedVarieties.join(", ")}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Quantity field */}
+              <div className="field">
+                <label htmlFor="quantity">
+                  Quantity (grams){" "}
+                  <span style={{ fontSize: "12px", color: "var(--ink-500)", fontWeight: 400 }}>
+                    (optional)
+                  </span>
+                </label>
+                <input
+                  id="quantity"
+                  type="number"
+                  min="0"
+                  placeholder="Enter grams required, e.g. 500"
+                  value={quantityGrams}
+                  onChange={(e) => setQuantityGrams(e.target.value)}
+                />
+              </div>
+
               <div className="field">
                 <label htmlFor="msg">Message</label>
                 <textarea
