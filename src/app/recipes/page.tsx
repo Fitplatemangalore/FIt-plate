@@ -45,7 +45,7 @@ export default async function RecipesPage() {
               <Link href="/">Home</Link> / <span>Recipes</span>
             </div>
             <div className="eyebrow">Culinary Inspiration</div>
-            <h1>Nourishing Microgreen Recipes</h1>
+            <h1>Nourishing Recipes with Microgreens</h1>
             <p>Chef-crafted dishes and easy home recipes designed to bring out peak microgreen flavor and nutrition.</p>
           </div>
         </div>

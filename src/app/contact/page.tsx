@@ -29,6 +29,8 @@ export default function Contact() {
     const firstName = nameParts[0] || "";
     const lastName = nameParts.slice(1).join(" ") || " ";
 
+    const submittedAt = new Date().toISOString();
+
     const { error: dbError } = await supabase.from("inquiries").insert([
       {
         first_name: firstName,
@@ -45,6 +47,35 @@ export default function Contact() {
       setError(dbError.message);
     } else {
       setSubmitted(true);
+
+      // Trigger Resend email notification (non-blocking)
+      try {
+        fetch("/api/send-enquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name.trim(),
+            email: email.trim(),
+            phone: phone.trim(),
+            business: business.trim(),
+            requestType,
+            message: message.trim(),
+            submittedAt,
+          }),
+        })
+          .then(async (res) => {
+            if (!res.ok) {
+              const data = await res.json().catch(() => ({}));
+              console.error("[Contact Form] Resend email notification failed:", data);
+            }
+          })
+          .catch((err) => {
+            console.error("[Contact Form] Resend API call error:", err);
+          });
+      } catch (err) {
+        console.error("[Contact Form] Error initiating email notification:", err);
+      }
+
       // Reset form
       setName("");
       setBusiness("");
