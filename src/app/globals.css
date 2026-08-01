@@ -3434,7 +3434,7 @@ body.splash-active {
 }
 
 .about-headline-script {
-  font-family: var(--font-display);
+  font-family: 'Ubuntu', sans-serif;
   font-style: italic;
   font-weight: 400;
   font-size: clamp(28px, 4vw, 52px);
@@ -3444,7 +3444,7 @@ body.splash-active {
 }
 
 .about-headline-brand {
-  font-family: var(--font-display);
+  font-family: 'Ubuntu', sans-serif;
   font-weight: 700;
   font-size: clamp(52px, 9vw, 112px);
   line-height: 0.92;
