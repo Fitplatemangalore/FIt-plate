@@ -250,7 +250,7 @@ export default function GalleryPage() {
     <main>
       {/* Hero */}
       <section className="page-hero" style={{ minHeight: "38vh" }}>
-        <div className="hero-bg" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1920&q=80')" }}></div>
+        <div className="hero-bg" style={{ backgroundImage: "url('/assets/img/gallery-hero-bg.jpg')" }}></div>
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div className="hero-text-card">
             <div className="crumbs"><Link href="/">Home</Link> / <span>Gallery</span></div>
