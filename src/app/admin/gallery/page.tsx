@@ -301,9 +301,14 @@ export default function AdminGallery() {
         <div className="admin-card">
           <h2 className="admin-card-title">{selectedId ? "Edit Entry" : "New Entry"}</h2>
           <form onSubmit={handleSave}>
+
+            {/* — Basic Info — */}
             <div className="admin-form-field">
-              <label className="admin-label">Title *</label>
+              <label className="admin-label" htmlFor="gallery-title">
+                Title <span style={{ color: "#dc2626" }}>*</span>
+              </label>
               <input
+                id="gallery-title"
                 className="admin-input"
                 type="text"
                 value={formData.title}
@@ -314,8 +319,9 @@ export default function AdminGallery() {
             </div>
 
             <div className="admin-form-field">
-              <label className="admin-label">Event Date</label>
+              <label className="admin-label" htmlFor="gallery-date">Event Date</label>
               <input
+                id="gallery-date"
                 className="admin-input"
                 type="date"
                 value={formData.event_date}
@@ -324,8 +330,9 @@ export default function AdminGallery() {
             </div>
 
             <div className="admin-form-field">
-              <label className="admin-label">Description</label>
+              <label className="admin-label" htmlFor="gallery-desc">Description</label>
               <textarea
+                id="gallery-desc"
                 className="admin-textarea"
                 value={formData.description}
                 onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
@@ -334,18 +341,18 @@ export default function AdminGallery() {
               />
             </div>
 
-            {/* Photos */}
+            {/* — Photos — */}
             <div className="admin-form-field">
-              <label className="admin-label">
-                Photos{" "}
-                <span style={{ fontSize: "12px", fontWeight: 400, color: "var(--ink-500)" }}>
-                  ({images.length}/5 — up to 5 photos)
+              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "2px" }}>
+                <label className="admin-label" style={{ marginBottom: 0 }}>Photos</label>
+                <span style={{ fontSize: "12px", color: "var(--ink-500)", fontWeight: 500 }}>
+                  {images.length} / 5 uploaded
                 </span>
-              </label>
+              </div>
 
-              {/* Uploaded images grid */}
+              {/* Image thumbnails grid */}
               {images.length > 0 && (
-                <div className="gallery-admin-img-grid">
+                <div className="gallery-admin-img-grid" style={{ marginTop: "10px" }}>
                   {images.map((img, i) => (
                     <div key={i} className="gallery-admin-img-item">
                       {img.uploading ? (
@@ -368,8 +375,9 @@ export default function AdminGallery() {
                 </div>
               )}
 
+              {/* Upload drop zone */}
               {images.length < 5 && (
-                <div>
+                <>
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -379,18 +387,30 @@ export default function AdminGallery() {
                     onChange={handleFileAdd}
                     id="gallery-upload"
                   />
-                  <label
-                    htmlFor="gallery-upload"
-                    className="gallery-admin-upload-btn"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                    Upload Photos ({5 - images.length} remaining)
+                  <label htmlFor="gallery-upload" className="gallery-admin-upload-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+                    </svg>
+                    <span>
+                      Click to upload photos
+                      <span className="gallery-admin-upload-hint">
+                        JPG, PNG, WEBP · up to {5 - images.length} more photo{5 - images.length !== 1 ? "s" : ""}
+                      </span>
+                    </span>
                   </label>
+                </>
+              )}
+
+              {images.length >= 5 && (
+                <div style={{ display: "flex", alignItems: "center", gap: "7px", padding: "12px 14px", background: "var(--cream-100)", borderRadius: "10px", fontSize: "13px", color: "var(--forest-700)", fontWeight: 500, marginTop: "6px" }}>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  Maximum 5 photos uploaded
                 </div>
               )}
             </div>
 
-            <div style={{ display: "flex", gap: "10px", marginTop: "8px" }}>
+            {/* Actions */}
+            <div style={{ display: "flex", gap: "10px", marginTop: "24px", paddingTop: "20px", borderTop: "1px solid var(--line)" }}>
               <button type="submit" className="btn btn-gold" disabled={saveLoading} style={{ flex: 1 }}>
                 {saveLoading ? "Saving..." : selectedId ? "Save Changes" : "Create Entry"}
               </button>
