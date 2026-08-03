@@ -150,6 +150,10 @@ export default function AdminGallery() {
       setMessage({ type: "error", text: "Title is required." });
       return;
     }
+    if (images.some((img) => img.uploading)) {
+      setMessage({ type: "error", text: "Please wait for photo uploads to finish before saving." });
+      return;
+    }
     setSaveLoading(true);
     setMessage(null);
 

@@ -185,12 +185,63 @@ export default function GalleryPage() {
 
   useEffect(() => {
     async function fetchGallery() {
-      const { data } = await supabase
-        .from("gallery_entries")
-        .select("*, gallery_images(id, image_url, sort_order)")
-        .order("event_date", { ascending: false });
-      setEntries((data as GalleryEntry[]) || []);
-      setLoading(false);
+      try {
+        setLoading(true);
+        // 1. Fetch entries with nested images
+        const { data, error } = await supabase
+          .from("gallery_entries")
+          .select("*, gallery_images(id, image_url, sort_order)")
+          .order("event_date", { ascending: false });
+
+        if (error) {
+          console.error("Error fetching gallery_entries:", error);
+        }
+
+        let formattedEntries = (data as GalleryEntry[]) || [];
+
+        // 2. Check if any entry has missing/empty gallery_images
+        const hasMissingImages = formattedEntries.some(
+          (e) => !e.gallery_images || e.gallery_images.length === 0
+        );
+
+        if (hasMissingImages && formattedEntries.length > 0) {
+          const entryIds = formattedEntries.map((e) => e.id);
+          const { data: imgData, error: imgError } = await supabase
+            .from("gallery_images")
+            .select("id, entry_id, image_url, sort_order")
+            .in("entry_id", entryIds)
+            .order("sort_order", { ascending: true });
+
+          if (imgError) {
+            console.error("Error fetching gallery_images fallback:", imgError);
+          } else if (imgData && imgData.length > 0) {
+            const imageMap = new Map<string, GalleryImage[]>();
+            imgData.forEach((img: any) => {
+              const list = imageMap.get(img.entry_id) || [];
+              list.push({
+                id: img.id,
+                image_url: img.image_url,
+                sort_order: img.sort_order ?? 0,
+              });
+              imageMap.set(img.entry_id, list);
+            });
+
+            formattedEntries = formattedEntries.map((entry) => ({
+              ...entry,
+              gallery_images:
+                entry.gallery_images && entry.gallery_images.length > 0
+                  ? entry.gallery_images
+                  : imageMap.get(entry.id) || [],
+            }));
+          }
+        }
+
+        setEntries(formattedEntries);
+      } catch (err) {
+        console.error("Gallery fetch failed:", err);
+      } finally {
+        setLoading(false);
+      }
     }
     fetchGallery();
   }, []);
