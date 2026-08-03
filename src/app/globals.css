@@ -3739,49 +3739,9 @@ body.splash-active {
   }
 }
 
-/* Print Optimization for PDF export */
-@media print {
-  .site-header,
-  .site-footer,
-  .print-hide,
-  .crumbs,
-  .page-hero,
-  button,
-  .btn {
-    display: none !important;
-  }
-
-  body {
-    background: #fff !important;
-    color: #000 !important;
-    font-size: 12pt;
-  }
-
-  .print-only-header {
-    display: block !important;
-  }
-
-  .recipe-detail-main {
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-
-  .recipe-grid-layout {
-    display: block !important;
-  }
-
-  .recipe-ingredients-col,
-  .recipe-instructions-col {
-    margin-bottom: 20px !important;
-  }
-
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
+/* Print styles are consolidated in the A4 PDF block near end of file */
 /* ================================================================
-   GALLERY � public grid, cards, carousel, modal, admin upload UI
+   GALLERY � public grid, cards, carousel, modal, admin upload UI
    ================================================================ */
 
 .gallery-grid {
@@ -3935,4 +3895,271 @@ body.splash-active {
   font-weight: 400;
   display: block;
   margin-top: 2px;
+}
+
+/* ==========================================================================
+   Recipe Detail Print / PDF Optimization (A4 1-Page Layout)
+   Target: All recipe content fits on one A4 page when user clicks Print / Save PDF.
+   Layout: [Header full-width] / [Image (38%) | Ingredients (59%)] / [Instructions 2-col]
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  /* ── Reset body ── */
+  body, html {
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-size: 9pt !important;
+    line-height: 1.3 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ── Hide non-printable chrome ── */
+  header, footer, nav,
+  .site-header, .site-footer,
+  .page-hero, .print-hide, .crumbs,
+  .recipe-actions-bar, .recipe-excerpt-box,
+  .recipe-health-benefits,
+  button, .btn {
+    display: none !important;
+  }
+
+  /* ── Strip all padding/margin from wrappers ── */
+  .recipe-detail-main, .section {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* ── Outer page grid: header / [image|ingredients] / instructions ── */
+  .recipe-main-container {
+    display: grid !important;
+    grid-template-columns: 38% 59% !important;
+    grid-template-rows: auto auto auto !important;
+    gap: 6px 3% !important;
+    grid-template-areas:
+      "header      header"
+      "image       ingredients"
+      "instructions instructions" !important;
+    width: 100% !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* The inner desktop 2-col grid (image/instructions split) becomes invisible;
+     its children float up into the outer page grid via their grid-area values */
+  .recipe-grid-layout {
+    display: contents !important;
+  }
+
+  /* ── PRINT HEADER ── */
+  .print-only-header {
+    grid-area: header !important;
+    display: block !important;
+    border-bottom: 1.5pt solid #0C4829 !important;
+    padding-bottom: 5px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .print-brand-tag {
+    font-size: 7pt !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    color: #0C4829 !important;
+  }
+
+  .print-recipe-title {
+    font-size: 15pt !important;
+    font-weight: 800 !important;
+    margin: 1px 0 3px 0 !important;
+    color: #0C4829 !important;
+    line-height: 1.15 !important;
+  }
+
+  .print-recipe-excerpt {
+    font-size: 8pt !important;
+    font-style: italic !important;
+    color: #444444 !important;
+    margin: 0 0 3px 0 !important;
+  }
+
+  .print-recipe-meta {
+    display: flex !important;
+    gap: 12px !important;
+    font-size: 7.5pt !important;
+    color: #222222 !important;
+  }
+
+  /* ── FEATURED IMAGE ── */
+  .recipe-featured-img-wrap {
+    grid-area: image !important;
+    height: 175px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+  }
+
+  .recipe-featured-img-wrap img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 6px !important;
+  }
+
+  /* ── INGREDIENTS COLUMN (right of image) ── */
+  .recipe-ingredients-col {
+    grid-area: ingredients !important;
+    width: 100% !important;
+    margin: 0 !important;
+    page-break-inside: avoid !important;
+  }
+
+  .recipe-ingredients-card {
+    background: #faf8f5 !important;
+    border: 1px solid #d8d3c5 !important;
+    border-radius: 6px !important;
+    padding: 8px 10px !important;
+    box-sizing: border-box !important;
+    height: 100% !important;
+  }
+
+  .recipe-ingredients-card h3 {
+    font-size: 10pt !important;
+    font-weight: 700 !important;
+    margin-bottom: 5px !important;
+    color: #0C4829 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+
+  .recipe-ingredients-card ul {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  .recipe-ingredients-card li {
+    padding: 2px 0 !important;
+    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+    font-size: 8pt !important;
+    line-height: 1.2 !important;
+    color: #111111 !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 5px !important;
+  }
+
+  .ing-check {
+    color: #0C4829 !important;
+    font-weight: bold !important;
+    font-size: 8pt !important;
+    flex-shrink: 0 !important;
+  }
+
+  .recipe-microgreens-used {
+    margin-top: 5px !important;
+    padding-top: 5px !important;
+    border-top: 1px dashed #c0b8a4 !important;
+  }
+
+  .microgreens-used-title {
+    font-size: 7pt !important;
+    font-weight: 700 !important;
+    color: #0C4829 !important;
+    margin-bottom: 3px !important;
+  }
+
+  .microgreens-pills-wrap {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 3px !important;
+  }
+
+  .microgreen-pill {
+    font-size: 7pt !important;
+    background-color: #0C4829 !important;
+    color: #ffffff !important;
+    padding: 1px 6px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+  }
+
+  /* ── INSTRUCTIONS (full width, 2-column layout to save vertical space) ── */
+  .recipe-instructions-col {
+    grid-area: instructions !important;
+    width: 100% !important;
+    margin-top: 4px !important;
+    page-break-inside: avoid !important;
+  }
+
+  .recipe-instructions-col h3 {
+    font-size: 10.5pt !important;
+    font-weight: 700 !important;
+    margin-bottom: 6px !important;
+    color: #0C4829 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+  }
+
+  .recipe-instructions-col ol {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    /* 2-column layout for steps to halve vertical space */
+    column-count: 2 !important;
+    column-gap: 16px !important;
+    column-rule: 1px solid #e0ddd5 !important;
+  }
+
+  .recipe-instructions-col li {
+    margin-bottom: 5px !important;
+    display: flex !important;
+    gap: 8px !important;
+    align-items: flex-start !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .step-number {
+    min-width: 20px !important;
+    height: 20px !important;
+    border-radius: 50% !important;
+    background-color: #D4AF37 !important;
+    color: #0C4829 !important;
+    font-weight: 800 !important;
+    font-size: 7.5pt !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    margin-top: 1px !important;
+  }
+
+  .step-text {
+    font-size: 8.2pt !important;
+    line-height: 1.25 !important;
+    color: #222222 !important;
+  }
+
+  /* ── Ensure animation resets don't block content ── */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
