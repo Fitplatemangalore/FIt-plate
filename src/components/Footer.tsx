@@ -58,7 +58,12 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>&copy; {currentYear} Fitplate Ventures. All rights reserved.</span>
+          <span>
+            &copy; {currentYear} Fitplate Ventures. All rights reserved. | Developed by{' '}
+            <a href="https://shwethainitiative.com" target="_blank" rel="noopener noreferrer">
+              Shwetha Initiative
+            </a>
+          </span>
           <span>Small greens. Big impact.</span>
         </div>
       </div>

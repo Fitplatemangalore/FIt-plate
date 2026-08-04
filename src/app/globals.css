@@ -1210,6 +1210,18 @@ footer a:hover {
   color: rgba(255, 255, 255, .5);
 }
 
+.footer-bottom a {
+  color: rgba(255, 255, 255, .5);
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.footer-bottom a:hover {
+  color: var(--gold-300);
+}
+
 @media (max-width:900px) {
   .footer-grid {
     grid-template-columns: 1fr 1fr;

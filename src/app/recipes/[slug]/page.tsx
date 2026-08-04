@@ -104,21 +104,24 @@ export default async function RecipeDetailPage({ params }: PageProps) {
       </section>
 
       <section className="section">
-        <div className="container" style={{ maxWidth: "920px", margin: "0 auto" }}>
+        <div className="container recipe-main-container" style={{ maxWidth: "920px", margin: "0 auto" }}>
           
           {/* Header Card for Print View */}
-          <div className="print-only-header" style={{ display: "none" }}>
-            <div style={{ fontSize: "12px", textTransform: "uppercase", letterSpacing: "1px", color: "#666" }}>Fit Plate Microgreen Recipe</div>
-            <h1 style={{ fontSize: "28px", margin: "8px 0" }}>{recipe.title}</h1>
-            <p style={{ fontStyle: "italic", margin: "4px 0 16px 0", color: "#444" }}>{recipe.excerpt}</p>
-            <div style={{ fontSize: "13px", margin: "8px 0 16px 0", color: "#333", borderBottom: "2px solid #164e2e", paddingBottom: "8px" }}>
-              <strong>Category:</strong> {recipe.category} | <strong>Prep:</strong> {recipe.prep_time} | <strong>Cook:</strong> {recipe.cook_time} | <strong>Servings:</strong> {recipe.servings}
+          <div className="print-only-header">
+            <div className="print-brand-tag">FIT PLATE MICROGREEN RECIPE</div>
+            <h1 className="print-recipe-title">{recipe.title}</h1>
+            {recipe.excerpt && <p className="print-recipe-excerpt">{recipe.excerpt}</p>}
+            <div className="print-recipe-meta">
+              <span><strong>Category:</strong> {recipe.category}</span>
+              <span>&bull; <strong>Prep:</strong> {recipe.prep_time}</span>
+              {recipe.cook_time && <span>&bull; <strong>Cook:</strong> {recipe.cook_time}</span>}
+              {recipe.servings && <span>&bull; <strong>Servings:</strong> {recipe.servings}</span>}
             </div>
           </div>
 
           {/* Featured Dish Photo */}
           <div
-            className="reveal"
+            className="reveal recipe-featured-img-wrap"
             style={{
               borderRadius: "16px",
               overflow: "hidden",
@@ -141,7 +144,7 @@ export default async function RecipeDetailPage({ params }: PageProps) {
           {/* Short Excerpt Summary */}
           {recipe.excerpt && (
             <div
-              className="reveal"
+              className="reveal recipe-excerpt-box print-hide"
               style={{
                 background: "rgba(12, 72, 41, 0.05)",
                 borderLeft: "4px solid var(--gold-600)",
@@ -163,6 +166,7 @@ export default async function RecipeDetailPage({ params }: PageProps) {
             {/* Left Column: Ingredients & Microgreens */}
             <div className="recipe-ingredients-col">
               <div
+                className="recipe-ingredients-card"
                 style={{
                   background: "#FAF9F6",
                   border: "1px solid rgba(12, 72, 41, 0.12)",
@@ -189,21 +193,22 @@ export default async function RecipeDetailPage({ params }: PageProps) {
                         gap: "10px",
                       }}
                     >
-                      <span style={{ color: "var(--forest-700)", fontWeight: "bold", fontSize: "16px" }}>✓</span>
+                      <span className="ing-check" style={{ color: "var(--forest-700)", fontWeight: "bold", fontSize: "16px" }}>✓</span>
                       <span>{ing}</span>
                     </li>
                   ))}
                 </ul>
 
                 {recipe.microgreens_used && recipe.microgreens_used.length > 0 && (
-                  <div style={{ marginTop: "20px", paddingTop: "16px", borderTop: "1px dashed var(--gold-500)" }}>
-                    <div style={{ fontSize: "13px", fontWeight: 700, color: "var(--forest-800)", marginBottom: "8px" }}>
+                  <div className="recipe-microgreens-used" style={{ marginTop: "20px", paddingTop: "16px", borderTop: "1px dashed var(--gold-500)" }}>
+                    <div className="microgreens-used-title" style={{ fontSize: "13px", fontWeight: 700, color: "var(--forest-800)", marginBottom: "8px" }}>
                       FIT PLATE MICROGREENS USED:
                     </div>
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                    <div className="microgreens-pills-wrap" style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
                       {recipe.microgreens_used.map((m, mi) => (
                         <span
                           key={mi}
+                          className="microgreen-pill"
                           style={{
                             fontSize: "12.5px",
                             backgroundColor: "var(--forest-800)",
@@ -240,6 +245,7 @@ export default async function RecipeDetailPage({ params }: PageProps) {
                     }}
                   >
                     <div
+                      className="step-number"
                       style={{
                         minWidth: "32px",
                         height: "32px",
@@ -258,6 +264,7 @@ export default async function RecipeDetailPage({ params }: PageProps) {
                       {i + 1}
                     </div>
                     <div
+                      className="step-text"
                       style={{
                         fontSize: "15.5px",
                         lineHeight: "1.7",
@@ -276,7 +283,7 @@ export default async function RecipeDetailPage({ params }: PageProps) {
           {/* Health Benefits Section */}
           {recipe.health_benefits && recipe.health_benefits.length > 0 && (
             <div
-              className="reveal"
+              className="reveal recipe-health-benefits"
               style={{
                 marginTop: "44px",
                 background: "linear-gradient(135deg, rgba(12, 72, 41, 0.08) 0%, rgba(212, 175, 55, 0.12) 100%)",
@@ -289,10 +296,10 @@ export default async function RecipeDetailPage({ params }: PageProps) {
                 <span>🌿</span> Microgreen Health Benefits
               </h3>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              <div className="health-benefits-list" style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 {recipe.health_benefits.map((benefit, i) => (
-                  <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start", fontSize: "15px", lineHeight: "1.6", color: "var(--ink-900)" }}>
-                    <span style={{ color: "var(--gold-600)", fontWeight: "bold" }}>✦</span>
+                  <div key={i} className="health-benefit-item" style={{ display: "flex", gap: "10px", alignItems: "flex-start", fontSize: "15px", lineHeight: "1.6", color: "var(--ink-900)" }}>
+                    <span className="benefit-star" style={{ color: "var(--gold-600)", fontWeight: "bold" }}>✦</span>
                     <span>{benefit}</span>
                   </div>
                 ))}
