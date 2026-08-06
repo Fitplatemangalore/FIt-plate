@@ -24,16 +24,29 @@ const UserIcon = () => (
   </svg>
 );
 
-function TestimonialCard({ t }: { t: TestimonialItem }) {
+export function TestimonialCard({ t }: { t: TestimonialItem }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const quoteText = t.quote || "";
+  const CHAR_LIMIT = 85;
+  const isLong = quoteText.length > CHAR_LIMIT;
+
+  let displayText = quoteText;
+  if (isLong && !isExpanded) {
+    const sliced = quoteText.slice(0, CHAR_LIMIT);
+    const lastSpace = sliced.lastIndexOf(" ");
+    const cutoff = lastSpace > CHAR_LIMIT - 20 ? lastSpace : CHAR_LIMIT;
+    displayText = quoteText.slice(0, cutoff).trim() + "...";
+  }
+
   return (
     <a
       href={t.link || "https://maps.google.com/?q=Fitplate+Ventures+Mangalore"}
       target="_blank"
       rel="noopener noreferrer"
-      className="tc-mobile-card-link"
+      className={`tc-mobile-card-link${isExpanded ? " expanded" : ""}`}
     >
-      <div className="tc-mobile-card">
-        {/* 1. User icon/photo — positioned at top center, half circle overlapping outside top edge */}
+      <div className={`tc-mobile-card${isExpanded ? " expanded" : ""}`}>
+        {/* 1. User icon/photo floating at top center */}
         <div className="tc-mobile-avatar-wrap">
           <div className="tc-mobile-avatar">
             <UserIcon />
@@ -47,23 +60,39 @@ function TestimonialCard({ t }: { t: TestimonialItem }) {
           {/* 3. Company name / Role */}
           {t.role && <span className="tc-mobile-role">{t.role}</span>}
 
-          {/* 4. Testimonial message */}
+          {/* 4. Testimonial quote with inline Read More / Read Less */}
           {t.quote && (
-            <p className="tc-mobile-quote">&ldquo;{t.quote}&rdquo;</p>
+            <p className="tc-mobile-quote">
+              &ldquo;{displayText}&rdquo;
+              {isLong && (
+                <button
+                  type="button"
+                  className="tc-read-toggle"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsExpanded(!isExpanded);
+                  }}
+                >
+                  {isExpanded ? "Read less" : "Read more"}
+                </button>
+              )}
+            </p>
           )}
 
-          {/* 5. Google "G" icon */}
-          <div className="tc-mobile-google">
-            <GoogleIcon />
-          </div>
+          {/* 5. Bottom anchored container for Google "G" icon and Star rating */}
+          <div className="tc-mobile-footer-wrap">
+            <div className="tc-mobile-google">
+              <GoogleIcon />
+            </div>
 
-          {/* 6. Star rating */}
-          <div className="tc-mobile-stars">
-            {[...Array(t.stars || 5)].map((_, i) => (
-              <svg key={i} viewBox="0 0 24 24">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-              </svg>
-            ))}
+            <div className="tc-mobile-stars">
+              {[...Array(t.stars || 5)].map((_, i) => (
+                <svg key={i} viewBox="0 0 24 24">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              ))}
+            </div>
           </div>
         </div>
       </div>

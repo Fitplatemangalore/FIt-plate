@@ -2,7 +2,7 @@ import HeroCarousel from "@/components/HeroCarousel";
 import UsesSlider from "@/components/UsesSlider";
 import BlogsSlider, { BlogItem } from "@/components/BlogsSlider";
 import VarietiesSlider, { VarietyItem } from "@/components/VarietiesSlider";
-import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+import TestimonialsCarousel, { TestimonialCard, TestimonialItem } from "@/components/TestimonialsCarousel";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 
@@ -233,135 +233,52 @@ export default async function Home() {
           </div>
 
           {/* Desktop view */}
-          <div className="testimonials-grid desktop-only reveal stagger">
-            {testimonialsDb && testimonialsDb.length > 0 ? (
-              testimonialsDb.map((t, i) => (
-                <a 
-                  key={t.id}
-                  href={t.link || "https://maps.google.com/?q=Fitplate+Ventures+Mangalore"} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="testimonial-link-card" 
-                  style={{ "--i": i } as React.CSSProperties}
-                >
-                  <div className="testimonial-card">
-                    <div className="testimonial-user-row">
-                      <div className="testimonial-avatar">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                      </div>
-                      <div className="testimonial-user-info">
-                        <h4>{t.name}</h4>
-                        <span>{t.role}</span>
-                      </div>
-                    </div>
-                    <p className="testimonial-quote">"{t.quote}"</p>
-                    <div className="testimonial-stars">
-                      {[...Array(t.stars || 5)].map((_, starIdx) => (
-                        <svg key={starIdx} viewBox="0 0 24 24">
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <div className="testimonial-google-badge">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style={{ color: "#fff" }}>
-                        <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.483 0-6.312-2.829-6.312-6.312 0-3.483 2.829-6.312 6.312-6.312 1.624 0 3.097.621 4.225 1.63l3.24-3.24C19.336 2.222 15.992 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c6.478 0 11.24-4.553 11.24-11.24 0-.761-.077-1.498-.216-2.185H12.24z" />
-                      </svg>
-                    </div>
-                  </div>
-                </a>
-              ))
-            ) : (
-              // Hardcoded default fallbacks for desktop
+          {(() => {
+            const defaultTestimonials: TestimonialItem[] = [
+              {
+                id: "1",
+                name: "Arun Kumar",
+                role: "Cafe Partner, Mangalore",
+                quote: "Vibrant color, excellent texture. Highly recommend.",
+                stars: 5,
+              },
+              {
+                id: "2",
+                name: "Jhanvi Shenoy",
+                role: "Kobe Sizzler",
+                quote: "Consistently fresh and delivered cold. Perfect for our large buffets.",
+                stars: 5,
+              },
+              {
+                id: "3",
+                name: "Preksha",
+                role: "Individual Consumer",
+                quote: "I recently tried their microgreens and was genuinely impressed with the freshness and quality. They were crisp, vibrant, and clearly harvested with care. There's a great variety to choose from, making it easy to add healthy and flavorful ingredients to everyday meals. The packaging was neat, and everything arrived fresh. If you're looking for the freshest, highest-quality microgreens, FitPlate is the one to choose. Highly recommended!",
+                stars: 5,
+              },
+              {
+                id: "4",
+                name: "Harshida",
+                role: "Individual Consumer",
+                quote: "Quality microgreens, neat packaging, and great service",
+                stars: 5,
+              },
+            ];
+            const testimonialsList = testimonialsDb && testimonialsDb.length > 0 ? testimonialsDb : defaultTestimonials;
+
+            return (
               <>
-                <a href="https://maps.google.com/?q=Fitplate+Ventures+Mangalore" target="_blank" rel="noopener noreferrer" className="testimonial-link-card" style={{ "--i": 0 } as React.CSSProperties}>
-                  <div className="testimonial-card">
-                    <div className="testimonial-user-row">
-                      <div className="testimonial-avatar">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                      </div>
-                      <div className="testimonial-user-info">
-                        <h4>Arun Kumar</h4>
-                        <span>Cafe Partner, Mangalore</span>
-                      </div>
-                    </div>
-                    <p className="testimonial-quote">"Vibrant color, excellent texture. Highly recommend."</p>
-                    <div className="testimonial-stars">
-                      {[...Array(5)].map((_, i) => (
-                        <svg key={i} viewBox="0 0 24 24">
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <div className="testimonial-google-badge">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style={{ color: "#fff" }}>
-                        <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.483 0-6.312-2.829-6.312-6.312 0-3.483 2.829-6.312 6.312-6.312 1.624 0 3.097.621 4.225 1.63l3.24-3.24C19.336 2.222 15.992 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c6.478 0 11.24-4.553 11.24-11.24 0-.761-.077-1.498-.216-2.185H12.24z" />
-                      </svg>
-                    </div>
-                  </div>
-                </a>
+                <div className="testimonials-grid desktop-only reveal stagger">
+                  {testimonialsList.map((t, i) => (
+                    <TestimonialCard key={t.id ?? i} t={t} />
+                  ))}
+                </div>
 
-                <a href="https://maps.google.com/?q=Fitplate+Ventures+Mangalore" target="_blank" rel="noopener noreferrer" className="testimonial-link-card" style={{ "--i": 1 } as React.CSSProperties}>
-                  <div className="testimonial-card">
-                    <div className="testimonial-user-row">
-                      <div className="testimonial-avatar">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                      </div>
-                      <div className="testimonial-user-info">
-                        <h4>Jhanvi Shenoy</h4>
-                        <span>Kobe Sizzler</span>
-                      </div>
-                    </div>
-                    <p className="testimonial-quote">"Consistently fresh and delivered cold. Perfect for our large buffets."</p>
-                    <div className="testimonial-stars">
-                      {[...Array(5)].map((_, i) => (
-                        <svg key={i} viewBox="0 0 24 24">
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <div className="testimonial-google-badge">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style={{ color: "#fff" }}>
-                        <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.483 0-6.312-2.829-6.312-6.312 0-3.483 2.829-6.312 6.312-6.312 1.624 0 3.097.621 4.225 1.63l3.24-3.24C19.336 2.222 15.992 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c6.478 0 11.24-4.553 11.24-11.24 0-.761-.077-1.498-.216-2.185H12.24z" />
-                      </svg>
-                    </div>
-                  </div>
-                </a>
+                {/* Mobile View Carousel */}
+                <TestimonialsCarousel testimonials={testimonialsList} />
               </>
-            )}
-          </div>
-
-          {/* Mobile View Carousel */}
-          <TestimonialsCarousel
-            testimonials={
-              testimonialsDb && testimonialsDb.length > 0
-                ? testimonialsDb
-                : [
-                    {
-                      id: "1",
-                      name: "Arun Kumar",
-                      role: "Cafe Partner, Mangalore",
-                      quote: "Vibrant color, excellent texture. Highly recommend.",
-                      stars: 5,
-                    },
-                    {
-                      id: "2",
-                      name: "Jhanvi Shenoy",
-                      role: "Kobe Sizzler",
-                      quote: "Consistently fresh and delivered cold. Perfect for our dishes.",
-                      stars: 5,
-                    },
-                  ]
-            }
-          />
+            );
+          })()}
         </div>
       </section>
     </main>

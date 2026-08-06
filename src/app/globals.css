@@ -2322,103 +2322,166 @@ h2.uses-section-title {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  align-items: flex-start;
+  margin-top: 36px;
 }
 
-.testimonial-link-card {
+.tc-mobile-card-link {
   display: block;
   text-decoration: none;
-  aspect-ratio: 1 / 1;
-  /* Square cards */
+  width: 100%;
 }
 
-.testimonial-card {
+.tc-mobile-card {
   background: var(--brand-primary);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-md);
-  padding: 22px;
+  border-radius: 16px;
+  padding: 28px 12px 14px 12px;
   position: relative;
-  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
-  height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-}
-
-.testimonial-link-card:hover .testimonial-card {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(12, 72, 41, 0.18);
-}
-
-.testimonial-user-row {
-  display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  text-align: center;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
 }
 
-.testimonial-avatar {
-  width: 42px;
-  height: 42px;
+.tc-mobile-card-link:hover .tc-mobile-card {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(12, 72, 41, 0.22);
+}
+
+.tc-mobile-card.expanded {
+  aspect-ratio: auto;
+}
+
+.tc-mobile-avatar-wrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.tc-mobile-avatar {
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--brand-primary);
-  flex-shrink: 0;
+  border: 2px solid var(--brand-primary);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.testimonial-avatar svg {
+.tc-mobile-avatar svg {
   width: 22px;
   height: 22px;
 }
 
-.testimonial-user-info h4 {
+.tc-mobile-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+}
+
+.tc-mobile-name {
   font-family: var(--font-body);
   font-weight: 700;
   font-size: 14px;
+  line-height: 1.25;
   color: #ffffff;
-  margin: 0;
+  margin: 0 0 2px 0;
+  text-align: center;
 }
 
-.testimonial-user-info span {
-  font-size: 12px;
+.tc-mobile-role {
+  font-size: 11.5px;
+  line-height: 1.2;
   color: var(--brand-secondary);
   font-weight: 500;
+  margin-bottom: 6px;
+  text-align: center;
+  display: block;
 }
 
-.testimonial-quote {
+.tc-mobile-quote {
   font-family: var(--font-display);
-  font-size: 14.5px;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.88);
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.92);
   font-style: italic;
-  margin: 0 0 14px 0;
+  margin: 0;
   flex: 1;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  word-break: break-word;
 }
 
-.testimonial-stars {
+.tc-read-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 4px;
+  color: var(--brand-secondary);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 11.5px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  display: inline;
+  transition: opacity 0.2s;
+}
+
+.tc-read-toggle:hover {
+  opacity: 0.8;
+}
+
+.tc-mobile-footer-wrap {
+  margin-top: auto;
+  padding-top: 6px;
   display: flex;
-  gap: 3px;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.tc-mobile-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+  color: #ffffff;
+}
+
+.tc-mobile-google svg {
+  width: 18px;
+  height: 18px;
+}
+
+.tc-mobile-stars {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
   color: var(--brand-secondary);
 }
 
-.testimonial-stars svg {
-  width: 14px;
-  height: 14px;
+.tc-mobile-stars svg {
+  width: 13px;
+  height: 13px;
   fill: currentColor;
-}
-
-.testimonial-google-badge {
-  position: absolute;
-  bottom: 18px;
-  right: 20px;
-  opacity: 0.45;
-  transition: opacity 0.3s;
 }
 
 .tc-mobile-wrapper {
@@ -2444,120 +2507,7 @@ h2.uses-section-title {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     width: 100%;
-    align-items: stretch;
-  }
-
-  .tc-mobile-card-link {
-    display: block;
-    text-decoration: none;
-    height: 100%;
-  }
-
-  .tc-mobile-card {
-    background: var(--brand-primary);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 28px 10px 14px 10px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    height: 100%;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  }
-
-  .tc-mobile-avatar-wrap {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-  }
-
-  .tc-mobile-avatar {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--brand-primary);
-    border: 2px solid var(--brand-primary);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  }
-
-  .tc-mobile-avatar svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  .tc-mobile-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-
-  .tc-mobile-name {
-    font-family: var(--font-body);
-    font-weight: 700;
-    font-size: 13.5px;
-    line-height: 1.25;
-    color: #ffffff;
-    margin: 0 0 2px 0;
-    text-align: center;
-  }
-
-  .tc-mobile-role {
-    font-size: 11px;
-    line-height: 1.2;
-    color: var(--brand-secondary);
-    font-weight: 500;
-    margin-bottom: 8px;
-    text-align: center;
-    display: block;
-  }
-
-  .tc-mobile-quote {
-    font-family: var(--font-display);
-    font-size: 11.5px;
-    line-height: 1.45;
-    color: rgba(255, 255, 255, 0.92);
-    font-style: italic;
-    margin: 0 0 10px 0;
-    flex: 1;
-    text-align: center;
-    word-break: break-word;
-  }
-
-  .tc-mobile-google {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 6px;
-    opacity: 0.9;
-    color: #ffffff;
-  }
-
-  .tc-mobile-google svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .tc-mobile-stars {
-    display: flex;
-    justify-content: center;
-    gap: 2px;
-    color: var(--brand-secondary);
-  }
-
-  .tc-mobile-stars svg {
-    width: 12px;
-    height: 12px;
-    fill: currentColor;
+    align-items: flex-start;
   }
 
   .tc-mobile-dots {
