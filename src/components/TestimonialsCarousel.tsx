@@ -12,7 +12,7 @@ export interface TestimonialItem {
 }
 
 const GoogleIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
     <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.483 0-6.312-2.829-6.312-6.312 0-3.483 2.829-6.312 6.312-6.312 1.624 0 3.097.621 4.225 1.63l3.24-3.24C19.336 2.222 15.992 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c6.478 0 11.24-4.553 11.24-11.24 0-.761-.077-1.498-.216-2.185H12.24z" />
   </svg>
 );
@@ -24,29 +24,16 @@ const UserIcon = () => (
   </svg>
 );
 
-export function TestimonialCard({ t }: { t: TestimonialItem }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const quoteText = t.quote || "";
-  const CHAR_LIMIT = 55;
-  const isLong = quoteText.length > CHAR_LIMIT;
-
-  let displayText = quoteText;
-  if (isLong && !isExpanded) {
-    const sliced = quoteText.slice(0, CHAR_LIMIT);
-    const lastSpace = sliced.lastIndexOf(" ");
-    const cutoff = lastSpace > CHAR_LIMIT - 15 ? lastSpace : CHAR_LIMIT;
-    displayText = quoteText.slice(0, cutoff).trim() + "...";
-  }
-
+function TestimonialCard({ t }: { t: TestimonialItem }) {
   return (
     <a
       href={t.link || "https://maps.google.com/?q=Fitplate+Ventures+Mangalore"}
       target="_blank"
       rel="noopener noreferrer"
-      className={`tc-mobile-card-link${isExpanded ? " expanded" : ""}`}
+      className="tc-mobile-card-link"
     >
-      <div className={`tc-mobile-card${isExpanded ? " expanded" : ""}`}>
-        {/* 1. User icon/photo floating at top center */}
+      <div className="tc-mobile-card">
+        {/* 1. User icon/photo — positioned at top center, half circle overlapping outside top edge */}
         <div className="tc-mobile-avatar-wrap">
           <div className="tc-mobile-avatar">
             <UserIcon />
@@ -60,39 +47,23 @@ export function TestimonialCard({ t }: { t: TestimonialItem }) {
           {/* 3. Company name / Role */}
           {t.role && <span className="tc-mobile-role">{t.role}</span>}
 
-          {/* 4. Testimonial quote with inline Read More / Read Less */}
+          {/* 4. Testimonial message */}
           {t.quote && (
-            <p className="tc-mobile-quote">
-              &ldquo;{displayText}&rdquo;
-              {isLong && (
-                <button
-                  type="button"
-                  className="tc-read-toggle"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setIsExpanded(!isExpanded);
-                  }}
-                >
-                  {isExpanded ? "Read less" : "Read more"}
-                </button>
-              )}
-            </p>
+            <p className="tc-mobile-quote">&ldquo;{t.quote}&rdquo;</p>
           )}
 
-          {/* 5. Pinned bottom container for Google "G" icon and Star rating */}
-          <div className="tc-mobile-footer-wrap">
-            <div className="tc-mobile-google">
-              <GoogleIcon />
-            </div>
+          {/* 5. Google "G" icon */}
+          <div className="tc-mobile-google">
+            <GoogleIcon />
+          </div>
 
-            <div className="tc-mobile-stars">
-              {[...Array(t.stars || 5)].map((_, i) => (
-                <svg key={i} viewBox="0 0 24 24">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                </svg>
-              ))}
-            </div>
+          {/* 6. Star rating */}
+          <div className="tc-mobile-stars">
+            {[...Array(t.stars || 5)].map((_, i) => (
+              <svg key={i} viewBox="0 0 24 24">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg>
+            ))}
           </div>
         </div>
       </div>
