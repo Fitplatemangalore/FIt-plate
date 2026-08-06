@@ -12,7 +12,7 @@ export interface TestimonialItem {
 }
 
 const GoogleIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
     <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.483 0-6.312-2.829-6.312-6.312 0-3.483 2.829-6.312 6.312-6.312 1.624 0 3.097.621 4.225 1.63l3.24-3.24C19.336 2.222 15.992 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c6.478 0 11.24-4.553 11.24-11.24 0-.761-.077-1.498-.216-2.185H12.24z" />
   </svg>
 );
@@ -27,14 +27,14 @@ const UserIcon = () => (
 export function TestimonialCard({ t }: { t: TestimonialItem }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const quoteText = t.quote || "";
-  const CHAR_LIMIT = 85;
+  const CHAR_LIMIT = 55;
   const isLong = quoteText.length > CHAR_LIMIT;
 
   let displayText = quoteText;
   if (isLong && !isExpanded) {
     const sliced = quoteText.slice(0, CHAR_LIMIT);
     const lastSpace = sliced.lastIndexOf(" ");
-    const cutoff = lastSpace > CHAR_LIMIT - 20 ? lastSpace : CHAR_LIMIT;
+    const cutoff = lastSpace > CHAR_LIMIT - 15 ? lastSpace : CHAR_LIMIT;
     displayText = quoteText.slice(0, cutoff).trim() + "...";
   }
 
@@ -80,7 +80,7 @@ export function TestimonialCard({ t }: { t: TestimonialItem }) {
             </p>
           )}
 
-          {/* 5. Bottom anchored container for Google "G" icon and Star rating */}
+          {/* 5. Pinned bottom container for Google "G" icon and Star rating */}
           <div className="tc-mobile-footer-wrap">
             <div className="tc-mobile-google">
               <GoogleIcon />

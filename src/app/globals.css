@@ -2336,7 +2336,7 @@ h2.uses-section-title {
   background: var(--brand-primary);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
-  padding: 28px 12px 14px 12px;
+  padding: 24px 8px 44px 8px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -2346,6 +2346,7 @@ h2.uses-section-title {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .tc-mobile-card-link:hover .tc-mobile-card {
@@ -2355,6 +2356,7 @@ h2.uses-section-title {
 
 .tc-mobile-card.expanded {
   aspect-ratio: auto;
+  min-height: 100%;
 }
 
 .tc-mobile-avatar-wrap {
@@ -2366,8 +2368,8 @@ h2.uses-section-title {
 }
 
 .tc-mobile-avatar {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: #ffffff;
   display: flex;
@@ -2379,8 +2381,8 @@ h2.uses-section-title {
 }
 
 .tc-mobile-avatar svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 .tc-mobile-body {
@@ -2395,35 +2397,31 @@ h2.uses-section-title {
 .tc-mobile-name {
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 14px;
-  line-height: 1.25;
+  font-size: 13.5px;
+  line-height: 1.2;
   color: #ffffff;
-  margin: 0 0 2px 0;
+  margin: 0 0 1px 0;
   text-align: center;
 }
 
 .tc-mobile-role {
-  font-size: 11.5px;
-  line-height: 1.2;
+  font-size: 11px;
+  line-height: 1.15;
   color: var(--brand-secondary);
   font-weight: 500;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   text-align: center;
   display: block;
 }
 
 .tc-mobile-quote {
   font-family: var(--font-display);
-  font-size: 12px;
-  line-height: 1.45;
+  font-size: 11.5px;
+  line-height: 1.35;
   color: rgba(255, 255, 255, 0.92);
   font-style: italic;
-  margin: 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  margin: auto 0;
+  width: 100%;
   text-align: center;
   word-break: break-word;
 }
@@ -2432,11 +2430,11 @@ h2.uses-section-title {
   background: none;
   border: none;
   padding: 0;
-  margin-left: 4px;
+  margin-left: 3px;
   color: var(--brand-secondary);
   font-style: normal;
   font-weight: 700;
-  font-size: 11.5px;
+  font-size: 11px;
   text-decoration: underline;
   text-underline-offset: 2px;
   cursor: pointer;
@@ -2449,26 +2447,30 @@ h2.uses-section-title {
 }
 
 .tc-mobile-footer-wrap {
-  margin-top: auto;
-  padding-top: 6px;
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: 2px;
   width: 100%;
+  pointer-events: none;
 }
 
 .tc-mobile-google {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.9;
+  opacity: 0.95;
   color: #ffffff;
 }
 
 .tc-mobile-google svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 
 .tc-mobile-stars {
@@ -2479,8 +2481,8 @@ h2.uses-section-title {
 }
 
 .tc-mobile-stars svg {
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   fill: currentColor;
 }
 
