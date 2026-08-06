@@ -5,6 +5,7 @@ import PublicLayout from "@/components/PublicLayout";
 export const metadata: Metadata = {
   title: "Fit Plate Microgreens | Fresh Wholesale Supplier in Mangalore",
   description: "Fit Plate — locally grown microgreens for hotels, restaurants and caterers in Mangalore. Pure, fresh, nutritious.",
+  keywords: ["microgreens supplier Mangalore", "wholesale microgreens", "fresh microgreens for restaurants", "organic microgreens Mangalore", "microgreens for restaurants"],
 };
 
 export default function RootLayout({
