@@ -3,7 +3,7 @@ import "./globals.css";
 import PublicLayout from "@/components/PublicLayout";
 
 export const metadata: Metadata = {
-  title: "Home | Fit Plate Microgreens",
+  title: "Fit Plate Microgreens | Fresh Wholesale Supplier in Mangalore",
   description: "Fit Plate — locally grown microgreens for hotels, restaurants and caterers in Mangalore. Pure, fresh, nutritious.",
 };
 

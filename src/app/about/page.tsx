@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Us | FitPlate Microgreens",
+  title: "About Us | Locally Grown Microgreens - Fit Plate Mangalore",
   description:
     "Learn about FitPlate — dedicated to cultivating premium microgreens that combine remarkable freshness, vibrant flavor, and outstanding nutritional value.",
 };

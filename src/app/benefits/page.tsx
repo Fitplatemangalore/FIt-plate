@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Benefits | Fit Plate Microgreens",
+  title: "Benefits of Microgreens | Fit Plate Mangalore",
   description: "Discover the nutritional benefits of microgreens and why hotels, restaurants and caterers choose Fit Plate as their supply partner.",
 };
 
