@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useRef } from "react";
 import { createClient } from "@/utils/supabase/client";
@@ -52,7 +52,7 @@ export default function AdminVideo() {
     folder: string,
     setter: (url: string) => void,
     setBusy: (b: boolean) => void,
-    inputRef: React.RefObject<HTMLInputElement>
+    inputRef: React.RefObject<HTMLInputElement | null>
   ) => {
     setBusy(true);
     setMessage(null);
