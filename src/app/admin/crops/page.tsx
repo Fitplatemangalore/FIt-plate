@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useRef } from "react";
 import { createClient } from "@/utils/supabase/client";
@@ -38,6 +38,7 @@ export default function AdminCrops() {
   const [crops, setCrops] = useState<Crop[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Crop>(emptyForm());
+  const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [saveLoading, setSaveLoading] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -47,16 +48,11 @@ export default function AdminCrops() {
   const iconInputRef = useRef<HTMLInputElement>(null);
   const supabase = createClient();
 
-  useEffect(() => {
-    fetchCrops();
-  }, []);
+  useEffect(() => { fetchCrops(); }, []);
 
   const fetchCrops = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("crops")
-      .select("*")
-      .order("sort_order", { ascending: true });
+    const { data, error } = await supabase.from("crops").select("*").order("sort_order", { ascending: true });
     if (error) {
       setMessage({ type: "error", text: `Error loading crops: ${error.message}` });
     } else {
@@ -65,7 +61,14 @@ export default function AdminCrops() {
     setLoading(false);
   };
 
-  const handleSelect = (crop: Crop) => {
+  const openAddModal = () => {
+    setSelectedId(null);
+    setFormData(emptyForm(crops.length));
+    setMessage(null);
+    setModalOpen(true);
+  };
+
+  const openEditModal = (crop: Crop) => {
     setSelectedId(crop.id || null);
     setFormData({
       name: crop.name,
@@ -77,11 +80,13 @@ export default function AdminCrops() {
       sort_order: crop.sort_order ?? 0,
     });
     setMessage(null);
+    setModalOpen(true);
   };
 
-  const handleAddNew = () => {
+  const closeModal = () => {
+    setModalOpen(false);
     setSelectedId(null);
-    setFormData(emptyForm(crops.length));
+    setFormData(emptyForm());
     setMessage(null);
   };
 
@@ -89,20 +94,13 @@ export default function AdminCrops() {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploadingImage(true);
-    setMessage(null);
     try {
       const ext = file.name.split(".").pop();
-      const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${ext}`;
-      const filePath = `crops/${fileName}`;
-      const { error: uploadError } = await supabase.storage
-        .from("fitplate-assets")
-        .upload(filePath, file);
+      const filePath = `crops/${Math.random().toString(36).substring(2)}_${Date.now()}.${ext}`;
+      const { error: uploadError } = await supabase.storage.from("fitplate-assets").upload(filePath, file);
       if (uploadError) throw uploadError;
-      const { data: { publicUrl } } = supabase.storage
-        .from("fitplate-assets")
-        .getPublicUrl(filePath);
+      const { data: { publicUrl } } = supabase.storage.from("fitplate-assets").getPublicUrl(filePath);
       setFormData((prev) => ({ ...prev, image_url: publicUrl }));
-      setMessage({ type: "success", text: "Image uploaded!" });
     } catch (err: any) {
       setMessage({ type: "error", text: `Image upload failed: ${err.message}` });
     } finally {
@@ -115,20 +113,13 @@ export default function AdminCrops() {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploadingIcon(true);
-    setMessage(null);
     try {
       const ext = file.name.split(".").pop();
-      const fileName = `icon_${Math.random().toString(36).substring(2)}_${Date.now()}.${ext}`;
-      const filePath = `crops/icons/${fileName}`;
-      const { error: uploadError } = await supabase.storage
-        .from("fitplate-assets")
-        .upload(filePath, file);
+      const filePath = `crops/icons/icon_${Math.random().toString(36).substring(2)}_${Date.now()}.${ext}`;
+      const { error: uploadError } = await supabase.storage.from("fitplate-assets").upload(filePath, file);
       if (uploadError) throw uploadError;
-      const { data: { publicUrl } } = supabase.storage
-        .from("fitplate-assets")
-        .getPublicUrl(filePath);
+      const { data: { publicUrl } } = supabase.storage.from("fitplate-assets").getPublicUrl(filePath);
       setFormData((prev) => ({ ...prev, icon_url: publicUrl }));
-      setMessage({ type: "success", text: "Custom icon uploaded!" });
     } catch (err: any) {
       setMessage({ type: "error", text: `Icon upload failed: ${err.message}` });
     } finally {
@@ -139,14 +130,8 @@ export default function AdminCrops() {
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim()) {
-      setMessage({ type: "error", text: "Crop name is required." });
-      return;
-    }
-    if (!formData.image_url.trim()) {
-      setMessage({ type: "error", text: "Please upload or enter an image URL." });
-      return;
-    }
+    if (!formData.name.trim()) { setMessage({ type: "error", text: "Crop name is required." }); return; }
+    if (!formData.image_url.trim()) { setMessage({ type: "error", text: "Please upload or enter an image URL." }); return; }
     setSaveLoading(true);
     setMessage(null);
     try {
@@ -161,16 +146,13 @@ export default function AdminCrops() {
       };
       let error;
       if (selectedId) {
-        const { error: err } = await supabase.from("crops").update(payload).eq("id", selectedId);
-        error = err;
+        ({ error } = await supabase.from("crops").update(payload).eq("id", selectedId));
       } else {
-        const { error: err } = await supabase.from("crops").insert([payload]);
-        error = err;
+        ({ error } = await supabase.from("crops").insert([payload]));
       }
       if (error) throw error;
-      setMessage({ type: "success", text: "Crop saved successfully!" });
       await fetch("/api/revalidate?path=/");
-      handleAddNew();
+      closeModal();
       fetchCrops();
     } catch (err: any) {
       setMessage({ type: "error", text: `Failed to save: ${err.message}` });
@@ -181,13 +163,10 @@ export default function AdminCrops() {
 
   const handleDelete = async (id: string, name: string) => {
     if (!confirm(`Delete crop "${name}"? This cannot be undone.`)) return;
-    setMessage(null);
     try {
       const { error } = await supabase.from("crops").delete().eq("id", id);
       if (error) throw error;
-      setMessage({ type: "success", text: `"${name}" deleted.` });
       await fetch("/api/revalidate?path=/");
-      if (selectedId === id) handleAddNew();
       fetchCrops();
     } catch (err: any) {
       setMessage({ type: "error", text: `Delete failed: ${err.message}` });
@@ -195,7 +174,7 @@ export default function AdminCrops() {
   };
 
   return (
-    <div className="admin-page-root">
+    <div className="admin-page">
       <div className="admin-page-header">
         <div>
           <h1 className="admin-page-title">Our Crops</h1>
@@ -203,232 +182,189 @@ export default function AdminCrops() {
             Manage the crop cards displayed in the homepage&apos;s &quot;Our Crops&quot; section.
           </p>
         </div>
-        <button className="admin-btn-primary" onClick={handleAddNew}>
-          + Add Crop
-        </button>
+        <button className="admin-btn-primary" onClick={openAddModal}>+ Add Crop</button>
       </div>
 
-      {message && (
+      {message && !modalOpen && (
         <div className={`admin-message admin-message-${message.type}`}>{message.text}</div>
       )}
 
-      <div className="admin-two-col">
-        {/* LEFT: Crop List */}
-        <div className="admin-list-panel">
-          <h2 className="admin-panel-title">All Crops ({crops.length})</h2>
-          {loading ? (
-            <p className="admin-loading-text">Loading…</p>
-          ) : crops.length === 0 ? (
-            <div className="admin-empty-state">
-              <p>No crops yet. Click &quot;+ Add Crop&quot; to begin.</p>
-              <p style={{ fontSize: "12px", color: "#94a3b8", marginTop: "8px" }}>
-                Tip: Run the SQL migration in your Supabase dashboard to create the crops table.
-              </p>
+      {loading ? (
+        <div style={{ textAlign: "center", padding: "60px 0", color: "#64748b" }}>Loading crops…</div>
+      ) : crops.length === 0 ? (
+        <div className="crops-empty-state">
+          <div className="crops-empty-icon">🌱</div>
+          <h3 className="crops-empty-title">No Crops Yet</h3>
+          <p className="crops-empty-desc">Add your first crop card to populate the homepage section.</p>
+          <button className="admin-btn-primary" onClick={openAddModal}>+ Add Your First Crop</button>
+        </div>
+      ) : (
+        <div className="crops-card-grid">
+          {crops.map((crop) => (
+            <div key={crop.id} className="crops-card">
+              <div className="crops-card-img-wrap">
+                {crop.image_url
+                  ? <img src={crop.image_url} alt={crop.name} className="crops-card-img" />
+                  : <div className="crops-card-img-placeholder" />}
+                <span className="crops-card-order">#{crop.sort_order + 1}</span>
+              </div>
+              <div className="crops-card-body">
+                <div className="crops-card-icon-wrap">
+                  <CropIcon type={crop.icon} iconUrl={crop.icon_url} />
+                </div>
+                <div className="crops-card-info">
+                  <p className="crops-card-name">{crop.name}</p>
+                  <p className="crops-card-subtitle">{crop.subtitle}</p>
+                </div>
+              </div>
+              <div className="crops-card-actions">
+                <button className="admin-btn-secondary crops-action-btn" onClick={() => openEditModal(crop)}>✏️ Edit</button>
+                <button className="admin-btn-danger-sm crops-action-btn" onClick={() => handleDelete(crop.id!, crop.name)}>🗑 Delete</button>
+              </div>
             </div>
-          ) : (
-            <div className="admin-crops-list">
-              {crops.map((crop) => (
-                <div
-                  key={crop.id}
-                  className={`admin-crop-row ${selectedId === crop.id ? "admin-crop-row--active" : ""}`}
-                  onClick={() => handleSelect(crop)}
-                >
-                  <div className="admin-crop-row-thumb">
-                    {crop.image_url ? (
-                      <img src={crop.image_url} alt={crop.name} />
-                    ) : (
-                      <div className="admin-crop-row-thumb-placeholder" />
+          ))}
+        </div>
+      )}
+
+      {modalOpen && (
+        <div className="crops-modal-overlay" onClick={closeModal}>
+          <div className="crops-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="crops-modal-header">
+              <h2 className="crops-modal-title">{selectedId ? "Edit Crop" : "Add New Crop"}</h2>
+              <button className="crops-modal-close" onClick={closeModal} aria-label="Close">✕</button>
+            </div>
+
+            {message && (
+              <div className={`admin-message admin-message-${message.type}`} style={{ margin: "16px 28px 0" }}>{message.text}</div>
+            )}
+
+            <div className="crops-modal-body">
+              <form className="crops-modal-form" onSubmit={handleSave}>
+                <div className="crops-form-grid">
+                  <div className="admin-form-group">
+                    <label className="admin-label">Crop Name *</label>
+                    <input className="admin-input" type="text" placeholder="e.g. MICROGREENS" value={formData.name}
+                      onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value.toUpperCase() }))} />
+                  </div>
+                  <div className="admin-form-group">
+                    <label className="admin-label">Subtitle</label>
+                    <input className="admin-input" type="text" placeholder="e.g. Small Greens. Big Nutrition" value={formData.subtitle}
+                      onChange={(e) => setFormData((p) => ({ ...p, subtitle: e.target.value }))} />
+                  </div>
+                  <div className="admin-form-group">
+                    <label className="admin-label">Card Link</label>
+                    <input className="admin-input" type="text" placeholder="/varieties" value={formData.link}
+                      onChange={(e) => setFormData((p) => ({ ...p, link: e.target.value }))} />
+                  </div>
+                  <div className="admin-form-group">
+                    <label className="admin-label">Sort Order</label>
+                    <input className="admin-input" type="number" min={0} value={formData.sort_order}
+                      onChange={(e) => setFormData((p) => ({ ...p, sort_order: Number(e.target.value) }))} />
+                  </div>
+                </div>
+
+                <div className="admin-form-group">
+                  <label className="admin-label">Photo *</label>
+                  <div className="admin-upload-row">
+                    {formData.image_url && <img src={formData.image_url} alt="preview" className="admin-img-preview" />}
+                    <div style={{ flex: 1 }}>
+                      <input className="admin-input" type="text" placeholder="Paste image URL or upload" value={formData.image_url}
+                        onChange={(e) => setFormData((p) => ({ ...p, image_url: e.target.value }))} />
+                      <label className="admin-file-label" style={{ marginTop: "8px", display: "inline-block" }}>
+                        <input ref={imageInputRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleUploadImage} />
+                        {uploadingImage ? "Uploading…" : "↑ Upload Photo"}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="admin-form-group">
+                  <label className="admin-label">Icon</label>
+                  <div className="admin-icon-picker">
+                    {PRESET_ICONS.map((ic) => (
+                      <button key={ic.key} type="button"
+                        className={`admin-icon-option ${formData.icon === ic.key && !formData.icon_url ? "admin-icon-option--active" : ""}`}
+                        onClick={() => setFormData((p) => ({ ...p, icon: ic.key, icon_url: "" }))} title={ic.label}>
+                        <CropIcon type={ic.key} />
+                        <span>{ic.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                  <div className="admin-upload-row" style={{ marginTop: "10px" }}>
+                    <label className="admin-label" style={{ margin: 0, width: "130px", flexShrink: 0 }}>Custom Icon:</label>
+                    {formData.icon_url && <img src={formData.icon_url} alt="icon" className="admin-icon-preview" />}
+                    <label className="admin-file-label">
+                      <input ref={iconInputRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleUploadIcon} />
+                      {uploadingIcon ? "Uploading…" : "↑ Upload Custom Icon"}
+                    </label>
+                    {formData.icon_url && (
+                      <button type="button" className="admin-btn-danger-sm" onClick={() => setFormData((p) => ({ ...p, icon_url: "" }))}>Remove</button>
                     )}
                   </div>
-                  <div className="admin-crop-row-info">
-                    <div className="admin-crop-row-icon">
-                      <CropIcon type={crop.icon} iconUrl={crop.icon_url} />
-                    </div>
-                    <div>
-                      <span className="admin-crop-row-name">{crop.name}</span>
-                      <span className="admin-crop-row-subtitle">{crop.subtitle}</span>
-                    </div>
-                    <span className="admin-crop-row-order">#{crop.sort_order + 1}</span>
+                </div>
+
+                <div className="admin-form-actions">
+                  <button type="button" className="admin-btn-secondary" onClick={closeModal}>Cancel</button>
+                  <button type="submit" className="admin-btn-primary" disabled={saveLoading}>
+                    {saveLoading ? "Saving…" : selectedId ? "Update Crop" : "Add Crop"}
+                  </button>
+                </div>
+              </form>
+
+              <div className="crops-modal-preview">
+                <p className="admin-preview-label">Live Preview</p>
+                <div className="admin-crop-preview-card">
+                  <div className="admin-preview-photo">
+                    {formData.image_url
+                      ? <img src={formData.image_url} alt="preview" />
+                      : <div className="admin-preview-photo-empty">No photo yet</div>}
                   </div>
-                  <button
-                    className="admin-btn-danger-sm"
-                    onClick={(ev) => {
-                      ev.stopPropagation();
-                      handleDelete(crop.id!, crop.name);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* RIGHT: Form + Live Preview */}
-        <div className="admin-form-panel">
-          <h2 className="admin-panel-title">
-            {selectedId ? "Edit Crop" : "Add New Crop"}
-          </h2>
-
-          <form className="admin-form" onSubmit={handleSave}>
-            {/* Name */}
-            <div className="admin-form-group">
-              <label className="admin-label">Crop Name *</label>
-              <input
-                className="admin-input"
-                type="text"
-                placeholder="e.g. MICROGREENS"
-                value={formData.name}
-                onChange={(e) => setFormData((p) => ({ ...p, name: e.target.value.toUpperCase() }))}
-              />
-            </div>
-
-            {/* Subtitle */}
-            <div className="admin-form-group">
-              <label className="admin-label">Subtitle</label>
-              <input
-                className="admin-input"
-                type="text"
-                placeholder="e.g. Small Greens. Big Nutrition"
-                value={formData.subtitle}
-                onChange={(e) => setFormData((p) => ({ ...p, subtitle: e.target.value }))}
-              />
-            </div>
-
-            {/* Photo Upload */}
-            <div className="admin-form-group">
-              <label className="admin-label">Photo *</label>
-              <div className="admin-upload-row">
-                {formData.image_url && (
-                  <img src={formData.image_url} alt="preview" className="admin-img-preview" />
-                )}
-                <div style={{ flex: 1 }}>
-                  <input
-                    className="admin-input"
-                    type="text"
-                    placeholder="Paste image URL or upload below"
-                    value={formData.image_url}
-                    onChange={(e) => setFormData((p) => ({ ...p, image_url: e.target.value }))}
-                  />
-                  <label className="admin-file-label">
-                    <input
-                      ref={imageInputRef}
-                      type="file"
-                      accept="image/*"
-                      style={{ display: "none" }}
-                      onChange={handleUploadImage}
-                    />
-                    {uploadingImage ? "Uploading…" : "↑ Upload Photo"}
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* Icon Selection */}
-            <div className="admin-form-group">
-              <label className="admin-label">Icon</label>
-              <div className="admin-icon-picker">
-                {PRESET_ICONS.map((ic) => (
-                  <button
-                    key={ic.key}
-                    type="button"
-                    className={`admin-icon-option ${formData.icon === ic.key && !formData.icon_url ? "admin-icon-option--active" : ""}`}
-                    onClick={() => setFormData((p) => ({ ...p, icon: ic.key, icon_url: "" }))}
-                    title={ic.label}
-                  >
-                    <CropIcon type={ic.key} />
-                    <span>{ic.label}</span>
-                  </button>
-                ))}
-              </div>
-              <div className="admin-upload-row" style={{ marginTop: "10px" }}>
-                <label className="admin-label" style={{ margin: 0, width: "130px", flexShrink: 0 }}>
-                  Custom Icon:
-                </label>
-                {formData.icon_url && (
-                  <img src={formData.icon_url} alt="icon" className="admin-icon-preview" />
-                )}
-                <label className="admin-file-label">
-                  <input
-                    ref={iconInputRef}
-                    type="file"
-                    accept="image/*"
-                    style={{ display: "none" }}
-                    onChange={handleUploadIcon}
-                  />
-                  {uploadingIcon ? "Uploading…" : "↑ Upload Custom Icon"}
-                </label>
-                {formData.icon_url && (
-                  <button
-                    type="button"
-                    className="admin-btn-danger-sm"
-                    onClick={() => setFormData((p) => ({ ...p, icon_url: "" }))}
-                  >
-                    Remove
-                  </button>
-                )}
-              </div>
-            </div>
-
-            {/* Link */}
-            <div className="admin-form-group">
-              <label className="admin-label">Card Link</label>
-              <input
-                className="admin-input"
-                type="text"
-                placeholder="/varieties or /microgreens"
-                value={formData.link}
-                onChange={(e) => setFormData((p) => ({ ...p, link: e.target.value }))}
-              />
-            </div>
-
-            {/* Sort Order */}
-            <div className="admin-form-group">
-              <label className="admin-label">Sort Order</label>
-              <input
-                className="admin-input"
-                type="number"
-                min={0}
-                value={formData.sort_order}
-                onChange={(e) => setFormData((p) => ({ ...p, sort_order: Number(e.target.value) }))}
-                style={{ maxWidth: "120px" }}
-              />
-            </div>
-
-            {/* Live Preview */}
-            <div className="admin-crop-preview-wrap">
-              <p className="admin-preview-label">Live Card Preview</p>
-              <div className="admin-crop-preview-card">
-                <div className="admin-preview-photo">
-                  {formData.image_url ? (
-                    <img src={formData.image_url} alt="preview" />
-                  ) : (
-                    <div className="admin-preview-photo-empty">No photo yet</div>
-                  )}
-                </div>
-                <div className="admin-preview-yellow-body">
-                  <div className="admin-preview-icon">
-                    <CropIcon type={formData.icon} iconUrl={formData.icon_url} />
+                  <div className="admin-preview-yellow-body">
+                    <div className="admin-preview-icon">
+                      <CropIcon type={formData.icon} iconUrl={formData.icon_url} />
+                    </div>
+                    <p className="admin-preview-name">{formData.name || "CROP NAME"}</p>
+                    <p className="admin-preview-subtitle">{formData.subtitle || "Fresh Greens. Grow Closer."}</p>
+                    <div className="admin-preview-arrow">→</div>
                   </div>
-                  <p className="admin-preview-name">{formData.name || "CROP NAME"}</p>
-                  <p className="admin-preview-subtitle">{formData.subtitle || "Small Greens. Big Nutrition"}</p>
-                  <div className="admin-preview-arrow">→</div>
                 </div>
               </div>
             </div>
-
-            <div className="admin-form-actions">
-              <button type="button" className="admin-btn-secondary" onClick={handleAddNew}>
-                Cancel
-              </button>
-              <button type="submit" className="admin-btn-primary" disabled={saveLoading}>
-                {saveLoading ? "Saving…" : selectedId ? "Update Crop" : "Add Crop"}
-              </button>
-            </div>
-          </form>
+          </div>
         </div>
-      </div>
+      )}
+
+      <style>{`
+        .crops-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; padding: 4px 0 32px; }
+        .crops-card { background: #fff; border-radius: 14px; box-shadow: 0 2px 12px rgba(17,46,129,0.07); overflow: hidden; display: flex; flex-direction: column; border: 1px solid #e8edf5; transition: box-shadow 0.2s, transform 0.2s; }
+        .crops-card:hover { box-shadow: 0 6px 24px rgba(17,46,129,0.13); transform: translateY(-2px); }
+        .crops-card-img-wrap { position: relative; height: 140px; background: #f1f5fb; }
+        .crops-card-img { width: 100%; height: 100%; object-fit: cover; }
+        .crops-card-img-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, #e8edf5 0%, #f1f5fb 100%); }
+        .crops-card-order { position: absolute; top: 8px; right: 8px; background: rgba(17,46,129,0.75); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+        .crops-card-body { display: flex; align-items: center; gap: 10px; padding: 12px 14px 6px; }
+        .crops-card-icon-wrap { flex-shrink: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+        .crops-card-info { flex: 1; min-width: 0; }
+        .crops-card-name { font-weight: 800; font-size: 13px; color: #112E81; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .crops-card-subtitle { font-size: 11px; color: #64748b; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .crops-card-actions { display: flex; gap: 8px; padding: 10px 14px 14px; border-top: 1px solid #f1f5fb; margin-top: auto; }
+        .crops-action-btn { flex: 1; justify-content: center; font-size: 12px; }
+        .crops-empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 24px; text-align: center; background: #fff; border-radius: 16px; border: 2px dashed #e2e8f0; margin-top: 8px; }
+        .crops-empty-icon { font-size: 56px; margin-bottom: 16px; }
+        .crops-empty-title { font-size: 20px; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
+        .crops-empty-desc { color: #64748b; font-size: 14px; margin-bottom: 24px; }
+        .crops-modal-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(15,23,42,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .crops-modal { background: #fff; border-radius: 20px; width: 100%; max-width: 900px; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 80px rgba(15,23,42,0.25); display: flex; flex-direction: column; }
+        .crops-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 22px 28px 18px; border-bottom: 1px solid #f1f5fb; position: sticky; top: 0; background: #fff; z-index: 1; border-radius: 20px 20px 0 0; }
+        .crops-modal-title { font-size: 20px; font-weight: 800; color: #112E81; }
+        .crops-modal-close { background: #f1f5fb; border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 16px; cursor: pointer; color: #64748b; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+        .crops-modal-close:hover { background: #e2e8f0; color: #1e293b; }
+        .crops-modal-body { display: flex; gap: 28px; padding: 24px 28px 28px; }
+        .crops-modal-form { flex: 1; min-width: 0; }
+        .crops-modal-preview { width: 220px; flex-shrink: 0; display: flex; flex-direction: column; gap: 10px; }
+        .crops-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+        @media (max-width: 700px) { .crops-modal-body { flex-direction: column; } .crops-modal-preview { width: 100%; } .crops-form-grid { grid-template-columns: 1fr; } }
+      `}</style>
     </div>
   );
 }

@@ -4,6 +4,12 @@ import CropHexagonCard, { CropData } from "@/components/CropHexagonCard";
 import VideoPlayer from "@/components/VideoPlayer";
 import UrbanTestimonials from "@/components/UrbanTestimonials";
 import { createClient } from "@/utils/supabase/server";
+import { Bebas_Neue } from "next/font/google";
+
+const bebasNeue = Bebas_Neue({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Fit Plate | Urban Vertical Farming in Mangalore",
@@ -234,7 +240,7 @@ export default async function Home() {
             <div className="uv-feature-banner-grid">
               {/* Left Column */}
               <div className="uv-banner-left">
-                <h2 className="uv-banner-title" style={{ marginBottom: '12px' }}>
+                <h2 className={`uv-banner-title ${bebasNeue.className}`} style={{ marginBottom: '12px' }}>
                   <span className="uv-title-blue">SMART URBAN</span>
                   <br />
                   <span className="uv-title-green">FARMING</span>
