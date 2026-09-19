@@ -57,11 +57,7 @@ export default function Header() {
                 Home
               </Link>
             </li>
-            <li>
-              <Link href="/microgreens" className={isActive('/microgreens')}>
-                Microgreens
-              </Link>
-            </li>
+
             <li>
               <Link href="/varieties" className={isActive('/varieties')}>
                 Varieties

@@ -37,97 +37,141 @@ const defaultTestimonials: UrbanTestimonialItem[] = [
     stars: 5,
     link: "https://maps.google.com/?q=Fitplate+Ventures+Mangalore",
   },
+  {
+    id: "t-4",
+    name: "Ramesh",
+    role: "Local Chef",
+    quote: "The microgreens are incredibly fresh and flavorful. They elevate every dish we serve.",
+    stars: 5,
+    link: "https://maps.google.com/?q=Fitplate+Ventures+Mangalore",
+  },
+  {
+    id: "t-5",
+    name: "Sneha",
+    role: "Fitness Enthusiast",
+    quote: "I love the nutrient density! Perfect for my post-workout smoothies and salads.",
+    stars: 5,
+    link: "https://maps.google.com/?q=Fitplate+Ventures+Mangalore",
+  },
 ];
 
-function GoogleIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.483 0-6.312-2.829-6.312-6.312 0-3.483 2.829-6.312 6.312-6.312 1.624 0 3.097.621 4.225 1.63l3.24-3.24C19.336 2.222 15.992 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c6.478 0 11.24-4.553 11.24-11.24 0-.761-.077-1.498-.216-2.185H12.24z" />
-    </svg>
-  );
-}
+const GoogleIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style={{ color: "#fff" }}>
+    <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.483 0-6.312-2.829-6.312-6.312 0-3.483 2.829-6.312 6.312-6.312 1.624 0 3.097.621 4.225 1.63l3.24-3.24C19.336 2.222 15.992 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c6.478 0 11.24-4.553 11.24-11.24 0-.761-.077-1.498-.216-2.185H12.24z" />
+  </svg>
+);
 
-function UserAvatar() {
-  return (
-    <div className="uv-t-avatar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#022A7C" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
-        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-        <circle cx="12" cy="7" r="4" />
-      </svg>
-    </div>
-  );
-}
+const UserIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
 
 export default function UrbanTestimonials({ items }: { items?: UrbanTestimonialItem[] }) {
   const testimonials = items && items.length > 0 ? items : defaultTestimonials;
-  const [expandedId, setExpandedId] = useState<string | number | null>(null);
-
-  const toggleExpand = (e: React.MouseEvent, id: string | number) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setExpandedId(expandedId === id ? null : id);
-  };
+  const [page, setPage] = useState(0);
+  
+  const CARDS_PER_PAGE = 4;
+  const totalPages = Math.ceil(testimonials.length / CARDS_PER_PAGE);
+  const showSlider = totalPages > 1;
+  
+  const visibleItems = showSlider 
+    ? testimonials.slice(page * CARDS_PER_PAGE, (page + 1) * CARDS_PER_PAGE) 
+    : testimonials;
 
   return (
-    <div className="uv-testimonials-wrapper">
-      <div className="uv-testimonials-grid">
-        {testimonials.map((item) => {
-          const isLong = item.quote.length > 130;
-          const isExpanded = expandedId === item.id;
-          const displayText = isLong && !isExpanded ? `${item.quote.slice(0, 130)}...` : item.quote;
-
-          return (
-            <a
-              key={item.id}
-              href={item.link || "https://maps.google.com/?q=Fitplate+Ventures+Mangalore"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="uv-testimonial-card-link"
-            >
-              <div className="uv-testimonial-card">
-                {/* Header: Avatar + Name + Role */}
-                <div className="uv-t-header">
-                  <UserAvatar />
-                  <div className="uv-t-info">
-                    <h3 className="uv-t-name">{item.name}</h3>
-                    <span className="uv-t-role">{item.role}</span>
-                  </div>
+    <div className="home-testimonials-container">
+      <div className="testimonials-grid">
+        {visibleItems.map((t, i) => (
+          <a
+            key={t.id}
+            href={t.link || "https://maps.google.com/?q=Fitplate+Ventures+Mangalore"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="testimonial-link-card"
+          >
+            <div className="testimonial-card">
+              <div className="testimonial-user-row">
+                <div className="testimonial-avatar">
+                  <UserIcon />
                 </div>
-
-                {/* Body Quote */}
-                <div className="uv-t-quote-box">
-                  <p className="uv-t-quote">
-                    &ldquo;{displayText}&rdquo;
-                    {isLong && (
-                      <button
-                        type="button"
-                        className="uv-t-readmore"
-                        onClick={(e) => toggleExpand(e, item.id)}
-                      >
-                        {isExpanded ? " Read less" : " Read more"}
-                      </button>
-                    )}
-                  </p>
-                </div>
-
-                {/* Footer: Stars + Google Badge */}
-                <div className="uv-t-footer">
-                  <div className="uv-t-stars">
-                    {[...Array(item.stars || 5)].map((_, idx) => (
-                      <svg key={idx} viewBox="0 0 24 24" fill="#F4C542" width="18" height="18">
-                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <div className="uv-t-google">
-                    <GoogleIcon />
-                  </div>
+                <div className="testimonial-user-info">
+                  <h4>{t.name}</h4>
+                  <span>{t.role}</span>
                 </div>
               </div>
-            </a>
-          );
-        })}
+              <p className="testimonial-quote">&ldquo;{t.quote}&rdquo;</p>
+              <div className="testimonial-stars">
+                {[...Array(t.stars || 5)].map((_, starIdx) => (
+                  <svg key={starIdx} viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                  </svg>
+                ))}
+              </div>
+              <div className="testimonial-google-badge">
+                <GoogleIcon />
+              </div>
+            </div>
+          </a>
+        ))}
       </div>
+
+      {showSlider && (
+        <div className="home-testimonials-pagination">
+          {[...Array(totalPages)].map((_, idx) => (
+            <button
+              key={idx}
+              className={`home-testimonials-dot ${page === idx ? "active" : ""}`}
+              onClick={() => setPage(idx)}
+              aria-label={`Go to page ${idx + 1}`}
+            />
+          ))}
+        </div>
+      )}
+
+      <style>{`
+        .home-testimonials-container {
+          width: 100%;
+        }
+        .home-testimonials-pagination {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 30px;
+        }
+        .home-testimonials-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: #cbd5e1;
+          border: none;
+          cursor: pointer;
+          transition: background-color 0.2s, transform 0.2s;
+        }
+        .home-testimonials-dot.active {
+          background-color: var(--brand-primary, #022A7C);
+          transform: scale(1.3);
+        }
+        
+        @media (max-width: 900px) {
+          .home-testimonials-container .testimonials-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        
+        @media (max-width: 600px) {
+          .home-testimonials-container .testimonials-grid {
+            grid-template-columns: 1fr;
+            display: flex;
+            flex-direction: column;
+          }
+          /* Remove slider on mobile and just show all items stacked */
+          .home-testimonials-pagination {
+            display: none;
+          }
+        }
+      `}</style>
     </div>
   );
 }

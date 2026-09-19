@@ -20,6 +20,14 @@ export const metadata: Metadata = {
 // Fallback crops displayed until Supabase "crops" table is seeded
 const defaultCrops: CropData[] = [
   {
+    id: "microgreens",
+    name: "MICROGREENS",
+    subtitle: "Small Greens. Big Nutrition",
+    image_url: "/assets/img/d4077bf9785efe29a21bd1df1c010651.jpg",
+    icon: "microgreens",
+    link: "/microgreens",
+  },
+  {
     id: "leafy-greens",
     name: "LEAFY GREENS",
     subtitle: "Fresh Greens. Grow Closer.",
@@ -44,14 +52,6 @@ const defaultCrops: CropData[] = [
     link: "/varieties",
   },
   {
-    id: "microgreens",
-    name: "MICROGREENS",
-    subtitle: "Small Greens. Big Nutrition",
-    image_url: "/assets/img/d4077bf9785efe29a21bd1df1c010651.jpg",
-    icon: "microgreens",
-    link: "/microgreens",
-  },
-  {
     id: "fruits",
     name: "FRUITS",
     subtitle: "Fresh Greens. Grow Closer.",
@@ -66,7 +66,7 @@ const defaultCrops: CropData[] = [
     image_url: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80",
     icon: "saffron",
     link: "/varieties",
-  },
+  }
 ];
 
 export default async function Home() {
