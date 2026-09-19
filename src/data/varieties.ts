@@ -1,4 +1,4 @@
-export interface VarietyData {
+ export interface VarietyData {
   id: string;
   slug: string;
   name: string;

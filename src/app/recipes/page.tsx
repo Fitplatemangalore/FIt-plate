@@ -6,7 +6,7 @@ import { defaultRecipes, RecipeData } from "@/data/recipes";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Microgreen Recipes | Fit Plate",
+  title: "Microgreen Recipes | Fit Plate Mangalore",
   description:
     "Delicious, chef-curated microgreen recipes for breakfasts, power smoothies, and healthy bowls.",
 };

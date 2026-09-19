@@ -108,7 +108,7 @@ export default async function VarietyDetailPage({ params }: PageProps) {
         ></div>
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div className="crumbs">
-            <Link href="/">Home</Link> / <Link href="/varieties">Our Microgreens</Link> /{" "}
+            <Link href="/">Home</Link> / <Link href="/microgreens">Microgreens</Link> / <Link href="/varieties">Varieties</Link> /{" "}
             <span>{variety.name}</span>
           </div>
           {variety.tag_pill && <div className="tag-pill" style={{ marginBottom: "12px" }}>{variety.tag_pill}</div>}

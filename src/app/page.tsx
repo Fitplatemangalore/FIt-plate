@@ -1,367 +1,329 @@
-import HeroCarousel from "@/components/HeroCarousel";
-import UsesSlider from "@/components/UsesSlider";
-import BlogsSlider, { BlogItem } from "@/components/BlogsSlider";
-import VarietiesSlider, { VarietyItem } from "@/components/VarietiesSlider";
-import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import Link from "next/link";
+import { Metadata } from "next";
+import CropHexagonCard, { CropData } from "@/components/CropHexagonCard";
+import VideoPlayer from "@/components/VideoPlayer";
+import UrbanTestimonials from "@/components/UrbanTestimonials";
 import { createClient } from "@/utils/supabase/server";
 
-export const revalidate = 3600; // Cache pages, but allow on-demand ISR to revalidate instantly
+export const metadata: Metadata = {
+  title: "Fit Plate | Urban Vertical Farming in Mangalore",
+  description:
+    "Pure, fresh, nutritious produce grown right in the heart of your city with cutting-edge urban vertical farming technology.",
+};
+
+// Fallback crops displayed until Supabase "crops" table is seeded
+const defaultCrops: CropData[] = [
+  {
+    id: "leafy-greens",
+    name: "LEAFY GREENS",
+    subtitle: "Fresh Greens. Grow Closer.",
+    image_url: "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80",
+    icon: "leaf",
+    link: "/varieties",
+  },
+  {
+    id: "herbs",
+    name: "HERBS",
+    subtitle: "Fresh Greens. Grow Closer.",
+    image_url: "/assets/img/509ecd51682b66965b96a807ecc89477.jpg",
+    icon: "herbs",
+    link: "/varieties",
+  },
+  {
+    id: "edible-flowers",
+    name: "EDIBLE FLOWERS",
+    subtitle: "Fresh Greens. Grow Closer.",
+    image_url: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=600&q=80",
+    icon: "flower",
+    link: "/varieties",
+  },
+  {
+    id: "microgreens",
+    name: "MICROGREENS",
+    subtitle: "Small Greens. Big Nutrition",
+    image_url: "/assets/img/d4077bf9785efe29a21bd1df1c010651.jpg",
+    icon: "microgreens",
+    link: "/microgreens",
+  },
+  {
+    id: "fruits",
+    name: "FRUITS",
+    subtitle: "Fresh Greens. Grow Closer.",
+    image_url: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=600&q=80",
+    icon: "fruits",
+    link: "/varieties",
+  },
+  {
+    id: "saffron",
+    name: "SAFFRON",
+    subtitle: "Fresh Greens. Grow Closer.",
+    image_url: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80",
+    icon: "saffron",
+    link: "/varieties",
+  },
+];
 
 export default async function Home() {
-  const supabase = await createClient();
-
-  // Fetch all data in parallel (instead of 6 sequential round-trips)
-  const [heroDb, varietiesDb, usesDb, blogsDb, testimonialsDb, contentDb] = await Promise.all([
-    supabase.from("hero_slides").select("*").order("sort_order", { ascending: true }).then(r => r.data),
-    supabase.from("varieties").select("*").order("sort_order", { ascending: true }).then(r => r.data),
-    supabase.from("uses_slides").select("*").order("sort_order", { ascending: true }).then(r => r.data),
-    supabase.from("blogs").select("*").order("sort_order", { ascending: true }).order("published_date", { ascending: false }).limit(3).then(r => r.data),
-    supabase.from("testimonials").select("*").order("sort_order", { ascending: true }).then(r => r.data),
-    supabase.from("site_content").select("*").eq("page", "home").then(r => r.data),
-  ]);
-
-  const heroSlides = heroDb && heroDb.length > 0
-    ? heroDb.map((s) => ({
-        tray: s.tray_image,
-        bgText: s.bg_text,
-        leaves: s.leaves || [],
-      }))
-    : undefined;
-
-  const usesSlides = usesDb && usesDb.length > 0
-    ? usesDb.slice(0, 5).map((s) => ({
-        title: s.title,
-        description: s.description,
-        main_image_url: s.main_image_url,
-      }))
-    : undefined;
-
-  const getContent = (key: string, fallback: string) => {
-    return contentDb?.find((c) => c.key === key)?.value || fallback;
-  };
-
-  const defaultBlogs: BlogItem[] = [
-    {
-      id: "history-of-microgreens",
-      title: "From Chef's Garnish to Kitchen Staple: A Short History of Microgreens",
-      excerpt: "Explore the fascinating history of microgreens, from their origins as a gourmet garnish in California fine dining during the 1980s to becoming an everyday superfood.",
-      category: "Origins",
-      published_date: "July 10, 2026",
-      image_url: "https://images.unsplash.com/photo-1640671510956-8c8e1deb0dd9?auto=format&fit=crop&w=900&q=80",
-      slug: "history-of-microgreens",
-    },
-    {
-      id: "science-behind-microgreen-density",
-      title: "Why 40x the Nutrients? The Science Behind Microgreen Density",
-      excerpt: "Why do these tiny seedlings pack up to 40 times more nutrients than mature vegetables? We dive into the plant biology and science behind their nutritional density.",
-      category: "Nutrition",
-      published_date: "July 5, 2026",
-      image_url: "https://images.unsplash.com/photo-1593629718347-283811841101?auto=format&fit=crop&w=900&q=80",
-      slug: "science-behind-microgreen-density",
-    },
-    {
-      id: "10-ways-hotels-and-restaurants-use-microgreens",
-      title: "10 Ways Hotels & Restaurants Are Using Microgreens on the Menu",
-      excerpt: "From visual freshness in hotel buffets to year-round culinary consistency, learn why leading kitchens are shifting from garnish to building microgreens directly into the menu.",
-      category: "For Business",
-      published_date: "June 28, 2026",
-      image_url: "https://images.unsplash.com/photo-1647613233056-fc9918256a8d?auto=format&fit=crop&w=900&q=80",
-      slug: "10-ways-hotels-and-restaurants-use-microgreens",
-    },
-  ];
-
-  const finalBlogs: BlogItem[] = (blogsDb && blogsDb.length > 0)
-    ? blogsDb.map((b) => ({
-        id: b.id,
-        title: b.title,
-        excerpt: b.excerpt,
-        category: b.category,
-        published_date: b.published_date,
-        image_url: b.image_url,
-        slug: b.slug || b.id || b.title.toLowerCase().replace(/\s+/g, "-"),
-      }))
-    : defaultBlogs;
+  // Fetch crops dynamically from Supabase; fall back to defaults if table not yet migrated
+  let crops: CropData[] = defaultCrops;
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("crops")
+      .select("*")
+      .order("sort_order", { ascending: true });
+    if (data && data.length > 0) {
+      crops = data.map((row: any) => ({
+        id: String(row.id),
+        name: row.name,
+        subtitle: row.subtitle,
+        image_url: row.image_url,
+        icon: row.icon,
+        icon_url: row.icon_url,
+        link: row.link || "/varieties",
+      }));
+    }
+  } catch {
+    // Supabase unavailable or table missing — use defaults silently
+  }
 
   return (
-    <main>
-      <HeroCarousel slides={heroSlides} />
+    <main className="uv-home-root">
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 1 — HERO
+      ───────────────────────────────────────────────────────────── */}
 
-      <section className="features-strip" id="features">
-        <div className="features-inner">
-          <div className="features-row">
-            <div className="features-item">
-              <div className="features-icon-slot">
-                <img src="/assets/icons/icon-premium.png" alt="Premium Choice icon" />
-              </div>
-              <div className="features-text">
-                <div className="features-title">{getContent("features-1-title", "Premium Choice")}</div>
-                <div className="features-subtitle">{getContent("features-1-sub", "100% Pesticide Free")}</div>
+      <section className="uv-hero-section">
+
+        <div className="uv-hero-wrapper">
+          <div className="uv-hero-grid">
+            {/* Left Column: Stacked Bebas Neue Heading & Badges */}
+            <div className="uv-hero-content reveal">
+              <h1 className="uv-hero-title">
+                <span className="uv-title-blue">URBAN</span>
+                <br />
+                <span className="uv-title-blue">VERTICAL</span>
+                <br />
+                <span className="uv-title-green">FARMING</span>
+              </h1>
+
+              {/* 4 Circular Badge Features with Yellow Dividers Below Heading */}
+              <div className="uv-badges-row">
+                <div className="uv-badge-item">
+                  <div className="uv-badge-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#022A7C" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                      <path d="M2 21c0-3 1.85-5.36 5.08-6" />
+                    </svg>
+                  </div>
+                  <span className="uv-badge-label">100%<br />Organic</span>
+                </div>
+
+                <div className="uv-badge-divider" aria-hidden="true" />
+
+                <div className="uv-badge-item">
+                  <div className="uv-badge-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#022A7C" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                      <path d="M10 2v7.31L4.2 19.33A2 2 0 0 0 6 22h12a2 2 0 0 0 1.8-2.67L14 9.31V2" />
+                      <path d="M8.5 2h7" />
+                      <path d="M14 9.3 8 19" />
+                      <line x1="8" y1="9.3" x2="16" y2="19" />
+                    </svg>
+                  </div>
+                  <span className="uv-badge-label">Chemical<br />Free</span>
+                </div>
+
+                <div className="uv-badge-divider" aria-hidden="true" />
+
+                <div className="uv-badge-item">
+                  <div className="uv-badge-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#022A7C" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                      <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                  </div>
+                  <span className="uv-badge-label">Home<br />Delivery</span>
+                </div>
+
+                <div className="uv-badge-divider" aria-hidden="true" />
+
+                <div className="uv-badge-item">
+                  <div className="uv-badge-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#022A7C" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                      <path d="M12 22a8 8 0 0 0 8-8c0-5-8-12-8-12S4 9 4 14a8 8 0 0 0 8 8Z" />
+                      <path d="M12 10v6" />
+                      <path d="M9 13l3-3 3 3" />
+                    </svg>
+                  </div>
+                  <span className="uv-badge-label">Farm<br />Fresh</span>
+                </div>
               </div>
             </div>
 
-            <div className="features-divider" aria-hidden="true">|</div>
+            {/* Right Column: Exact smooth sweeping curve with yellow border matching reference */}
+            <div className="uv-hero-visual reveal">
+              <div className="uv-hero-cutout-container">
+                {/* SVG clip-path definition with objectBoundingBox (0 to 1 scale) for true object-fit: cover */}
+                <svg width="0" height="0" className="uv-clip-def" aria-hidden="true">
+                  <defs>
+                    <clipPath id="hero-img-clip" clipPathUnits="objectBoundingBox">
+                      <path d="M 0,0 C 0.065,0.55 0.135,0.8 0.268,1 L 1,1 L 1,0 Z" />
+                    </clipPath>
+                  </defs>
+                </svg>
 
-            <div className="features-item">
-              <div className="features-icon-slot">
-                <img src="/assets/icons/icon-harvest.png" alt="Fresh Harvest icon" />
-              </div>
-              <div className="features-text">
-                <div className="features-title">{getContent("features-2-title", "Fresh Harvest")}</div>
-                <div className="features-subtitle">{getContent("features-2-sub", "Picked daily for you")}</div>
-              </div>
-            </div>
+                {/* Real HTML <img> with object-fit: cover to prevent any warping or stretching */}
+                <div className="uv-hero-clipped-img-wrap">
+                  <img
+                    src="/assets/img/hero-fitplate-farm.jpg"
+                    alt="Fit Plate Urban Vertical Farming Facility"
+                    className="uv-hero-real-img"
+                  />
+                </div>
 
-            <div className="features-divider" aria-hidden="true">|</div>
-
-            <div className="features-item">
-              <div className="features-icon-slot">
-                <img src="/assets/icons/icon-nutrient.png" alt="Nutrient Rich icon" />
-              </div>
-              <div className="features-text">
-                <div className="features-title">{getContent("features-3-title", "Nutrient Rich")}</div>
-                <div className="features-subtitle">{getContent("features-3-sub", "Up to 40x nutrients")}</div>
-              </div>
-            </div>
-
-            <div className="features-divider" aria-hidden="true">|</div>
-
-            <div className="features-item">
-              <div className="features-icon-slot">
-                <img src="/assets/icons/icon-ready.png" alt="Ready to Eat icon" />
-              </div>
-              <div className="features-text">
-                <div className="features-title">{getContent("features-4-title", "Ready to Eat")}</div>
-                <div className="features-subtitle">{getContent("features-4-sub", "Pre-washed & clean")}</div>
-              </div>
-            </div>
-
-            <div className="features-divider" aria-hidden="true">|</div>
-
-            <div className="features-item">
-              <div className="features-icon-slot">
-                <img src="/assets/icons/icon-eco.png" alt="Eco Friendly icon" />
-              </div>
-              <div className="features-text">
-                <div className="features-title">{getContent("features-5-title", "Eco Friendly")}</div>
-                <div className="features-subtitle">{getContent("features-5-sub", "Sustainable growth")}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="about-microgreens-section" id="about-us">
-        <div className="container">
-          <div className="about-microgreens-grid">
-            <div className="about-microgreens-content reveal">
-              <div className="eyebrow" style={{ color: "var(--brand-secondary)" }}>
-                {getContent("about-eyebrow", "ABOUT MICROGREENS")}
-              </div>
-              <h2 style={{ color: "var(--brand-primary)", marginTop: "10px" }}>
-                {getContent("about-title", "What are Microgreens")}
-              </h2>
-              <p>
-                {getContent(
-                  "about-desc",
-                  "Microgreens are young edible seedlings of vegetables, herbs, and other plants harvested 7-21 days after germination, usually after the cotyledon and first true leaves appear. They are valued for their intense flavor, vibrant colors, delicate texture, and high nutrient density."
-                )}
-              </p>
-              <Link href="/about-microgreens" className="btn btn-yellow-20">Read more</Link>
-            </div>
-            <div className="about-microgreens-image reveal">
-              <img 
-                src={getContent("about-image", "/assets/img/micro-sec.png")} 
-                alt="Microgreens Leaf Collage" 
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="our-microgreens-section" id="varieties">
-        <div className="container">
-          <div className="section-head center reveal">
-            <div className="eyebrow" style={{ justifyContent: "center", color: "var(--brand-secondary)" }}>
-              OUR VARIETIES
-            </div>
-            <h2 style={{ color: "var(--brand-primary)", marginTop: "10px" }}>Our Microgreens</h2>
-          </div>
-
-          {(() => {
-            const list: VarietyItem[] = (varietiesDb && varietiesDb.length > 0)
-              ? varietiesDb.map((v) => ({
-                  id: v.id,
-                  name: v.name,
-                  tag: v.tag,
-                  image_url: v.image_url,
-                  slug: v.slug,
-                }))
-              : [
-                  { id: "hc-1", name: "BROCCOLI", tag: "Microgreen", image_url: "/assets/pot/pot-1.png", slug: "broccoli" },
-                  { id: "hc-2", name: "PURPLE KALE", tag: "Microgreen", image_url: "/assets/pot/pot-2.png", slug: "purple-kale" },
-                  { id: "hc-3", name: "FENUGREEK", tag: "Microgreen", image_url: "/assets/pot/pot-3.png", slug: "fenugreek" },
-                  { id: "hc-4", name: "BEETROOT", tag: "Microgreen", image_url: "/assets/pot/pot-4.png", slug: "beetroot" },
-                ];
-
-            return <VarietiesSlider varieties={list} />;
-          })()}
-
-          <div style={{ textAlign: "center" }} className="reveal">
-            <Link href="/varieties" className="btn btn-yellow-20">View All</Link>
-          </div>
-        </div>
-      </section>
-
-      <UsesSlider slides={usesSlides} />
-
-      <section className="blogs-section" id="blogs">
-        <div className="container">
-          <div className="section-head center reveal">
-            <h2 className="uses-section-title" style={{ color: "var(--brand-primary)" }}>Latest From Our Blogs</h2>
-          </div>
-
-          <BlogsSlider blogs={finalBlogs} />
-        </div>
-      </section>
-
-      <section className="testimonials-section" id="testimonials">
-        <div className="container">
-          <div className="section-head center reveal">
-            <h2 className="uses-section-title" style={{ color: "var(--brand-primary)" }}>Testimonials</h2>
-            <p style={{ color: "var(--ink-700)", marginTop: "20px" }}>See what our client & partners are saying about Fit Plate microgreens.</p>
-          </div>
-
-          {/* Desktop view */}
-          <div className="testimonials-grid desktop-only reveal stagger">
-            {testimonialsDb && testimonialsDb.length > 0 ? (
-              testimonialsDb.map((t, i) => (
-                <a 
-                  key={t.id}
-                  href={t.link || "https://maps.google.com/?q=Fitplate+Ventures+Mangalore"} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="testimonial-link-card" 
-                  style={{ "--i": i } as React.CSSProperties}
+                {/* Thick yellow border tracing the exact curve */}
+                <svg
+                  className="uv-hero-svg-frame"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
                 >
-                  <div className="testimonial-card">
-                    <div className="testimonial-user-row">
-                      <div className="testimonial-avatar">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                      </div>
-                      <div className="testimonial-user-info">
-                        <h4>{t.name}</h4>
-                        <span>{t.role}</span>
-                      </div>
-                    </div>
-                    <p className="testimonial-quote">"{t.quote}"</p>
-                    <div className="testimonial-stars">
-                      {[...Array(t.stars || 5)].map((_, starIdx) => (
-                        <svg key={starIdx} viewBox="0 0 24 24">
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <div className="testimonial-google-badge">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style={{ color: "#fff" }}>
-                        <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.483 0-6.312-2.829-6.312-6.312 0-3.483 2.829-6.312 6.312-6.312 1.624 0 3.097.621 4.225 1.63l3.24-3.24C19.336 2.222 15.992 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c6.478 0 11.24-4.553 11.24-11.24 0-.761-.077-1.498-.216-2.185H12.24z" />
-                      </svg>
-                    </div>
-                  </div>
-                </a>
-              ))
-            ) : (
-              // Hardcoded default fallbacks for desktop
-              <>
-                <a href="https://maps.google.com/?q=Fitplate+Ventures+Mangalore" target="_blank" rel="noopener noreferrer" className="testimonial-link-card" style={{ "--i": 0 } as React.CSSProperties}>
-                  <div className="testimonial-card">
-                    <div className="testimonial-user-row">
-                      <div className="testimonial-avatar">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                      </div>
-                      <div className="testimonial-user-info">
-                        <h4>Arun Kumar</h4>
-                        <span>Cafe Partner, Mangalore</span>
-                      </div>
-                    </div>
-                    <p className="testimonial-quote">"Vibrant color, excellent texture. Highly recommend."</p>
-                    <div className="testimonial-stars">
-                      {[...Array(5)].map((_, i) => (
-                        <svg key={i} viewBox="0 0 24 24">
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <div className="testimonial-google-badge">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style={{ color: "#fff" }}>
-                        <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.483 0-6.312-2.829-6.312-6.312 0-3.483 2.829-6.312 6.312-6.312 1.624 0 3.097.621 4.225 1.63l3.24-3.24C19.336 2.222 15.992 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c6.478 0 11.24-4.553 11.24-11.24 0-.761-.077-1.498-.216-2.185H12.24z" />
-                      </svg>
-                    </div>
-                  </div>
-                </a>
+                  <path
+                    d="M 0,0 C 6.5,55 13.5,80 26.8,100"
+                    fill="none"
+                    stroke="#F4C542"
+                    strokeWidth="11"
+                    vectorEffect="non-scaling-stroke"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                <a href="https://maps.google.com/?q=Fitplate+Ventures+Mangalore" target="_blank" rel="noopener noreferrer" className="testimonial-link-card" style={{ "--i": 1 } as React.CSSProperties}>
-                  <div className="testimonial-card">
-                    <div className="testimonial-user-row">
-                      <div className="testimonial-avatar">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                      </div>
-                      <div className="testimonial-user-info">
-                        <h4>Jhanvi Shenoy</h4>
-                        <span>Kobe Sizzler</span>
-                      </div>
-                    </div>
-                    <p className="testimonial-quote">"Consistently fresh and delivered cold. Perfect for our large buffets."</p>
-                    <div className="testimonial-stars">
-                      {[...Array(5)].map((_, i) => (
-                        <svg key={i} viewBox="0 0 24 24">
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <div className="testimonial-google-badge">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style={{ color: "#fff" }}>
-                        <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.483 0-6.312-2.829-6.312-6.312 0-3.483 2.829-6.312 6.312-6.312 1.624 0 3.097.621 4.225 1.63l3.24-3.24C19.336 2.222 15.992 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c6.478 0 11.24-4.553 11.24-11.24 0-.761-.077-1.498-.216-2.185H12.24z" />
-                      </svg>
-                    </div>
-                  </div>
-                </a>
-              </>
-            )}
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 2 — OUR CROPS
+      ───────────────────────────────────────────────────────────── */}
+      <section className="uv-crops-section" id="crops">
+        <div className="container">
+          {/* Heading with yellow line accents */}
+          <div className="uv-section-head reveal">
+            <div className="uv-head-accent-line" />
+            <h2 className="uv-crops-main-title">OUR CROPS</h2>
+            <div className="uv-head-accent-line" />
           </div>
 
-          {/* Mobile View Carousel */}
-          <TestimonialsCarousel
-            testimonials={
-              testimonialsDb && testimonialsDb.length > 0
-                ? testimonialsDb
-                : [
-                    {
-                      id: "1",
-                      name: "Arun Kumar",
-                      role: "Cafe Partner, Mangalore",
-                      quote: "Vibrant color, excellent texture. Highly recommend.",
-                      stars: 5,
-                    },
-                    {
-                      id: "2",
-                      name: "Jhanvi Shenoy",
-                      role: "Kobe Sizzler",
-                      quote: "Consistently fresh and delivered cold. Perfect for our dishes.",
-                      stars: 5,
-                    },
-                  ]
-            }
-          />
+          {/* Row of Hexagon-shaped Crop Cards */}
+          <div className="uv-crops-grid reveal stagger">
+            {crops.map((crop) => (
+              <CropHexagonCard key={crop.id} crop={crop} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 3 — FEATURE BANNER
+      ───────────────────────────────────────────────────────────── */}
+      <section className="uv-feature-banner-section">
+        <div className="uv-feature-banner-box reveal">
+
+            <div className="uv-feature-banner-grid">
+              {/* Left Column */}
+              <div className="uv-banner-left">
+                <h2 className="uv-banner-title" style={{ marginBottom: '12px' }}>
+                  <span className="uv-title-blue">URBAN VERTICAL</span>
+                  <br />
+                  <span className="uv-title-green">FARMING</span>
+                </h2>
+
+                <p className="uv-banner-desc-v2">
+                  Healthy food. Sustainable living.<br />
+                  A greener tomorrow.
+                </p>
+
+                <div className="uv-banner-btn-wrap" style={{ marginBottom: '20px' }}>
+                  <Link href="/about" className="uv-learn-more-btn-v2">
+                    Learn More <span className="uv-btn-arrow-v2">→</span>
+                  </Link>
+                </div>
+
+
+              </div>
+
+              {/* Right Column: Full bleed image with curved yellow vector shape style */}
+              <div className="uv-banner-right-v2">
+                <div className="uv-banner-visual">
+                  <svg width="0" height="0" className="uv-clip-def" aria-hidden="true">
+                    <defs>
+                      <clipPath id="banner-img-clip-v7" clipPathUnits="objectBoundingBox">
+                        <path d="M 0.22,0 C -0.05,0.25 -0.05,0.75 0.22,0.92 C 0.50,0.95 0.75,0.98 1,1 L 1,0 Z" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <div className="uv-banner-clipped-img-wrap">
+                    <img
+                      src="/assets/img/feature-urban-farming.jpg"
+                      alt="Lush Urban Vertical Farming Produce"
+                      className="uv-banner-real-img"
+                    />
+                  </div>
+                  <svg
+                    className="uv-banner-svg-frame"
+                    viewBox="0 0 100 100"
+                    preserveAspectRatio="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M 22,0 C -5,25 -5,75 22,92"
+                      fill="none"
+                      stroke="#F4C542"
+                      strokeWidth="14"
+                      vectorEffect="non-scaling-stroke"
+                      strokeLinecap="butt"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 4 — VIDEO PLAYER
+      ───────────────────────────────────────────────────────────── */}
+      <section className="uv-video-section">
+        <div className="container">
+          <div className="reveal">
+            <VideoPlayer poster="/assets/img/video-cover.jpg" />
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 5 — TESTIMONIALS
+      ───────────────────────────────────────────────────────────── */}
+      <section className="uv-testimonials-section" id="testimonials">
+        <div className="container">
+          {/* Header with yellow line accents */}
+          <div className="uv-section-head reveal">
+            <div className="uv-head-accent-line" />
+            <h2 className="uv-crops-main-title">TESTIMONIAL</h2>
+            <div className="uv-head-accent-line" />
+          </div>
+
+          <p className="uv-testimonials-subtitle reveal">
+            See what our clients & partners saying about Urban Vertical Farming
+          </p>
+
+          {/* Testimonial Cards */}
+          <div className="reveal">
+            <UrbanTestimonials />
+          </div>
         </div>
       </section>
     </main>

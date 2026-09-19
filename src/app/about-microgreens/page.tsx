@@ -22,7 +22,7 @@ export default function AboutMicrogreens() {
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <div className="hero-text-card">
             <div className="crumbs">
-              <Link href="/">Home</Link> / <span>About Microgreens</span>
+              <Link href="/">Home</Link> / <Link href="/microgreens">Microgreens</Link> / <span>About Microgreens</span>
             </div>
             <div className="eyebrow">COMPREHENSIVE GUIDE</div>
             <h1>Microgreens: A Complete Overview</h1>

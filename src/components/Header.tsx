@@ -58,8 +58,8 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link href="/about" className={isActive('/about')}>
-                About Us
+              <Link href="/microgreens" className={isActive('/microgreens')}>
+                Microgreens
               </Link>
             </li>
             <li>
