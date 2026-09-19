@@ -366,6 +366,20 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      
+      {/* Scoped CSS for Homepage only (Footer and Testimonials override) */}
+      <style>{`
+        footer {
+          background-color: var(--uv-blue, #022A7C) !important;
+        }
+        .home-testimonials-container .testimonial-card {
+          background-color: var(--uv-blue, #022A7C) !important;
+        }
+        .home-testimonials-container .testimonial-user-info h4,
+        .home-testimonials-container .testimonial-user-info span {
+          color: var(--brand-secondary, #C59A36) !important;
+        }
+      `}</style>
     </main>
   );
 }
