@@ -4805,7 +4805,17 @@ body.splash-active {
   display: flex;
   align-items: center;
   gap: 20px;
+  justify-content: center;
   padding-top: 10px;
+}
+
+@media (min-width: 861px) {
+  .uv-banner-bottom-strip-v2 {
+    position: absolute;
+    bottom: 24px;
+    right: calc(20% + 64px);
+    padding-top: 0;
+  }
 }
 
 .uv-bottom-item-v2 {

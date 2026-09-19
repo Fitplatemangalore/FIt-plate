@@ -290,6 +290,40 @@ export default async function Home() {
                 </div>
               </div>
             </div>
+
+            {/* Bottom Row: 4 feature items with icons and dividers */}
+            <div className="uv-banner-bottom-strip-v2">
+              <div className="uv-bottom-item-v2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#112E81" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                  <path d="M2 21c0-3 1.85-5.36 5.08-6" />
+                </svg>
+                <span>Fresh</span>
+              </div>
+              <div className="uv-strip-divider-v2">|</div>
+              <div className="uv-bottom-item-v2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#112E81" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                </svg>
+                <span>Nutritious</span>
+              </div>
+              <div className="uv-strip-divider-v2">|</div>
+              <div className="uv-bottom-item-v2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#112E81" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                  <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
+                  <path d="M12 12c-2 0-3.5-1.5-3.5-3.5S10 5 12 5s3.5 1.5 3.5 3.5" />
+                </svg>
+                <span>Local</span>
+              </div>
+              <div className="uv-strip-divider-v2">|</div>
+              <div className="uv-bottom-item-v2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#112E81" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36z" />
+                </svg>
+                <span>Sustainable</span>
+              </div>
+            </div>
           </div>
       </section>
 
