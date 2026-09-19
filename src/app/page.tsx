@@ -235,7 +235,7 @@ export default async function Home() {
               {/* Left Column */}
               <div className="uv-banner-left">
                 <h2 className="uv-banner-title" style={{ marginBottom: '12px' }}>
-                  <span className="uv-title-blue">URBAN VERTICAL</span>
+                  <span className="uv-title-blue">SMART URBAN</span>
                   <br />
                   <span className="uv-title-green">FARMING</span>
                 </h2>
