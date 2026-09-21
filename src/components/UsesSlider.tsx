@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
+import Link from "next/link";
 interface Slide {
   title: string;
   description: string;
@@ -122,14 +122,18 @@ export default function UsesSlider({ slides }: { slides?: Slide[] }) {
               {/* Stack all descriptions; tallest one sizes the container; only active is visible */}
               <div className="uses-description-sizer">
                 {activeSlides.map((slide, idx) => (
-                  <p
+                  <div 
                     key={idx}
-                    id={idx === 0 ? "uses-description" : undefined}
                     className={`uses-description ${idx === activeIdx ? "uses-desc-active" : "uses-desc-hidden"}`}
                     aria-hidden={idx !== activeIdx}
                   >
-                    {slide.description}
-                  </p>
+                    <p id={idx === 0 ? "uses-description" : undefined}>{slide.description}</p>
+                    <div style={{ marginTop: '24px' }}>
+                      <Link href="/recipes" className="btn btn-gold">
+                        Read more
+                      </Link>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
