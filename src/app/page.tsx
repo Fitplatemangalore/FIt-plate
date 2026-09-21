@@ -241,7 +241,7 @@ export default async function Home() {
               {/* Left Column */}
               <div className="uv-banner-left">
                 <h2 className={`uv-banner-title ${bebasNeue.className}`} style={{ marginBottom: '12px' }}>
-                  <span className="uv-title-blue">SMART URBAN</span>
+                  <span className="uv-title-blue">URBAN VERTICAL</span>
                   <br />
                   <span className="uv-title-green">FARMING</span>
                 </h2>
@@ -260,40 +260,13 @@ export default async function Home() {
 
               </div>
 
-              {/* Right Column: Full bleed image with curved yellow vector shape style */}
+              {/* Right Column: Custom Image provided by user */}
               <div className="uv-banner-right-v2">
-                <div className="uv-banner-visual">
-                  <svg width="0" height="0" className="uv-clip-def" aria-hidden="true">
-                    <defs>
-                      <clipPath id="banner-img-clip-v7" clipPathUnits="objectBoundingBox">
-                        <path d="M 0.22,0 C -0.05,0.25 -0.05,0.75 0.22,0.92 C 0.50,0.95 0.75,0.98 1,1 L 1,0 Z" />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                  <div className="uv-banner-clipped-img-wrap">
-                    <img
-                      src="/assets/img/feature-urban-farming.jpg"
-                      alt="Lush Urban Vertical Farming Produce"
-                      className="uv-banner-real-img"
-                    />
-                  </div>
-                  <svg
-                    className="uv-banner-svg-frame"
-                    viewBox="0 0 100 100"
-                    preserveAspectRatio="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M 22,0 C -5,25 -5,75 22,92"
-                      fill="none"
-                      stroke="#F4C542"
-                      strokeWidth="14"
-                      vectorEffect="non-scaling-stroke"
-                      strokeLinecap="butt"
-                    />
-                  </svg>
-                </div>
+                <img
+                  src="/assets/img/urban-vertical-custom.jpg"
+                  alt="Urban Vertical Farming"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "0 20px 20px 0" }}
+                />
               </div>
             </div>
 

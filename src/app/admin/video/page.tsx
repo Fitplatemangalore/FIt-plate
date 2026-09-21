@@ -150,7 +150,7 @@ export default function AdminVideo() {
                       value={form.video_url}
                       onChange={(e) => setForm((p) => ({ ...p, video_url: e.target.value }))}
                     />
-                    <label className="admin-file-label" style={{ marginTop: "8px", display: "inline-block" }}>
+                    <label className="admin-btn-secondary" style={{ marginTop: "8px", display: "inline-block", cursor: "pointer" }}>
                       <input
                         ref={videoInputRef}
                         type="file"
@@ -187,7 +187,7 @@ export default function AdminVideo() {
                       value={form.thumbnail_url}
                       onChange={(e) => setForm((p) => ({ ...p, thumbnail_url: e.target.value }))}
                     />
-                    <label className="admin-file-label" style={{ marginTop: "8px", display: "inline-block" }}>
+                    <label className="admin-btn-secondary" style={{ marginTop: "8px", display: "inline-block", cursor: "pointer" }}>
                       <input
                         ref={thumbInputRef}
                         type="file"
