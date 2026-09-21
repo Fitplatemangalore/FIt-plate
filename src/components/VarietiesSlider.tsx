@@ -55,19 +55,19 @@ export default function VarietiesSlider({ varieties }: { varieties: VarietyItem[
   });
 
   return (
-    <div className="manual-microgreens-wrapper" style={{ position: "relative", marginTop: "-30px", paddingTop: "110px", marginBottom: "36px" }}>
+    <div className="manual-microgreens-wrapper" style={{ position: "relative", marginBottom: "36px" }}>
       {showArrows && (
         <>
           <button 
             onClick={() => scrollByAmount(-300)}
-            style={{ position: "absolute", left: "-10px", top: "60%", transform: "translateY(-50%)", zIndex: 10, background: "var(--brand-secondary)", border: "none", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "white", boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}
+            style={{ position: "absolute", left: "-10px", top: "calc(50% + 40px)", transform: "translateY(-50%)", zIndex: 10, background: "var(--brand-secondary)", border: "none", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "white", boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}
             aria-label="Scroll left"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
           </button>
           <button 
             onClick={() => scrollByAmount(300)}
-            style={{ position: "absolute", right: "-10px", top: "60%", transform: "translateY(-50%)", zIndex: 10, background: "var(--brand-secondary)", border: "none", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "white", boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}
+            style={{ position: "absolute", right: "-10px", top: "calc(50% + 40px)", transform: "translateY(-50%)", zIndex: 10, background: "var(--brand-secondary)", border: "none", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "white", boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}
             aria-label="Scroll right"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
@@ -84,6 +84,8 @@ export default function VarietiesSlider({ varieties }: { varieties: VarietyItem[
           scrollbarWidth: "none",
           msOverflowStyle: "none",
           paddingBottom: "24px",
+          paddingTop: "110px",
+          marginTop: "-30px",
         }}
       >
         {items}
