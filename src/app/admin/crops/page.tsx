@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useRef } from "react";
 import { createClient } from "@/utils/supabase/client";
@@ -364,6 +364,27 @@ export default function AdminCrops() {
         .crops-modal-preview { width: 220px; flex-shrink: 0; display: flex; flex-direction: column; gap: 10px; }
         .crops-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
         @media (max-width: 700px) { .crops-modal-body { flex-direction: column; } .crops-modal-preview { width: 100%; } .crops-form-grid { grid-template-columns: 1fr; } }
+        
+        /* Shared form styles from admin/video */
+        .admin-form-group { margin-bottom: 20px; }
+        .admin-label { display: block; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; }
+        .admin-input { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; font-family: inherit; transition: border-color 0.2s; }
+        .admin-input:focus { outline: none; border-color: #112E81; }
+        
+        .admin-upload-row { display: flex; gap: 16px; align-items: flex-start; margin-top: 8px; }
+        
+        .admin-btn-primary { background: #112E81; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 14px; }
+        .admin-btn-primary:hover { background: #0c205c; }
+        .admin-btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        .admin-btn-secondary { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 13px; }
+        .admin-btn-secondary:hover { background: #e2e8f0; }
+
+        .admin-btn-danger-sm { cursor: pointer; border: none; background: #fee2e2; color: #dc2626; padding: 8px 16px; border-radius: 8px; font-weight: 600; transition: background 0.15s; font-size: 13px; }
+        .admin-btn-danger-sm:hover { background: #fecaca; }
+
+        .admin-file-label { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 13px; }
+        .admin-file-label:hover { background: #e2e8f0; }
       `}</style>
     </div>
   );
