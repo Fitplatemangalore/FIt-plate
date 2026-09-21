@@ -232,6 +232,30 @@ export default function AdminVideo() {
       )}
 
       <style>{`
+        .admin-two-col { display: flex; gap: 24px; margin-top: 24px; flex-wrap: wrap; }
+        .admin-form-panel, .admin-list-panel {
+          background: #fff;
+          border-radius: 14px;
+          box-shadow: 0 2px 12px rgba(17,46,129,0.07);
+          border: 1px solid #e8edf5;
+          padding: 24px;
+        }
+        .admin-panel-title { font-size: 18px; font-weight: 700; color: #112E81; margin: 0 0 20px 0; border-bottom: 1px solid #e8edf5; padding-bottom: 12px; }
+        
+        .admin-form-group { margin-bottom: 20px; }
+        .admin-label { display: block; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px; }
+        .admin-input { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; font-family: inherit; transition: border-color 0.2s; }
+        .admin-input:focus { outline: none; border-color: #112E81; }
+        
+        .admin-upload-row { display: flex; gap: 16px; align-items: flex-start; margin-top: 8px; }
+        
+        .admin-btn-primary { background: #112E81; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 14px; }
+        .admin-btn-primary:hover { background: #0c205c; }
+        .admin-btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        .admin-btn-secondary { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 13px; }
+        .admin-btn-secondary:hover { background: #e2e8f0; }
+
         .admin-btn-danger-sm { cursor: pointer; border: none; background: #fee2e2; color: #dc2626; border-radius: 8px; font-weight: 600; transition: background 0.15s; }
         .admin-btn-danger-sm:hover { background: #fecaca; }
       `}</style>

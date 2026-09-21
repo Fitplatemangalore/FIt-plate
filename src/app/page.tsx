@@ -263,7 +263,7 @@ export default async function Home() {
               {/* Right Column: Custom Image provided by user */}
               <div className="uv-banner-right-v2">
                 <img
-                  src="/assets/img/urban-vertical-custom.jpg"
+                  src="/assets/img/urban-vertical-custom.png"
                   alt="Urban Vertical Farming"
                   style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "0 20px 20px 0" }}
                 />
@@ -310,10 +310,8 @@ export default async function Home() {
           SECTION 4 — VIDEO PLAYER
       ───────────────────────────────────────────────────────────── */}
       <section className="uv-video-section">
-        <div className="container">
-          <div className="reveal">
-            <VideoPlayer poster="/assets/img/video-cover.jpg" />
-          </div>
+        <div className="reveal">
+          <VideoPlayer poster="/assets/img/video-cover.jpg" />
         </div>
       </section>
 
