@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 
 export interface VarietyItem {
@@ -12,26 +12,25 @@ export interface VarietyItem {
 }
 
 export default function VarietiesSlider({ varieties }: { varieties: VarietyItem[] }) {
-  const [isInteracting, setIsInteracting] = useState(false);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  const startInteraction = () => {
-    setIsInteracting(true);
-    if (timerRef.current) clearTimeout(timerRef.current);
-  };
-
-  const stopInteractionWithDelay = (delayMs = 2500) => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      setIsInteracting(false);
-    }, delayMs);
-  };
-
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [showArrows, setShowArrows] = useState(false);
+  
   useEffect(() => {
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
+    const checkOverflow = () => {
+      if (scrollRef.current) {
+        setShowArrows(scrollRef.current.scrollWidth > scrollRef.current.clientWidth);
+      }
     };
-  }, []);
+    checkOverflow();
+    window.addEventListener("resize", checkOverflow);
+    return () => window.removeEventListener("resize", checkOverflow);
+  }, [varieties]);
+
+  const scrollByAmount = (amount: number) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: amount, behavior: "smooth" });
+    }
+  };
 
   const items = varieties.map((v, i) => {
     const slug = v.slug || v.name.toLowerCase().replace(/\s+/g, "-");
@@ -40,7 +39,7 @@ export default function VarietiesSlider({ varieties }: { varieties: VarietyItem[
         key={`var-${v.id}-${i}`}
         href={`/varieties/${slug}`}
         className="pot-card"
-        style={{ "--i": i, textDecoration: "none" } as React.CSSProperties}
+        style={{ "--i": i, textDecoration: "none", flex: "0 0 240px" } as React.CSSProperties}
       >
         <div className="pot-image-wrapper">
           <img
@@ -55,35 +54,47 @@ export default function VarietiesSlider({ varieties }: { varieties: VarietyItem[
     );
   });
 
-  const shouldScrollDesktop = items.length > 4;
-  const shouldScrollMobile = items.length > 2;
-  const shouldDuplicate = shouldScrollDesktop || shouldScrollMobile;
-
   return (
-    <div
-      className="our-microgreens-carousel-wrapper reveal stagger"
-      onTouchStart={startInteraction}
-      onTouchMove={startInteraction}
-      onTouchEnd={() => stopInteractionWithDelay(2500)}
-      onMouseDown={startInteraction}
-      onMouseUp={() => stopInteractionWithDelay(2500)}
-      onMouseLeave={() => stopInteractionWithDelay(1500)}
-      onScroll={() => {
-        startInteraction();
-        stopInteractionWithDelay(2500);
-      }}
-    >
+    <div className="manual-microgreens-wrapper" style={{ position: "relative", marginTop: "-30px", paddingTop: "110px", marginBottom: "36px" }}>
+      {showArrows && (
+        <>
+          <button 
+            onClick={() => scrollByAmount(-300)}
+            style={{ position: "absolute", left: "-10px", top: "60%", transform: "translateY(-50%)", zIndex: 10, background: "var(--brand-secondary)", border: "none", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "white", boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}
+            aria-label="Scroll left"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button 
+            onClick={() => scrollByAmount(300)}
+            style={{ position: "absolute", right: "-10px", top: "60%", transform: "translateY(-50%)", zIndex: 10, background: "var(--brand-secondary)", border: "none", borderRadius: "50%", width: "40px", height: "40px", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "white", boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}
+            aria-label="Scroll right"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </>
+      )}
       <div
-        className={`our-microgreens-track ${shouldScrollDesktop ? 'auto-scroll-desktop' : ''} ${shouldScrollMobile ? 'auto-scroll-mobile' : ''} ${isInteracting ? 'user-interacting' : ''}`}
+        ref={scrollRef}
+        style={{
+          display: "flex",
+          gap: "24px",
+          overflowX: "auto",
+          scrollBehavior: "smooth",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          paddingBottom: "24px",
+        }}
       >
         {items}
-        {shouldDuplicate &&
-          items.map((item, idx) => (
-            <div key={`dup-${idx}`} className="dup-item" style={{ display: "contents" }}>
-              {item}
-            </div>
-          ))}
       </div>
+      <style dangerouslySetInnerHTML={{__html: `
+        .manual-microgreens-wrapper div::-webkit-scrollbar { display: none; }
+        .manual-microgreens-wrapper .pot-card { padding: 16px 20px; }
+        @media (min-width: 768px) {
+          .manual-microgreens-wrapper .pot-card { flex: 0 0 calc(25% - 18px) !important; max-width: 280px; }
+        }
+      `}} />
     </div>
   );
 }
