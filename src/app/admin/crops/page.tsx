@@ -267,13 +267,14 @@ export default function AdminCrops() {
                   <label className="admin-label">Photo *</label>
                   <div className="admin-upload-row">
                     {formData.image_url && <img src={formData.image_url} alt="preview" className="admin-img-preview" />}
-                    <div style={{ flex: 1 }}>
-                      <input className="admin-input" type="text" placeholder="Paste image URL or upload" value={formData.image_url}
-                        onChange={(e) => setFormData((p) => ({ ...p, image_url: e.target.value }))} />
-                      <label className="admin-file-label" style={{ marginTop: "8px", display: "inline-block" }}>
+                    <div style={{ flex: 1, display: "flex", alignItems: "center", gap: "8px" }}>
+                      <label className="admin-file-label">
                         <input ref={imageInputRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleUploadImage} />
                         {uploadingImage ? "Uploading…" : "↑ Upload Photo"}
                       </label>
+                      {formData.image_url && (
+                        <button type="button" className="admin-btn-danger-sm" onClick={() => setFormData((p) => ({ ...p, image_url: "" }))}>Remove</button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -372,6 +373,9 @@ export default function AdminCrops() {
         .admin-input:focus { outline: none; border-color: #112E81; }
         
         .admin-upload-row { display: flex; gap: 16px; align-items: flex-start; margin-top: 8px; }
+        .admin-img-preview { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; flex-shrink: 0; border: 1px solid #cbd5e1; }
+        .admin-icon-preview { width: 32px; height: 32px; object-fit: contain; flex-shrink: 0; }
+
         
         .admin-btn-primary { background: #112E81; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 14px; }
         .admin-btn-primary:hover { background: #0c205c; }
