@@ -138,19 +138,15 @@ export default async function LeafyVegetables() {
         .lv-hero {
           position: relative;
           padding: 80px 0 100px;
-          background-size: cover;
+          background-size: contain;
+          background-repeat: no-repeat;
           background-position: center;
           color: white;
           min-height: 480px;
           display: flex;
           align-items: center;
         }
-        .lv-hero::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: rgba(0,0,0,0.3); /* dark overlay for text readability if needed */
-        }
+
         .lv-hero-content {
           position: relative;
           z-index: 2;
@@ -173,11 +169,13 @@ export default async function LeafyVegetables() {
           line-height: 1.1;
           margin-bottom: 20px;
           color: white;
+          text-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.7);
         }
         .lv-hero-sub {
           font-size: 18px;
           opacity: 0.9;
           line-height: 1.5;
+          text-shadow: 0 1px 6px rgba(0,0,0,0.6), 0 1px 3px rgba(0,0,0,0.8);
         }
         .lv-hero-wave {
           position: absolute;
