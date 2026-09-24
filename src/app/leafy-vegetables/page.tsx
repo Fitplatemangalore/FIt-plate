@@ -34,7 +34,7 @@ export default async function LeafyVegetables() {
       </section>
 
       {/* 2. Four-stat row */}
-      <section className="lv-stats section">
+      <section className="lv-stats section" style={{ backgroundColor: '#ffffff', position: 'relative', zIndex: 1 }}>
         <div className="container">
           <div className="lv-stats-grid">
             <div className="lv-stat-item">
