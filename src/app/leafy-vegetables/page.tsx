@@ -20,8 +20,7 @@ export default async function LeafyVegetables() {
 
   return (
     <main className="lv-page">
-      {/* 1. Top Banner */}
-      <section className="lv-hero" style={{ backgroundColor: '#f8fafc' }}>
+      <section className="lv-hero" style={{ backgroundImage: 'url(/assets/img/leafy-vegetables-hero.png)' }}>
         <div className="lv-hero-content container">
           <div className="lv-hero-tag">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
