@@ -123,7 +123,7 @@ export default async function Herbs() {
       </section>
 
       {/* 5. Custom mix section */}
-      <section className="lv-custom-mix section">
+      <section className="lv-custom-mix section" style={{ backgroundImage: "url()" }}>
         <div className="container lv-custom-inner">
           <div className="lv-custom-icon">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
@@ -388,7 +388,10 @@ export default async function Herbs() {
         .lv-custom-mix {
           text-align: center;
           padding: 80px 0;
-          background: linear-gradient(to bottom, #f0fdf4, #ffffff);
+          background-color: #f8fafc;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
         }
         .lv-custom-icon {
           width: 50px;
