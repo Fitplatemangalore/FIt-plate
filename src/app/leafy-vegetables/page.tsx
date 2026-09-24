@@ -109,7 +109,7 @@ export default async function LeafyVegetables() {
       </section>
 
       {/* 4. A note on nutrition */}
-      <section className="lv-nutrition" style={{ backgroundImage: "url()" }}>
+      <section className="lv-nutrition" style={{ backgroundImage: "url(/assets/img/leafy-vegetables-third.png)" }}>
         <div className="container lv-nutrition-inner">
           <div className="lv-nutrition-eyebrow">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
