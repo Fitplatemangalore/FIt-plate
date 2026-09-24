@@ -109,7 +109,7 @@ export default async function Saffron() {
       </section>
 
       {/* 4. A note on nutrition */}
-      <section className="lv-nutrition">
+      <section className="lv-nutrition" style={{ backgroundImage: "url()" }}>
         <div className="container lv-nutrition-inner">
           <div className="lv-nutrition-eyebrow">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
@@ -348,12 +348,13 @@ export default async function Saffron() {
           text-decoration: underline;
         }
         .lv-nutrition {
-          background-color: #5c9d74;
+          background-color: #64748b;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
           color: white;
           text-align: center;
           padding: 60px 0;
-          background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05) 0%, transparent 20%), 
-                            radial-gradient(circle at 90% 80%, rgba(255,255,255,0.05) 0%, transparent 20%);
         }
         .lv-nutrition-eyebrow {
           display: flex;
