@@ -140,7 +140,7 @@ export default async function Herbs() {
           padding: 80px 0 100px;
           background-size: contain;
           background-repeat: no-repeat;
-          background-position: center;
+          background-position: center bottom;
           color: white;
           min-height: 480px;
           display: flex;
