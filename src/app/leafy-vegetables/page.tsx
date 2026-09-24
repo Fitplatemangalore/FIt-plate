@@ -16,13 +16,6 @@ export default async function LeafyVegetables() {
     .select("*")
     .order("sort_order", { ascending: true });
 
-  const { data: contentData } = await supabase
-    .from("site_content")
-    .select("key, value")
-    .in("key", ["leafy_vegetables_banner"]);
-
-  const bannerImg = contentData?.find((c) => c.key === "leafy_vegetables_banner")?.value || "";
-
   const displayVarieties = dbVarieties || [];
 
   return (

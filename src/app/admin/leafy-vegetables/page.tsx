@@ -31,9 +31,6 @@ const emptyForm = (sortOrder = 0): LeafyVegetable => ({
 
 export default function AdminLeafyVegetables() {
   const [items, setItems] = useState<LeafyVegetable[]>([]);
-  const [bannerImg, setBannerImg] = useState("");
-  const [bannerId, setBannerId] = useState("");
-  
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [formData, setFormData] = useState<LeafyVegetable>(emptyForm());
   const [modalOpen, setModalOpen] = useState(false);
@@ -41,19 +38,15 @@ export default function AdminLeafyVegetables() {
   const [loading, setLoading] = useState(false);
   const [saveLoading, setSaveLoading] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
-  const [uploadingBanner, setUploadingBanner] = useState(false);
   
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
-  const [bannerMessage, setBannerMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const imageInputRef = useRef<HTMLInputElement>(null);
-  const bannerInputRef = useRef<HTMLInputElement>(null);
   
   const supabase = createClient();
 
   useEffect(() => {
     fetchItems();
-    fetchBanner();
   }, []);
 
   const fetchItems = async () => {
@@ -69,14 +62,6 @@ export default function AdminLeafyVegetables() {
       setItems(data || []);
     }
     setLoading(false);
-  };
-
-  const fetchBanner = async () => {
-    const { data } = await supabase.from("site_content").select("*").eq("key", "leafy_vegetables_banner").single();
-    if (data) {
-      setBannerImg(data.value);
-      setBannerId(data.id);
-    }
   };
 
   const openAddModal = () => {
@@ -109,45 +94,7 @@ export default function AdminLeafyVegetables() {
     setFormData(emptyForm());
     setMessage(null);
   };
-
-  const handleUploadBanner = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setUploadingBanner(true);
-    setBannerMessage(null);
-    try {
-      const ext = file.name.split(".").pop();
-      const filePath = `content/lv_banner_${Date.now()}.${ext}`;
-      const { error: uploadError } = await supabase.storage.from("fitplate-assets").upload(filePath, file);
-      if (uploadError) throw uploadError;
-      
-      const { data: { publicUrl } } = supabase.storage.from("fitplate-assets").getPublicUrl(filePath);
-      
-      // Update DB
-      if (bannerId) {
-        await supabase.from("site_content").update({ value: publicUrl }).eq("id", bannerId);
-      } else {
-        const { data } = await supabase.from("site_content").insert({
-          key: "leafy_vegetables_banner",
-          value: publicUrl,
-          label: "Leafy Vegetables Banner Image",
-          page: "leafy-vegetables",
-          type: "image"
-        }).select().single();
-        if (data) setBannerId(data.id);
-      }
-      
-      setBannerImg(publicUrl);
-      setBannerMessage({ type: "success", text: "Banner updated!" });
-      await fetch("/api/revalidate?path=/leafy-vegetables");
-    } catch (err: any) {
-      setBannerMessage({ type: "error", text: `Upload failed: ${err.message}` });
-    } finally {
-      setUploadingBanner(false);
-      if (bannerInputRef.current) bannerInputRef.current.value = "";
-    }
-  };
-
+  
   const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -217,24 +164,7 @@ export default function AdminLeafyVegetables() {
         </div>
       </div>
 
-      <div className="admin-card" style={{ marginBottom: "30px", background: "#fff", padding: "24px", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
-        <h3 style={{ fontSize: "16px", marginBottom: "16px", color: "#1e293b" }}>Page Banner Image</h3>
-        <div style={{ display: "flex", gap: "20px", alignItems: "flex-start" }}>
-          {bannerImg ? (
-            <img src={bannerImg} alt="Banner Preview" style={{ width: "240px", height: "120px", objectFit: "cover", borderRadius: "8px", border: "1px solid #e2e8f0" }} />
-          ) : (
-            <div style={{ width: "240px", height: "120px", background: "#f1f5f9", borderRadius: "8px", border: "1px dashed #cbd5e1", display: "flex", alignItems: "center", justifyContent: "center", color: "#94a3b8" }}>No Banner</div>
-          )}
-          <div>
-            <label className="admin-file-label" style={{ display: "inline-block", marginBottom: "12px" }}>
-              <input ref={bannerInputRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleUploadBanner} />
-              {uploadingBanner ? "Uploading…" : "↑ Upload Banner Image"}
-            </label>
-            <p style={{ fontSize: "12px", color: "#64748b" }}>Recommended size: 1920x800. This image appears behind the top text on the Leafy Vegetables page.</p>
-            {bannerMessage && <div style={{ marginTop: "12px", color: bannerMessage.type === "error" ? "#dc2626" : "#16a34a", fontSize: "13px", fontWeight: 600 }}>{bannerMessage.text}</div>}
-          </div>
-        </div>
-      </div>
+
 
       <div className="admin-page-header" style={{ marginTop: "40px" }}>
         <h2 style={{ fontSize: "20px" }}>Variety Cards</h2>
