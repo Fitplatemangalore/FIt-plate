@@ -19,7 +19,7 @@ export default async function LeafyVegetables() {
   const displayVarieties = dbVarieties || [];
 
   return (
-    <main className="lv-page">
+    <main className="lv-page leafy-page">
       <section className="lv-hero" style={{ backgroundColor: "#f8fafc", backgroundImage: 'url(/assets/img/leafy-vegetables-hero.png)' }}>
         <div className="lv-hero-content container">
           <div className="lv-hero-tag">
@@ -168,14 +168,15 @@ export default async function LeafyVegetables() {
           font-weight: 800;
           line-height: 1.1;
           margin-bottom: 20px;
-          color: white;
-          text-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.7);
+          color: #61AA7C;
+          text-shadow: 0 2px 10px rgba(255,255,255,0.8), 0 2px 4px rgba(255,255,255,0.9);
         }
         .lv-hero-sub {
           font-size: 18px;
           opacity: 0.9;
           line-height: 1.5;
-          text-shadow: 0 1px 6px rgba(0,0,0,0.6), 0 1px 3px rgba(0,0,0,0.8);
+          color: #6B7280;
+          text-shadow: 0 1px 6px rgba(255,255,255,0.8);
         }
         .lv-hero-wave {
           position: absolute;
@@ -230,7 +231,7 @@ export default async function LeafyVegetables() {
         }
         .lv-intro-text {
           text-align: center;
-          color: #475569;
+          color: #6B7280;
           font-size: 16px;
           line-height: 1.6;
           max-width: 800px;
@@ -316,14 +317,16 @@ export default async function LeafyVegetables() {
           font-size: 22px;
           font-weight: 800;
           margin-bottom: 4px;
+          color: #61AA7C;
         }
         .lv-subtitle {
           font-style: italic;
           font-size: 14px;
           margin-bottom: 12px;
+          color: #6B7280;
         }
         .lv-desc {
-          color: #475569;
+          color: #6B7280;
           font-size: 14px;
           line-height: 1.5;
           margin-bottom: 16px;
@@ -334,7 +337,7 @@ export default async function LeafyVegetables() {
         }
         .lv-best-in {
           font-size: 13px;
-          color: #64748b;
+          color: #6B7280;
           margin-bottom: 16px;
         }
         .lv-read-more {
@@ -405,13 +408,13 @@ export default async function LeafyVegetables() {
           margin: 0 auto 20px;
         }
         .lv-custom-mix h2 {
-          color: #16a34a;
+          color: #61AA7C;
           font-size: 28px;
           font-weight: 800;
           margin-bottom: 12px;
         }
         .lv-custom-mix p {
-          color: #475569;
+          color: #6B7280;
           font-size: 16px;
           margin-bottom: 24px;
         }
@@ -427,6 +430,9 @@ export default async function LeafyVegetables() {
         }
         .lv-btn:hover {
           background: #15803d;
+        }
+        .leafy-page ~ footer {
+          background-color: #61AA7C !important;
         }
       `}</style>
     </main>
