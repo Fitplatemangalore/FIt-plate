@@ -38,31 +38,31 @@ export default async function Saffron() {
         <div className="container">
           <div className="lv-stats-grid">
             <div className="lv-stat-item">
-              <div className="lv-stat-icon" style={{ backgroundColor: "#16a34a", color: "white", borderColor: "white" }}>
+              <div className="lv-stat-icon" style={{ backgroundColor: "#513171", color: "white", borderColor: "white" }}>
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
               </div>
-              <div className="lv-stat-title" style={{ color: "#16a34a" }}>Fresh Harvest</div>
+              <div className="lv-stat-title" style={{ color: "#513171" }}>Fresh Harvest</div>
               <div className="lv-stat-desc">7-21 days</div>
             </div>
             <div className="lv-stat-item">
-              <div className="lv-stat-icon" style={{ backgroundColor: "#f59e0b", color: "white", borderColor: "white" }}>
+              <div className="lv-stat-icon" style={{ backgroundColor: "#F6C146", color: "white", borderColor: "white" }}>
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v8M8 12h8"/></svg>
               </div>
-              <div className="lv-stat-title" style={{ color: "#f59e0b" }}>Rich in Nutrients</div>
+              <div className="lv-stat-title" style={{ color: "#F6C146" }}>Rich in Nutrients</div>
               <div className="lv-stat-desc">Vitamins & Minerals</div>
             </div>
             <div className="lv-stat-item">
-              <div className="lv-stat-icon" style={{ backgroundColor: "#a855f7", color: "white", borderColor: "white" }}>
+              <div className="lv-stat-icon" style={{ backgroundColor: "#9973B9", color: "white", borderColor: "white" }}>
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 16a4 4 0 100-8 4 4 0 000 8z"/></svg>
               </div>
-              <div className="lv-stat-title" style={{ color: "#a855f7" }}>Natural Flavour</div>
+              <div className="lv-stat-title" style={{ color: "#9973B9" }}>Natural Flavour</div>
               <div className="lv-stat-desc">Pure & Clean</div>
             </div>
             <div className="lv-stat-item">
-              <div className="lv-stat-icon" style={{ backgroundColor: "#3b82f6", color: "white", borderColor: "white" }}>
+              <div className="lv-stat-icon" style={{ backgroundColor: "#BF466A", color: "white", borderColor: "white" }}>
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78v0z"/></svg>
               </div>
-              <div className="lv-stat-title" style={{ color: "#3b82f6" }}>Better Nutrition</div>
+              <div className="lv-stat-title" style={{ color: "#BF466A" }}>Better Nutrition</div>
               <div className="lv-stat-desc">For a Healthier You</div>
             </div>
           </div>
@@ -158,7 +158,7 @@ export default async function Saffron() {
           align-items: center;
           gap: 8px;
           background: white;
-          color: #16a34a;
+          color: #513171;
           padding: 6px 14px;
           border-radius: 20px;
           font-weight: 600;
@@ -401,8 +401,8 @@ export default async function Saffron() {
         .lv-custom-icon {
           width: 50px;
           height: 50px;
-          background: #dcfce7;
-          color: #16a34a;
+          background: #FDDB93;
+          color: #4B3172;
           border-radius: 50%;
           display: flex;
           align-items: center;

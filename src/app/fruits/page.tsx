@@ -26,7 +26,7 @@ export default async function Fruits() {
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
             <span>Fruits</span>
           </div>
-          <h1 className="lv-hero-title">Multiple varieties, each with its<br/>own flavour and function.</h1>
+          <h1 className="lv-hero-title">Multiple varieties, each with its<br/>own <span style={{ color: "#4F993F" }}>flavour</span> and <span style={{ color: "#4F993F" }}>function</span>.</h1>
           <p className="lv-hero-sub">
             Every tray is harvested 7–21 days after germination, at the point of peak<br/>flavour, colour and nutrient density.
           </p>
@@ -38,31 +38,31 @@ export default async function Fruits() {
         <div className="container">
           <div className="lv-stats-grid">
             <div className="lv-stat-item">
-              <div className="lv-stat-icon" style={{ backgroundColor: "#16a34a", color: "white", borderColor: "white" }}>
+              <div className="lv-stat-icon" style={{ backgroundColor: "#4F993F", color: "white", borderColor: "white" }}>
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
               </div>
-              <div className="lv-stat-title" style={{ color: "#16a34a" }}>Fresh Harvest</div>
+              <div className="lv-stat-title" style={{ color: "#4F993F" }}>Fresh Harvest</div>
               <div className="lv-stat-desc">7-21 days</div>
             </div>
             <div className="lv-stat-item">
-              <div className="lv-stat-icon" style={{ backgroundColor: "#f59e0b", color: "white", borderColor: "white" }}>
+              <div className="lv-stat-icon" style={{ backgroundColor: "#F7BF41", color: "white", borderColor: "white" }}>
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v8M8 12h8"/></svg>
               </div>
-              <div className="lv-stat-title" style={{ color: "#f59e0b" }}>Rich in Nutrients</div>
+              <div className="lv-stat-title" style={{ color: "#F7BF41" }}>Rich in Nutrients</div>
               <div className="lv-stat-desc">Vitamins & Minerals</div>
             </div>
             <div className="lv-stat-item">
-              <div className="lv-stat-icon" style={{ backgroundColor: "#a855f7", color: "white", borderColor: "white" }}>
+              <div className="lv-stat-icon" style={{ backgroundColor: "#586FA0", color: "white", borderColor: "white" }}>
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 16a4 4 0 100-8 4 4 0 000 8z"/></svg>
               </div>
-              <div className="lv-stat-title" style={{ color: "#a855f7" }}>Natural Flavour</div>
+              <div className="lv-stat-title" style={{ color: "#586FA0" }}>Natural Flavour</div>
               <div className="lv-stat-desc">Pure & Clean</div>
             </div>
             <div className="lv-stat-item">
-              <div className="lv-stat-icon" style={{ backgroundColor: "#3b82f6", color: "white", borderColor: "white" }}>
+              <div className="lv-stat-icon" style={{ backgroundColor: "#EA767E", color: "white", borderColor: "white" }}>
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78v0z"/></svg>
               </div>
-              <div className="lv-stat-title" style={{ color: "#3b82f6" }}>Better Nutrition</div>
+              <div className="lv-stat-title" style={{ color: "#EA767E" }}>Better Nutrition</div>
               <div className="lv-stat-desc">For a Healthier You</div>
             </div>
           </div>
@@ -158,7 +158,7 @@ export default async function Fruits() {
           align-items: center;
           gap: 8px;
           background: white;
-          color: #16a34a;
+          color: #0D357D;
           padding: 6px 14px;
           border-radius: 20px;
           font-weight: 600;
