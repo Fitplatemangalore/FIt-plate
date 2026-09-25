@@ -242,7 +242,8 @@ export default async function Home() {
               <div className="uv-banner-left">
                 <h2 className={`uv-banner-title ${bebasNeue.className}`} style={{ marginBottom: '12px' }}>
                   <span className="uv-title-blue">URBAN VERTICAL</span>
-                  <br />
+                  {' '}
+                  <br className="uv-title-br" />
                   <span className="uv-title-green">FARMING</span>
                 </h2>
 

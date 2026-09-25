@@ -5265,3 +5265,12 @@ body.splash-active {
   }
 }
 
+@media (max-width: 580px) {
+  .uv-banner-title {
+    font-size: clamp(20px, 8vw, 36px) !important;
+    white-space: nowrap;
+  }
+  .uv-title-br {
+    display: none;
+  }
+}
