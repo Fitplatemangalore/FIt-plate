@@ -106,7 +106,8 @@ export default async function EdibleFlowers() {
               );
             })}
           </div>
-        </section>
+        </div>
+      </section>
       )}
 
       {/* 4. A note on nutrition */}
