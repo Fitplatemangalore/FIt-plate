@@ -5183,16 +5183,16 @@ body.splash-active {
     height: 380px;
     min-height: 320px;
   }
-
   .uv-feature-banner-grid {
-    grid-template-columns: 1fr;
-    gap: 36px;
-    text-align: center;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 16px;
+    text-align: left;
+    align-items: center;
   }
 
-  .uv-banner-desc {
-    margin-left: auto;
-    margin-right: auto;
+  .uv-banner-desc, .uv-banner-desc-v2 {
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .uv-banner-left {
@@ -5202,9 +5202,9 @@ body.splash-active {
   .uv-banner-right-v2 {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 10;
-    margin-top: 24px;
-    border-radius: 20px;
+    aspect-ratio: 1 / 1;
+    margin-top: 0;
+    border-radius: 12px;
     overflow: hidden;
   }
   
@@ -5283,10 +5283,18 @@ body.splash-active {
 
 @media (max-width: 580px) {
   .uv-banner-title {
-    font-size: clamp(20px, 8vw, 36px) !important;
+    font-size: clamp(20px, 6vw, 36px) !important;
     white-space: nowrap;
   }
   .uv-title-br {
     display: none;
+  }
+  .uv-banner-desc-v2 {
+    font-size: clamp(12px, 4vw, 15px);
+    margin-bottom: 16px;
+  }
+  .uv-learn-more-btn-v2 {
+    font-size: clamp(12px, 3.5vw, 14px);
+    padding: 10px 16px;
   }
 }
