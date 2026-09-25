@@ -4674,12 +4674,12 @@ body.splash-active {
 }
 
 .uv-crop-link-wrapper:hover .uv-crop-v2-arrow-btn {
-  background-color: #000000;
-  border-color: #000000;
+  background-color: #0D357D;
+  border-color: #0D357D;
 }
 
 .uv-crop-link-wrapper:hover .uv-crop-v2-arrow-btn svg {
-  stroke: #F4C542;
+  stroke: #ffffff;
   transform: translateX(2px);
 }
 
