@@ -8,7 +8,7 @@ interface Variety {
   name: string;
   slug: string;
   tag: string;
-  tag_pill: string;
+  tag: string;
   highlight: string;
   description: string;
   best_in: string;
@@ -24,7 +24,7 @@ export default function AdminVarieties() {
     name: "",
     slug: "",
     tag: "Microgreen",
-    tag_pill: "",
+    tag: "",
     highlight: "",
     description: "",
     best_in: "",
@@ -73,7 +73,7 @@ export default function AdminVarieties() {
       name: variety.name,
       slug: variety.slug,
       tag: variety.tag || "Microgreen",
-      tag_pill: variety.tag_pill || "",
+      tag: variety.tag || "",
       highlight: variety.highlight || "",
       description: variety.description || "",
       best_in: variety.best_in || "",
@@ -89,7 +89,7 @@ export default function AdminVarieties() {
       name: "",
       slug: "",
       tag: "Microgreen",
-      tag_pill: "",
+      tag: "",
       highlight: "",
       description: "",
       best_in: "",
@@ -295,8 +295,8 @@ export default function AdminVarieties() {
               <label>Tag Pill Label (Health Benefit Highlight)</label>
               <input
                 type="text"
-                value={formData.tag_pill}
-                onChange={(e) => setFormData((prev) => ({ ...prev, tag_pill: e.target.value }))}
+                value={formData.tag}
+                onChange={(e) => setFormData((prev) => ({ ...prev, tag: e.target.value }))}
                 placeholder="e.g. Sulforaphane-rich"
               />
             </div>

@@ -8,7 +8,7 @@ interface LeafyVegetable {
   id?: string;
   name: string;
   slug: string;
-  tag_pill: string;
+  tag: string;
   tag_color: string;
   subtitle: string;
   description: string;
@@ -20,7 +20,7 @@ interface LeafyVegetable {
 const emptyForm = (sortOrder = 0): LeafyVegetable => ({
   name: "",
   slug: "",
-  tag_pill: "",
+  tag: "",
   tag_color: "green",
   subtitle: "",
   description: "",
@@ -76,7 +76,7 @@ export default function AdminLeafyVegetables() {
     setFormData({
       name: item.name,
       slug: item.slug,
-      tag_pill: item.tag_pill || "",
+      tag: item.tag || "",
       tag_color: item.tag_color || "green",
       subtitle: item.subtitle || item.highlight || "",
       description: item.description || "",
@@ -229,8 +229,8 @@ export default function AdminLeafyVegetables() {
                   </div>
                   <div className="admin-form-group">
                     <label className="admin-label">Tag Text</label>
-                    <input className="admin-input" type="text" placeholder="e.g. Sulforaphane-rich" value={formData.tag_pill}
-                      onChange={(e) => setFormData((p) => ({ ...p, tag_pill: e.target.value }))} />
+                    <input className="admin-input" type="text" placeholder="e.g. Sulforaphane-rich" value={formData.tag}
+                      onChange={(e) => setFormData((p) => ({ ...p, tag: e.target.value }))} />
                   </div>
                   <div className="admin-form-group">
                     <label className="admin-label">Theme Color</label>
