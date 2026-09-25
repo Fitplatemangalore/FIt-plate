@@ -23,6 +23,11 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
+      {
+        source: '/safron',
+        destination: '/saffron',
+        permanent: true,
+      },
     ];
   },
 };
