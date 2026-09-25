@@ -19,7 +19,7 @@ export default async function Fruits() {
   const displayVarieties = dbVarieties || [];
 
   return (
-    <main className="lv-page">
+    <main className="lv-page fruits-page">
       <section className="lv-hero" style={{ backgroundColor: "#f8fafc", backgroundImage: 'url(/assets/img/fruits.png)' }}>
         <div className="lv-hero-content container">
           <div className="lv-hero-tag">
@@ -168,14 +168,15 @@ export default async function Fruits() {
           font-weight: 800;
           line-height: 1.1;
           margin-bottom: 20px;
-          color: white;
-          text-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.7);
+          color: #072E6D;
+          text-shadow: 0 2px 10px rgba(255,255,255,0.8), 0 2px 4px rgba(255,255,255,0.9);
         }
         .lv-hero-sub {
           font-size: 18px;
           opacity: 0.9;
           line-height: 1.5;
-          text-shadow: 0 1px 6px rgba(0,0,0,0.6), 0 1px 3px rgba(0,0,0,0.8);
+          color: #697A97;
+          text-shadow: 0 1px 6px rgba(255,255,255,0.8);
         }
         .lv-hero-wave {
           position: absolute;
@@ -230,7 +231,7 @@ export default async function Fruits() {
         }
         .lv-intro-text {
           text-align: center;
-          color: #475569;
+          color: #697A97;
           font-size: 16px;
           line-height: 1.6;
           max-width: 800px;
@@ -316,14 +317,16 @@ export default async function Fruits() {
           font-size: 22px;
           font-weight: 800;
           margin-bottom: 4px;
+          color: #072E6D;
         }
         .lv-subtitle {
           font-style: italic;
           font-size: 14px;
           margin-bottom: 12px;
+          color: #697A97;
         }
         .lv-desc {
-          color: #475569;
+          color: #697A97;
           font-size: 14px;
           line-height: 1.5;
           margin-bottom: 16px;
@@ -334,7 +337,7 @@ export default async function Fruits() {
         }
         .lv-best-in {
           font-size: 13px;
-          color: #64748b;
+          color: #697A97;
           margin-bottom: 16px;
         }
         .lv-read-more {
@@ -352,7 +355,7 @@ export default async function Fruits() {
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
-          color: white;
+          color: #072E6D;
           text-align: center;
           padding: 60px 0;
         }
@@ -371,7 +374,7 @@ export default async function Fruits() {
           font-size: 28px;
           font-weight: 700;
           margin-bottom: 20px;
-          color: white;
+          color: #072E6D;
         }
         .lv-nutrition p {
           max-width: 800px;
@@ -381,7 +384,7 @@ export default async function Fruits() {
           opacity: 0.95;
         }
         .lv-nutrition a {
-          color: white;
+          color: #072E6D;
           text-decoration: underline;
           font-weight: 600;
         }
@@ -405,20 +408,20 @@ export default async function Fruits() {
           margin: 0 auto 20px;
         }
         .lv-custom-mix h2 {
-          color: #16a34a;
+          color: #072E6D;
           font-size: 28px;
           font-weight: 800;
           margin-bottom: 12px;
         }
         .lv-custom-mix p {
-          color: #475569;
+          color: #072E6D;
           font-size: 16px;
           margin-bottom: 24px;
         }
         .lv-btn {
           display: inline-block;
-          background: #16a34a;
-          color: white;
+          background: #FAC647;
+          color: #072E6D;
           padding: 12px 28px;
           border-radius: 30px;
           font-weight: 600;
@@ -426,7 +429,10 @@ export default async function Fruits() {
           transition: background 0.2s;
         }
         .lv-btn:hover {
-          background: #15803d;
+          background: #e5b23b;
+        }
+        .fruits-page ~ footer {
+          background-color: #072E6D !important;
         }
       `}</style>
     </main>
