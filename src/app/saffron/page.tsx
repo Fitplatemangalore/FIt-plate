@@ -34,7 +34,7 @@ export default async function Saffron() {
       </section>
 
       {/* 2. Four-stat row */}
-      <section className="lv-stats section" style={{ backgroundColor: '#ffffff', position: 'relative', zIndex: 1 }}>
+      <section className="lv-stats section" style={{ backgroundColor: '#ffffff', position: 'relative', zIndex: 1, paddingBottom: displayVarieties.length > 0 ? undefined : '0px' }}>
         <div className="container">
           <div className="lv-stats-grid">
             <div className="lv-stat-item">
@@ -73,8 +73,9 @@ export default async function Saffron() {
       </section>
 
       {/* 3. Variety Cards Grid */}
-      <section className="lv-cards-section section">
-        <div className="container">
+      {displayVarieties.length > 0 && (
+        <section className="lv-cards-section section">
+          <div className="container">
           <div className="lv-cards-grid">
             {displayVarieties.map((v) => {
               const theme = getThemeColors(v.tag_color);
@@ -105,8 +106,8 @@ export default async function Saffron() {
               );
             })}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 4. A note on nutrition */}
       <section className="lv-nutrition" style={{ backgroundImage: "url(/assets/img/saffron-third.png)" }}>
