@@ -8,7 +8,6 @@ interface Variety {
   name: string;
   slug: string;
   tag: string;
-  tag: string;
   highlight: string;
   description: string;
   best_in: string;
@@ -23,7 +22,6 @@ export default function AdminVarieties() {
   const [formData, setFormData] = useState<Variety>({
     name: "",
     slug: "",
-    tag: "Microgreen",
     tag: "",
     highlight: "",
     description: "",
@@ -72,7 +70,6 @@ export default function AdminVarieties() {
     setFormData({
       name: variety.name,
       slug: variety.slug,
-      tag: variety.tag || "Microgreen",
       tag: variety.tag || "",
       highlight: variety.highlight || "",
       description: variety.description || "",
@@ -88,8 +85,7 @@ export default function AdminVarieties() {
     setFormData({
       name: "",
       slug: "",
-      tag: "Microgreen",
-      tag: "",
+    tag: "",
       highlight: "",
       description: "",
       best_in: "",
@@ -291,15 +287,6 @@ export default function AdminVarieties() {
               />
             </div>
 
-            <div className="field">
-              <label>Tag Pill Label (Health Benefit Highlight)</label>
-              <input
-                type="text"
-                value={formData.tag}
-                onChange={(e) => setFormData((prev) => ({ ...prev, tag: e.target.value }))}
-                placeholder="e.g. Sulforaphane-rich"
-              />
-            </div>
 
             <div className="field">
               <label>Highlight Statement (Italic text)</label>
