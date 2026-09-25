@@ -71,7 +71,7 @@ export function CropIcon({ type, iconUrl }: { type?: string; iconUrl?: string })
     default:
       // Exact organic twin-leaf icon matching Image 1
       return (
-        <svg viewBox="0 0 32 32" fill="none" stroke="#112E81" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
+        <svg viewBox="0 0 32 32" fill="none" stroke="#112E81" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28" style={{ transform: "scale(1.4) translateY(-2px)" }}>
           <path d="M15.5 28V14" />
           <path d="M15.5 14c0-6 4.5-9 10.5-9.5-1 6-4 10-10.5 9.5Z" />
           <path d="M15.5 18c0-4-3-6-6.5-6.8 0.5 4 2.5 6.8 6.5 6.8Z" />

@@ -4630,8 +4630,6 @@ body.splash-active {
   width: 36px;
   height: 36px;
   object-fit: contain;
-  /* Make custom uploaded icons match the built-in SVG microgreens size and position */
-  transform: scale(0.65) translateY(2px);
 }
 
 /* Bold Black Uppercase Title */
