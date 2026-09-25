@@ -5239,8 +5239,24 @@ body.splash-active {
   }
 
   .uv-crops-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding-bottom: 24px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    justify-content: flex-start;
+  }
+  .uv-crops-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .uv-crops-grid > * {
+    flex: 0 0 70%;
+    max-width: 260px;
+    scroll-snap-align: start;
   }
 
   .uv-badges-row {
