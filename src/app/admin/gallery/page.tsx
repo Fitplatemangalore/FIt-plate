@@ -219,8 +219,9 @@ export default function AdminGallery() {
     try {
       // Delete images first (cascade may not be set up)
       await supabase.from("gallery_images").delete().eq("entry_id", id);
-      const { error } = await supabase.from("gallery_entries").delete().eq("id", id);
+      const { data, error } = await supabase.from("gallery_entries").delete().eq("id", id).select();
       if (error) throw error;
+      if (!data || data.length === 0) throw new Error("Could not delete. Check Supabase RLS DELETE policies for this table.");
       setMessage({ type: "success", text: "Gallery entry deleted." });
       if (selectedId === id) handleAddNew();
       await fetch("/api/revalidate?path=/gallery");

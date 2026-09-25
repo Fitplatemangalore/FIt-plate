@@ -164,8 +164,9 @@ export default function AdminCrops() {
   const handleDelete = async (id: string, name: string) => {
     if (!confirm(`Delete crop "${name}"? This cannot be undone.`)) return;
     try {
-      const { error } = await supabase.from("crops").delete().eq("id", id);
+      const { data, error } = await supabase.from("crops").delete().eq("id", id).select();
       if (error) throw error;
+      if (!data || data.length === 0) throw new Error("Could not delete. Check Supabase RLS DELETE policies for this table.");
       await fetch("/api/revalidate?path=/");
       fetchCrops();
     } catch (err: any) {

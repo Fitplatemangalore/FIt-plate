@@ -173,8 +173,9 @@ export default function AdminVarieties() {
 
     setMessage(null);
     try {
-      const { error } = await supabase.from("saffron").delete().eq("id", id);
+      const { data, error } = await supabase.from("saffron").delete().eq("id", id).select();
       if (error) throw error;
+      if (!data || data.length === 0) throw new Error("Could not delete. Check Supabase RLS DELETE policies for this table.");
 
       setMessage({ type: "success", text: "Variety deleted successfully." });
       

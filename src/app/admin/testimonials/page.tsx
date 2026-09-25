@@ -114,8 +114,9 @@ export default function AdminTestimonials() {
 
     setMessage(null);
     try {
-      const { error } = await supabase.from("testimonials").delete().eq("id", id);
+      const { data, error } = await supabase.from("testimonials").delete().eq("id", id).select();
       if (error) throw error;
+      if (!data || data.length === 0) throw new Error("Could not delete. Check Supabase RLS DELETE policies for this table.");
 
       setMessage({ type: "success", text: "Testimonial deleted successfully." });
       

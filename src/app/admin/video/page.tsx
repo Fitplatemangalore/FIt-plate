@@ -100,8 +100,9 @@ export default function AdminVideo() {
     if (!record?.id) return;
     if (!confirm("Delete the current video entry? This cannot be undone.")) return;
     try {
-      const { error } = await supabase.from("site_video").delete().eq("id", record.id);
+      const { data, error } = await supabase.from("site_video").delete().eq("id", record.id).select();
       if (error) throw error;
+      if (!data || data.length === 0) throw new Error("Could not delete. Check Supabase RLS DELETE policies for this table.");
       await fetch("/api/revalidate?path=/");
       setMessage({ type: "success", text: "Video deleted." });
       setRecord(null);
