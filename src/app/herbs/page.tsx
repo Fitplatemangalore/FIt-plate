@@ -138,9 +138,9 @@ export default async function Herbs() {
         .lv-hero {
           position: relative;
           padding: 80px 0 100px;
-          background-size: contain;
+          background-size: cover;
           background-repeat: no-repeat;
-          background-position: center bottom;
+          background-position: center;
           color: white;
           min-height: 480px;
           display: flex;
