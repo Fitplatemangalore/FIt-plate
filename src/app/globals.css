@@ -5317,7 +5317,7 @@ body.splash-active {
     text-align: left !important;
   }
   .uv-hero-content {
-    padding: 15vw 2vw 2vw 4vw !important;
+    padding: 4vw 2vw 2vw 4vw !important;
   }
   .uv-hero-title {
     font-size: 6.5vw !important;
@@ -5331,7 +5331,7 @@ body.splash-active {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 0 !important;
-    margin-top: 5vw !important;
+    margin-top: 1vw !important;
     justify-content: start !important;
   }
   .uv-badge-item {
@@ -5468,5 +5468,45 @@ body.splash-active {
     flex: 0 0 calc(45% - 4px) !important;
     width: calc(45% - 4px) !important;
     max-width: calc(45% - 4px) !important;
+  }
+
+  /* Banner Fix 3 */
+  .uv-banner-title {
+    margin-top: -6px !important;
+    line-height: 1.1 !important;
+  }
+  .uv-feature-banner-grid {
+    align-items: stretch !important;
+  }
+  .uv-banner-left {
+    flex: 0 0 calc(58% - 4px) !important;
+    width: calc(58% - 4px) !important;
+  }
+  .uv-banner-right-v2 {
+    flex: 0 0 calc(42% - 4px) !important;
+    width: calc(42% - 4px) !important;
+    max-width: calc(42% - 4px) !important;
+    margin-top: 0 !important;
+    display: flex !important;
+    align-items: stretch !important;
+  }
+  .uv-banner-right-v2 img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: left center !important;
+    border-radius: 0 16px 16px 0 !important;
+  }
+
+  /* Banner Fix 4: Align exact button height and text */
+  .uv-banner-btn-wrap {
+    margin-bottom: 0 !important;
+  }
+  .uv-banner-title {
+    margin-top: -10px !important;
+  }
+  .uv-banner-right-v2 img {
+    transform: translateY(-8px) scale(1.05);
+    transform-origin: top left;
   }
 }
