@@ -5509,4 +5509,53 @@ body.splash-active {
     transform: translateY(-8px) scale(1.05);
     transform-origin: top left;
   }
+
+  
+
+  /* Mobile Fix for Category Hero Sections v2 */
+  .lv-hero {
+    min-height: auto !important;
+    padding: 60px 0 40px !important;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  .lv-hero-title {
+    font-size: 26px !important;
+    margin-bottom: 12px !important;
+  }
+  .lv-hero-sub {
+    font-size: 14px !important;
+  }
+
+  /* Mobile Fix for Category Stats Grid */
+  .lv-stats-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 4px !important;
+  }
+  .lv-stat-icon {
+    width: 36px !important;
+    height: 36px !important;
+    border-width: 1.5px !important;
+    margin: 0 auto 8px !important;
+  }
+  .lv-stat-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  .lv-stat-title {
+    font-size: 9.5px !important;
+    white-space: nowrap !important;
+    margin-bottom: 2px !important;
+  }
+  .lv-stat-desc {
+    font-size: 8.5px !important;
+    white-space: nowrap !important;
+  }
+
+  /* Mobile Fix for Category Custom Mix Section */
+  .lv-custom-mix {
+    background-size: 100% 100% !important;
+    background-position: center !important;
+    padding: 60px 0 !important;
+  }
 }
