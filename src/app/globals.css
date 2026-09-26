@@ -3149,7 +3149,7 @@ body.splash-active {
 }
 
 .admin-td-message {
-  max-width: 260px;
+  max-width: none;
 }
 
 .admin-td-message span {
@@ -5263,7 +5263,7 @@ body.splash-active {
     display: none;
   }
   .uv-crops-grid > * {
-    flex: 0 0 70%;
+    flex: 0 0 calc(50% - 8px);
     max-width: 260px;
     scroll-snap-align: start;
   }
@@ -5317,7 +5317,7 @@ body.splash-active {
     text-align: left !important;
   }
   .uv-hero-content {
-    padding: 6vw 2vw 2vw 4vw !important;
+    padding: 15vw 2vw 2vw 4vw !important;
   }
   .uv-hero-title {
     font-size: 6.5vw !important;
@@ -5385,4 +5385,11 @@ body.splash-active {
     height: 100% !important;
     min-height: 0 !important;
   }
+  
+  .uv-hero-section {
+    padding-top: 0 !important;
   }
+  .uv-section-head {
+    margin-bottom: 20px !important;
+  }
+}
