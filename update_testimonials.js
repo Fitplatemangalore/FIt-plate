@@ -1,5 +1,6 @@
-"use client";
-import { useState, useEffect, useRef } from "react";
+const fs = require('fs');
+
+const replacement = `import { useState, useEffect, useRef } from "react";
 
 export interface UrbanTestimonialItem {
   id: string | number;
@@ -173,15 +174,15 @@ export default function UrbanTestimonials({ items }: { items?: UrbanTestimonialI
           {[...Array(totalPages)].map((_, idx) => (
             <button
               key={idx}
-              className={`home-testimonials-dot ${page === idx ? "active" : ""}`}
+              className={\`home-testimonials-dot \${page === idx ? "active" : ""}\`}
               onClick={() => handleDotClick(idx)}
-              aria-label={`Go to page ${idx + 1}`}
+              aria-label={\`Go to page \${idx + 1}\`}
             />
           ))}
         </div>
       )}
 
-      <style>{`
+      <style>{\`
         .home-testimonials-container {
           width: 100%;
         }
@@ -235,7 +236,10 @@ export default function UrbanTestimonials({ items }: { items?: UrbanTestimonialI
             display: flex;
           }
         }
-      `}</style>
+      \`}</style>
     </div>
   );
 }
+`;
+
+fs.writeFileSync('src/components/UrbanTestimonials.tsx', replacement);
