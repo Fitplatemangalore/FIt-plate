@@ -106,9 +106,7 @@ export default async function Home() {
             {/* Left Column: Stacked Bebas Neue Heading & Badges */}
             <div className="uv-hero-content reveal">
               <h1 className="uv-hero-title">
-                <span className="uv-title-blue">URBAN</span>
-                <br />
-                <span className="uv-title-blue">VERTICAL</span>
+                <span className="uv-title-blue">URBAN VERTICAL</span>
                 <br />
                 <span className="uv-title-green">FARMING</span>
               </h1>
