@@ -93,10 +93,17 @@ export default async function MicrogreensPage() {
     <main>
       <section 
         className="microgreens-new-hero" 
-        style={{ backgroundImage: "url('/assets/img/microgreens-hero-bg.jpg')" }}
+        style={{ backgroundImage: "url('/assets/img/microgreens-hero-bg.png')" }}
       >
         <div className="container">
-          {/* Text will be added here later */}
+          <div className="mg-hero-content">
+            <h1 className="mg-hero-title">
+              <span className="mg-title-dark">PURE. FRESH.</span><br />
+              <span className="mg-title-light">NUTRITIOUS.</span>
+            </h1>
+            <p className="mg-hero-sub">SMALL GREENS. BIG BENEFITS.</p>
+            <Link href="#varieties" className="mg-hero-btn">Explore Now &rarr;</Link>
+          </div>
         </div>
       </section>
 
@@ -104,14 +111,68 @@ export default async function MicrogreensPage() {
         .microgreens-new-hero {
           position: relative;
           width: 100%;
-          min-height: 480px; /* Base height */
+          min-height: 500px;
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
+          display: flex;
+          align-items: center;
+        }
+        .mg-hero-content {
+          max-width: 600px;
+          padding: 40px 0;
+        }
+        .mg-hero-title {
+          font-size: 56px;
+          font-weight: 800;
+          line-height: 1.1;
+          margin-bottom: 12px;
+          font-family: inherit;
+        }
+        .mg-title-dark {
+          color: #0d3a24;
+        }
+        .mg-title-light {
+          color: #85ab48;
+        }
+        .mg-hero-sub {
+          color: #576359;
+          font-size: 16px;
+          font-weight: 600;
+          letter-spacing: 1.5px;
+          margin-bottom: 32px;
+        }
+        .mg-hero-btn {
+          display: inline-block;
+          background: #d4a037;
+          color: #ffffff;
+          font-weight: 700;
+          font-size: 15px;
+          padding: 14px 32px;
+          border-radius: 50px;
+          text-decoration: none;
+          box-shadow: 0 4px 15px rgba(212, 160, 55, 0.4);
+          transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+        .mg-hero-btn:hover {
+          background: #c38f2a;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(212, 160, 55, 0.6);
         }
         @media (max-width: 768px) {
           .microgreens-new-hero {
-            min-height: 300px;
+            min-height: 350px;
+          }
+          .mg-hero-title {
+            font-size: 36px;
+          }
+          .mg-hero-sub {
+            font-size: 13px;
+            margin-bottom: 24px;
+          }
+          .mg-hero-content {
+            padding: 30px 0;
+            max-width: 90%;
           }
         }
       `}</style>
