@@ -91,7 +91,30 @@ export default async function MicrogreensPage() {
 
   return (
     <main>
-      <HeroCarousel slides={heroSlides} />
+      <section 
+        className="microgreens-new-hero" 
+        style={{ backgroundImage: "url('/assets/img/microgreens-hero-bg.jpg')" }}
+      >
+        <div className="container">
+          {/* Text will be added here later */}
+        </div>
+      </section>
+
+      <style>{`
+        .microgreens-new-hero {
+          position: relative;
+          width: 100%;
+          min-height: 480px; /* Base height */
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+        @media (max-width: 768px) {
+          .microgreens-new-hero {
+            min-height: 300px;
+          }
+        }
+      `}</style>
 
       <section className="features-strip" id="features">
         <div className="features-inner">
