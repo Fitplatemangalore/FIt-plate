@@ -5559,3 +5559,34 @@ body.splash-active {
     padding: 60px 0 !important;
   }
 }
+
+/* Desktop Hero Title Split */
+.uv-desktop-br { display: block; }
+.uv-mobile-space { display: none; }
+@media (max-width: 580px) {
+  .uv-desktop-br { display: none !important; }
+  .uv-mobile-space { display: inline !important; }
+}
+
+@media (max-width: 880px) {
+  /* Compact Mobile Nav Fix */
+  .main-nav {
+    height: auto !important;
+    min-height: 0 !important;
+    justify-content: flex-start !important;
+    padding: 80px 32px 40px 36px !important;
+    border-bottom-left-radius: 16px;
+    box-shadow: -4px 10px 30px rgba(0,0,0,0.15);
+    background: #ffffff !important;
+  }
+  .main-nav a {
+    color: var(--forest-950) !important;
+  }
+  .main-nav a.active {
+    color: #000000 !important;
+  }
+  .nav-toggle.open span {
+    background: var(--forest-950) !important;
+  }
+
+}
