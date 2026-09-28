@@ -36,7 +36,7 @@ export default function AdminContent() {
     if (error) {
       setMessage({ type: "error", text: `Error loading site content: ${error.message}` });
     } else {
-      setItems(data || []);
+      setItems((data || []).filter((item: any) => item.key !== 'leafy_vegetables_banner'));
     }
     setLoading(false);
   };

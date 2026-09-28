@@ -39,7 +39,7 @@ export default async function Fruits() {
       </section>
 
       {/* 2. Four-stat row */}
-      <section className="lv-stats section" style={{ backgroundColor: '#ffffff', position: 'relative', zIndex: 1, paddingBottom: displayVarieties.length > 0 ? undefined : '0px' }}>
+      <section className="lv-stats section" style={{ backgroundColor: '#ffffff', position: 'relative', zIndex: 1 }} data-empty={displayVarieties.length === 0 ? "true" : undefined}>
         <div className="container">
           <div className="lv-stats-grid">
             <div className="lv-stat-item">
@@ -201,6 +201,14 @@ export default async function Fruits() {
         }
         .lv-stats {
           padding: 40px 0 60px;
+        }
+        .lv-stats[data-empty="true"] {
+          padding-bottom: 40px !important;
+        }
+        @media (max-width: 768px) {
+          .lv-stats[data-empty="true"] {
+            padding-bottom: 24px !important;
+          }
         }
         .lv-stats-grid {
           display: grid;

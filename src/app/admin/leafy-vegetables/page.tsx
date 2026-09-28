@@ -161,7 +161,7 @@ export default function AdminLeafyVegetables() {
       <div className="admin-page-header">
         <div>
           <h1 className="admin-page-title">Leafy Vegetables</h1>
-          <p className="admin-page-subtitle">Manage the banner and variety cards for the Leafy Vegetables page.</p>
+          <p className="admin-page-subtitle">Manage the variety cards for the Leafy Vegetables page.</p>
         </div>
       </div>
 

@@ -35,7 +35,8 @@ export default function Footer() {
             <h4>Explore</h4>
             <ul>
               <li><Link href="/about">About Us</Link></li>
-              <li><Link href="/varieties">Our Microgreens</Link></li>
+              <li><Link href="/varieties">Our Crops</Link></li>
+              <li><Link href="/gallery">Gallery</Link></li>
               <li><Link href="/blogs">Blogs</Link></li>
             </ul>
           </div>
