@@ -313,7 +313,7 @@ export default async function Home() {
       ───────────────────────────────────────────────────────────── */}
       <section className="uv-video-section">
         <div className="reveal">
-          <VideoPlayer poster="/assets/img/video-cover.jpg" />
+          <VideoPlayer />
         </div>
       </section>
 

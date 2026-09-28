@@ -18,10 +18,8 @@ export default function AdminVideo() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
-  const [uploadingThumb, setUploadingThumb] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
-  const thumbInputRef = useRef<HTMLInputElement>(null);
   const supabase = createClient();
 
   useEffect(() => { fetchRecord(); }, []);
@@ -117,7 +115,7 @@ export default function AdminVideo() {
       <div className="admin-page-header">
         <div>
           <h1 className="admin-page-title">Homepage Video</h1>
-          <p className="admin-page-subtitle">Manage the video and thumbnail shown in Section 4 of the homepage.</p>
+          <p className="admin-page-subtitle">Manage the video shown in Section 4 of the homepage.</p>
         </div>
         {record?.id && (
           <button className="admin-btn-danger-sm" style={{ fontSize: "13px", padding: "8px 16px" }} onClick={handleDelete}>
@@ -173,37 +171,7 @@ export default function AdminVideo() {
                 )}
               </div>
 
-              {/* Thumbnail upload */}
-              <div className="admin-form-group">
-                <label className="admin-label">Thumbnail (Poster Image)</label>
-                <div className="admin-upload-row">
-                  {form.thumbnail_url && (
-                    <img src={form.thumbnail_url} alt="Thumbnail preview" className="admin-img-preview" style={{ height: "80px", width: "140px", objectFit: "cover", borderRadius: "6px", flexShrink: 0 }} />
-                  )}
-                  <div style={{ flex: 1 }}>
-                    <input
-                      className="admin-input"
-                      type="text"
-                      placeholder="Paste thumbnail URL or upload below"
-                      value={form.thumbnail_url}
-                      onChange={(e) => setForm((p) => ({ ...p, thumbnail_url: e.target.value }))}
-                    />
-                    <label className="admin-btn-secondary" style={{ marginTop: "8px", display: "inline-block", cursor: "pointer" }}>
-                      <input
-                        ref={thumbInputRef}
-                        type="file"
-                        accept="image/*"
-                        style={{ display: "none" }}
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) upload(file, "videos/thumbs", (url) => setForm((p) => ({ ...p, thumbnail_url: url })), setUploadingThumb, thumbInputRef);
-                        }}
-                      />
-                      {uploadingThumb ? "Uploading…" : "↑ Upload Thumbnail"}
-                    </label>
-                  </div>
-                </div>
-              </div>
+
 
               <div className="admin-form-actions">
                 <button type="submit" className="admin-btn-primary" disabled={saving}>
@@ -213,22 +181,7 @@ export default function AdminVideo() {
             </form>
           </div>
 
-          {/* RIGHT: Preview */}
-          {form.thumbnail_url && (
-            <div className="admin-list-panel" style={{ flex: 1 }}>
-              <h2 className="admin-panel-title">Thumbnail Preview</h2>
-              <img
-                src={form.thumbnail_url}
-                alt="Thumbnail"
-                style={{ width: "100%", borderRadius: "10px", objectFit: "cover", aspectRatio: "16/9" }}
-              />
-              {form.video_url && (
-                <p style={{ marginTop: "12px", fontSize: "13px", color: "#64748b" }}>
-                  🎬 Video URL set. The thumbnail will be shown as the poster on the homepage.
-                </p>
-              )}
-            </div>
-          )}
+
         </div>
       )}
 

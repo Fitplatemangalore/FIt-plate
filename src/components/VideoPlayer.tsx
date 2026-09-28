@@ -4,18 +4,15 @@ import { useState, useRef, useEffect } from "react";
 import { createClient } from "@/utils/supabase/client";
 
 export default function VideoPlayer({
-  poster: posterProp = "/assets/img/video-cover.jpg",
   videoSrc: videoSrcProp = "https://assets.mixkit.co/videos/preview/mixkit-lettuce-growing-in-a-hydroponic-system-42416-large.mp4",
 }: {
-  poster?: string;
   videoSrc?: string;
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState("0:00");
   const [duration, setDuration] = useState("1:00");
-  const [isMuted, setIsMuted] = useState(false);
-  const [poster, setPoster] = useState(posterProp);
+  const [isMuted, setIsMuted] = useState(true);
   const [videoSrc, setVideoSrc] = useState(videoSrcProp);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -25,16 +22,42 @@ export default function VideoPlayer({
     const fetchVideo = async () => {
       const { data } = await supabase
         .from("site_video")
-        .select("video_url, thumbnail_url")
+        .select("video_url")
         .order("updated_at", { ascending: false })
         .limit(1)
         .single();
-      if (data) {
-        if (data.video_url) setVideoSrc(data.video_url);
-        if (data.thumbnail_url) setPoster(data.thumbnail_url);
+      if (data && data.video_url) {
+        setVideoSrc(data.video_url);
       }
     };
     fetchVideo();
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!videoRef.current) return;
+          if (entry.isIntersecting) {
+            videoRef.current.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+          } else {
+            videoRef.current.pause();
+            setIsPlaying(false);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
   }, []);
 
   const formatTime = (seconds: number) => {
@@ -50,7 +73,7 @@ export default function VideoPlayer({
       videoRef.current.pause();
       setIsPlaying(false);
     } else {
-      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(true));
+      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
     }
   };
 
@@ -97,27 +120,14 @@ export default function VideoPlayer({
       <video
         ref={videoRef}
         src={videoSrc}
-        poster={poster}
         playsInline
+        muted={isMuted}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onEnded={() => setIsPlaying(false)}
         onClick={togglePlay}
         className="uv-video-element"
       />
-
-      {/* Center Play Overlay */}
-      {!isPlaying && (
-        <button type="button" className="uv-video-play-center" onClick={togglePlay} aria-label="Play Video">
-          <div className="uv-play-circle-outer">
-            <div className="uv-play-circle-inner">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
-                <polygon points="6,4 20,12 6,20" />
-              </svg>
-            </div>
-          </div>
-        </button>
-      )}
 
       {/* Video Controls Bar */}
       <div className="uv-video-controls-bar">

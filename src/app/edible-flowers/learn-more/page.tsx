@@ -93,7 +93,7 @@ export default function EdibleFlowersLearnMore() {
             <hr style={{ border: "none", borderTop: "1px solid #e9eee5", margin: "32px 0" }} />
 
             {/* Section 3: Culinary Uses */}
-            <div>
+            <div style={{ marginBottom: "36px" }}>
               <h2
                 className="card-title"
                 style={{
@@ -115,6 +115,103 @@ export default function EdibleFlowersLearnMore() {
               >
                 Perfect for elevating the presentation of desserts, salads, and craft cocktails. They can be candied for sweets, frozen into ice cubes for drinks, or simply scattered over savory dishes for a stunning visual appeal.
               </p>
+            </div>
+
+            <hr style={{ border: "none", borderTop: "1px solid #e9eee5", margin: "32px 0" }} />
+
+            {/* Section 4: Storage & Handling */}
+            <div style={{ marginBottom: "36px" }}>
+              <h2
+                className="card-title"
+                style={{
+                  fontSize: "26px",
+                  color: "#745B96",
+                  marginBottom: "16px",
+                  lineHeight: 1.3,
+                }}
+              >
+                Storage & Handling
+              </h2>
+              <div
+                className="content-list"
+                style={{
+                  fontSize: "16.5px",
+                  lineHeight: 1.85,
+                  color: "var(--ink-800)",
+                  marginBottom: "0",
+                }}
+                dangerouslySetInnerHTML={{ __html: `<ul><li><strong>Container:</strong> Keep them in their original clamshell container lined with a dry paper towel.</li><li><strong>Temperature:</strong> Store in the warmest part of your fridge (usually the top shelf).</li><li><strong>Washing:</strong> Do not wash until immediately before use to prevent the petals from bruising.</li><li><strong>Shelf Life:</strong> Due to their delicate nature, they typically last 3-5 days.</li></ul>` }}
+              />
+            </div>
+
+            <hr style={{ border: "none", borderTop: "1px solid #e9eee5", margin: "32px 0" }} />
+
+            {/* Section 5: Safety Note */}
+            <div style={{ marginBottom: "36px" }}>
+              <h2
+                className="card-title"
+                style={{
+                  fontSize: "26px",
+                  color: "#745B96",
+                  marginBottom: "16px",
+                  lineHeight: 1.3,
+                }}
+              >
+                Safety Note
+              </h2>
+              <div style={{ backgroundColor: "#fff5f5", borderLeft: "4px solid #fc8181", padding: "16px 20px", borderRadius: "0 8px 8px 0" }}>
+                <p
+                  style={{
+                    fontSize: "16.5px",
+                    lineHeight: 1.6,
+                    color: "#c53030",
+                    marginBottom: "0",
+                    fontWeight: 500,
+                  }}
+                >
+                  Only consume flowers explicitly grown for consumption, like ours. If you have severe pollen allergies or asthma, introduce edible flowers into your diet cautiously.
+                </p>
+              </div>
+            </div>
+
+            <hr style={{ border: "none", borderTop: "1px solid #e9eee5", margin: "32px 0" }} />
+
+            {/* Section 6: FAQ */}
+            <div className="faq-section">
+              <h2
+                className="card-title"
+                style={{
+                  fontSize: "26px",
+                  color: "#745B96",
+                  marginBottom: "20px",
+                  lineHeight: 1.3,
+                }}
+              >
+                Frequently Asked Questions
+              </h2>
+              <div className="faq-accordion">
+                
+                  <details>
+                    <summary>Which parts of the flower are edible?</summary>
+                    <p>Generally the petals are the best part. We recommend removing the pistils and stamens if they are large.</p>
+                  </details>
+                
+                  <details>
+                    <summary>How long do they stay fresh?</summary>
+                    <p>Due to their delicate nature, they are best used within 3 to 5 days of delivery.</p>
+                  </details>
+                
+                  <details>
+                    <summary>Are they treated with chemicals?</summary>
+                    <p>No, our edible flowers are 100% pesticide-free and safe for culinary use.</p>
+                  </details>
+                
+                  <details>
+                    <summary>Do they have a strong flavor?</summary>
+                    <p>Most have a very subtle, mild flavor ranging from slightly sweet to gently peppery, acting mostly as an aesthetic garnish.</p>
+                  </details>
+                
+              </div>
             </div>
           </article>
 
@@ -152,6 +249,49 @@ export default function EdibleFlowersLearnMore() {
       <style>{`
         .flowers-page ~ footer {
           background-color: #745B96 !important;
+        }
+        .content-list ul {
+          padding-left: 20px;
+          margin-top: 8px;
+        }
+        .content-list li {
+          margin-bottom: 8px;
+        }
+        .faq-accordion details {
+          border: 1px solid #e9eee5;
+          border-radius: 8px;
+          margin-bottom: 12px;
+          padding: 16px;
+          background-color: #fcfcfc;
+        }
+        .faq-accordion summary {
+          font-size: 16.5px;
+          font-weight: 600;
+          color: var(--ink-800);
+          cursor: pointer;
+          list-style: none;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .faq-accordion summary::-webkit-details-marker {
+          display: none;
+        }
+        .faq-accordion summary::after {
+          content: '+';
+          color: #745B96;
+          font-size: 20px;
+          transition: transform 0.2s;
+        }
+        .faq-accordion details[open] summary::after {
+          content: '-';
+        }
+        .faq-accordion details[open] p {
+          margin-top: 12px;
+          font-size: 15.5px;
+          color: var(--ink-700);
+          line-height: 1.7;
+          margin-bottom: 0;
         }
       `}</style>
     </main>
