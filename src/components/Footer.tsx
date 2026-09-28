@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <img src="/assets/logo-white.png" alt="Fit Plate" style={{ maxHeight: '80px', width: 'auto' }} />
-            <p>Pure. Fresh. Nutritious. Made for a better you. Locally grown microgreens for hotels, restaurants and caterers.</p>
+            <p>Pure. Fresh. Nutritious. Made for a better you. Farm Fresh microgreens for hotels, restaurants and caterers.</p>
             <div className="social-row">
               <a href="https://instagram.com/fitplateventures" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
