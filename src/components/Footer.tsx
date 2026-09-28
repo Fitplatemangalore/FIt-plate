@@ -36,7 +36,6 @@ export default function Footer() {
             <ul>
               <li><Link href="/about">About Us</Link></li>
               <li><Link href="/varieties">Our Microgreens</Link></li>
-              <li><Link href="/benefits">Benefits</Link></li>
               <li><Link href="/blogs">Blogs</Link></li>
             </ul>
           </div>
@@ -51,7 +50,7 @@ export default function Footer() {
           <div>
             <h4>Contact</h4>
             <ul>
-              <li><a href="#">Fitplate Ventures, Kodikal, Mangalore</a></li>
+              <li><a href="#">Fitplate Ventures Pvt. Ltd., Kodikal, Mangalore</a></li>
               <li><a href="mailto:greens@fitplate.in">greens@fitplate.in</a></li>
               <li><a href="tel:8217304370">+91 82173 04370</a></li>
             </ul>
@@ -59,7 +58,7 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <span>
-            &copy; {currentYear} Fitplate Ventures. All rights reserved. | Developed by{' '}
+            &copy; {currentYear} Fitplate Ventures Pvt. Ltd. All rights reserved. | Developed by{' '}
             <a href="https://shwethainitiative.com" target="_blank" rel="noopener noreferrer">
               Shwetha Initiative
             </a>

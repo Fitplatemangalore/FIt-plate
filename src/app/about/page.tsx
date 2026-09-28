@@ -123,16 +123,10 @@ export default function About() {
 
             <div className="about-divider" />
 
-            {/* Closing tagline */}
-            <div className="about-tagline-row">
-              <p className="about-tagline">
-                Every Plate. Every Day.{" "}
-                <span className="about-tagline-gold">Microgreens All The Way.</span>
-              </p>
-            </div>
+
 
             {/* Logo row */}
-            <div className="about-logo-row">
+            <div className="about-logo-row" style={{ flexDirection: "column", gap: "8px" }}>
               <div className="about-logo-item">
                 <Image
                   src="/assets/logo.png"
@@ -142,15 +136,8 @@ export default function About() {
                   style={{ objectFit: "contain" }}
                 />
               </div>
-              <div className="about-logo-divider" />
-              <div className="about-logo-item">
-                <Image
-                  src="/assets/logo-badge.png"
-                  alt="Every Plate, Every Day, Microgreens All the Way — FitPlate Badge"
-                  width={160}
-                  height={160}
-                  style={{ objectFit: "contain" }}
-                />
+              <div style={{ fontSize: "18px", fontWeight: "600", color: "var(--forest-900)", textAlign: "center", marginTop: "-10px" }}>
+                Urban Vertical Farming
               </div>
             </div>
 

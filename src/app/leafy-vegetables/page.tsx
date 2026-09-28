@@ -30,6 +30,11 @@ export default async function LeafyVegetables() {
           <p className="lv-hero-sub">
             Every tray is harvested 7–21 days after germination, at the point of peak<br/>flavour, colour and nutrient density.
           </p>
+          <div style={{ marginTop: '32px' }}>
+            <Link href="/leafy-vegetables/learn-more" className="uv-learn-more-btn-v2">
+              Learn More <span className="uv-btn-arrow-v2">→</span>
+            </Link>
+          </div>
         </div>
       </section>
 

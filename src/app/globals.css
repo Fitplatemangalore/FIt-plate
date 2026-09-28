@@ -4680,7 +4680,7 @@ body.splash-active {
    SECTION 3: FEATURE BANNER (V2 LIGHT CREAM)
    ───────────────────────────────────────────────────────────── */
 .uv-feature-banner-section {
-  padding: 0 0 80px;
+  padding: 0;
 }
 
 .uv-feature-banner-box {
