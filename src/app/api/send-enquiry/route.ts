@@ -4,14 +4,25 @@ import { Resend } from "resend";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, business, requestType, selectedVarieties, quantityGrams, message, submittedAt } = body;
+    const {
+      name,
+      email,
+      phone,
+      business,
+      requestType,
+      quantityGrams,
+      message,
+      submittedAt,
+    } = body;
 
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
-      console.error("[Resend Warning] RESEND_API_KEY is not configured in process.env.");
+      console.error(
+        "[Resend Warning] RESEND_API_KEY is not configured in process.env.",
+      );
       return NextResponse.json(
         { error: "RESEND_API_KEY not configured" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -24,10 +35,9 @@ export async function POST(request: Request) {
         })
       : new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
-    // Varieties: array or empty
-    const varietiesList: string[] = Array.isArray(selectedVarieties) ? selectedVarieties : [];
-    const varietiesDisplay = varietiesList.length > 0 ? varietiesList.join(", ") : "Not specified";
-    const quantityDisplay = quantityGrams ? `${quantityGrams} grams` : "Not specified";
+    const quantityDisplay = quantityGrams
+      ? `${quantityGrams} grams`
+      : "Not specified";
 
     const htmlContent = `
       <!DOCTYPE html>
@@ -76,14 +86,7 @@ export async function POST(request: Request) {
                 <div class="field-label">Request Type</div>
                 <div class="field-value">${requestType || "General enquiry"}</div>
               </div>
-              <div class="field-group">
-                <div class="field-label">Varieties Interested In</div>
-                <div class="field-value">
-                  ${varietiesList.length > 0
-                    ? varietiesList.map((v) => `<span class="tag">${v}</span>`).join("")
-                    : "<span style='color:#999'>Not specified</span>"}
-                </div>
-              </div>
+              
               <div class="field-group">
                 <div class="field-label">Quantity Required</div>
                 <div class="field-value">${quantityDisplay}</div>
@@ -110,11 +113,14 @@ export async function POST(request: Request) {
       to: "greens@fitplate.in",
       subject: `New Contact Enquiry: ${name} (${requestType || "General"})`,
       html: htmlContent,
-      text: `New Website Enquiry\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}\nBusiness: ${business || "N/A"}\nRequest Type: ${requestType}\nVarieties Interested In: ${varietiesDisplay}\nQuantity Required: ${quantityDisplay}\nDate: ${dateFormatted}\n\nMessage:\n${message}`,
+      text: `New Website Enquiry\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}\nBusiness: ${business || "N/A"}\nRequest Type: ${requestType}\nQuantity Required: ${quantityDisplay}\nDate: ${dateFormatted}\n\nMessage:\n${message}`,
     });
 
     if (data.error) {
-      console.error("[Resend Error] Failed to send email notification:", data.error);
+      console.error(
+        "[Resend Error] Failed to send email notification:",
+        data.error,
+      );
       return NextResponse.json({ error: data.error }, { status: 500 });
     }
 
