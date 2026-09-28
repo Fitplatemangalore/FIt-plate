@@ -20,7 +20,7 @@ export function CropIcon({ type }: { type?: string }) {
   if (!type) return null;
   return (
     <img
-      src={`/assets/icons/${type}.svg`}
+      src={`/assets/icons/${type}.png`}
       alt={`${type} icon`}
       className="uv-crop-custom-icon"
       width="28"
