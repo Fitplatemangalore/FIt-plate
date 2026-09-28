@@ -278,10 +278,12 @@ export default function About() {
               <div
                 style={{
                   fontSize: "18px",
-                  fontWeight: "600",
+                  fontWeight: 300,
                   color: "var(--forest-900)",
                   textAlign: "center",
-                  marginTop: "-10px",
+                  marginTop: "0px",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
                 }}
               >
                 Urban Vertical Farming

@@ -20,17 +20,34 @@ export default async function Fruits() {
 
   return (
     <main className="lv-page fruits-page">
-      <section className="lv-hero" style={{ backgroundColor: "#f8fafc", backgroundImage: 'url(/assets/img/fruits.png)' }}>
+      <section
+        className="lv-hero"
+        style={{
+          backgroundColor: "#f8fafc",
+          backgroundImage: "url(/assets/img/fruits.png)",
+        }}
+      >
         <div className="lv-hero-content container">
           <div className="lv-hero-tag">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
+            <svg
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
             <span>Fruits</span>
           </div>
           <h1 className="lv-hero-title">Where Freshness Meets Flavour.</h1>
           <p className="lv-hero-sub">
-            Premium fruits cultivated for vibrant taste, texture<br/>and everyday freshness.
+            Premium fruits cultivated for vibrant taste, texture
+            <br />
+            and everyday freshness.
           </p>
-          <div style={{ marginTop: '32px' }}>
+          <div style={{ marginTop: "32px" }}>
             <Link href="/fruits/learn-more" className="uv-learn-more-btn-v2">
               Learn More <span className="uv-btn-arrow-v2">→</span>
             </Link>
@@ -39,40 +56,120 @@ export default async function Fruits() {
       </section>
 
       {/* 2. Four-stat row */}
-      <section className="lv-stats section" style={{ backgroundColor: '#ffffff', position: 'relative', zIndex: 1 }} data-empty={displayVarieties.length === 0 ? "true" : undefined}>
+      <section
+        className="lv-stats section"
+        style={{ backgroundColor: "#ffffff", position: "relative", zIndex: 1 }}
+        data-empty={displayVarieties.length === 0 ? "true" : undefined}
+      >
         <div className="container">
           <div className="lv-stats-grid">
             <div className="lv-stat-item">
-              <div className="lv-stat-icon" style={{ backgroundColor: "#4F993F", color: "white", borderColor: "white" }}>
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
+              <div
+                className="lv-stat-icon"
+                style={{
+                  backgroundColor: "#4F993F",
+                  color: "white",
+                  borderColor: "white",
+                }}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
               </div>
-              <div className="lv-stat-title" style={{ color: "#4F993F" }}>Fresh Harvest</div>
+              <div className="lv-stat-title" style={{ color: "#4F993F" }}>
+                Fresh Harvest
+              </div>
               <div className="lv-stat-desc">7-21 days</div>
             </div>
             <div className="lv-stat-item">
-              <div className="lv-stat-icon" style={{ backgroundColor: "#F7BF41", color: "white", borderColor: "white" }}>
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v8M8 12h8"/></svg>
+              <div
+                className="lv-stat-icon"
+                style={{
+                  backgroundColor: "#F7BF41",
+                  color: "white",
+                  borderColor: "white",
+                }}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="M12 8v8M8 12h8" />
+                </svg>
               </div>
-              <div className="lv-stat-title" style={{ color: "#F7BF41" }}>Rich in Nutrients</div>
+              <div className="lv-stat-title" style={{ color: "#F7BF41" }}>
+                Rich in Nutrients
+              </div>
               <div className="lv-stat-desc">Vitamins & Minerals</div>
             </div>
             <div className="lv-stat-item">
-              <div className="lv-stat-icon" style={{ backgroundColor: "#586FA0", color: "white", borderColor: "white" }}>
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 16a4 4 0 100-8 4 4 0 000 8z"/></svg>
+              <div
+                className="lv-stat-icon"
+                style={{
+                  backgroundColor: "#586FA0",
+                  color: "white",
+                  borderColor: "white",
+                }}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                  <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" />
+                </svg>
               </div>
-              <div className="lv-stat-title" style={{ color: "#586FA0" }}>Natural Flavour</div>
+              <div className="lv-stat-title" style={{ color: "#586FA0" }}>
+                Natural Flavour
+              </div>
               <div className="lv-stat-desc">Pure & Clean</div>
             </div>
             <div className="lv-stat-item">
-              <div className="lv-stat-icon" style={{ backgroundColor: "#EA767E", color: "white", borderColor: "white" }}>
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78v0z"/></svg>
+              <div
+                className="lv-stat-icon"
+                style={{
+                  backgroundColor: "#EA767E",
+                  color: "white",
+                  borderColor: "white",
+                }}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78v0z" />
+                </svg>
               </div>
-              <div className="lv-stat-title" style={{ color: "#EA767E" }}>Better Nutrition</div>
+              <div className="lv-stat-title" style={{ color: "#EA767E" }}>
+                Better Nutrition
+              </div>
               <div className="lv-stat-desc">For a Healthier You</div>
             </div>
           </div>
           <div className="lv-intro-text">
-            Fruits are young, edible seedlings harvested just after the cotyledons and first<br/>true leaves appear. Below is a quick reference to each variety we grow — its character,<br/>nutritional highlights, and where it shines on the plate.
+            Carefully selected fruit crops suited to controlled-environment
+            growing, chosen for flavour and freshness. Explore each variety
+            below to see its taste, nutritional value and how to enjoy it.
           </div>
         </div>
       </section>
@@ -81,63 +178,126 @@ export default async function Fruits() {
       {displayVarieties.length > 0 && (
         <section className="lv-cards-section section">
           <div className="container">
-          <div className="lv-cards-grid">
-            {displayVarieties.map((v) => {
-              const theme = getThemeColors(v.tag_color);
-              const slug = v.slug || v.id || v.name.toLowerCase().replace(/\s+/g, "-");
-              return (
-                <div key={v.id} className="lv-card">
-                  <div className="lv-card-img-wrap">
-                    <div className="lv-card-img-bg" style={{ backgroundColor: theme.bg }}></div>
-                    <img src={v.image_url || "/assets/pot/pot-1.png"} alt={v.name} className="lv-card-img" />
-                  </div>
-                  <div className="lv-card-content">
-                    <div className="lv-tag" style={{ backgroundColor: theme.bg, color: theme.text }}>
-                      {v.tag_pill || v.tag || "Microgreen"}
+            <div className="lv-cards-grid">
+              {displayVarieties.map((v) => {
+                const theme = getThemeColors(v.tag_color);
+                const slug =
+                  v.slug || v.id || v.name.toLowerCase().replace(/\s+/g, "-");
+                return (
+                  <div key={v.id} className="lv-card">
+                    <div className="lv-card-img-wrap">
+                      <div
+                        className="lv-card-img-bg"
+                        style={{ backgroundColor: theme.bg }}
+                      ></div>
+                      <img
+                        src={v.image_url || "/assets/pot/pot-1.png"}
+                        alt={v.name}
+                        className="lv-card-img"
+                      />
                     </div>
-                    <h3 className="lv-title" style={{ color: theme.text }}>{v.name}</h3>
-                    <p className="lv-subtitle" style={{ color: theme.text }}>{v.subtitle || v.highlight}</p>
-                    <p className="lv-desc">{v.description}</p>
-                    {v.best_in && (
-                      <p className="lv-best-in">
-                        <strong style={{ color: theme.text }}>Best in:</strong> {v.best_in}
+                    <div className="lv-card-content">
+                      <div
+                        className="lv-tag"
+                        style={{ backgroundColor: theme.bg, color: theme.text }}
+                      >
+                        {v.tag_pill || v.tag || "Microgreen"}
+                      </div>
+                      <h3 className="lv-title" style={{ color: theme.text }}>
+                        {v.name}
+                      </h3>
+                      <p className="lv-subtitle" style={{ color: theme.text }}>
+                        {v.subtitle || v.highlight}
                       </p>
-                    )}
-                    <Link href={`/fruits/${slug}`} className="lv-read-more" style={{ color: theme.text }}>
-                      Read More &rarr;
-                    </Link>
+                      <p className="lv-desc">{v.description}</p>
+                      {v.best_in && (
+                        <p className="lv-best-in">
+                          <strong style={{ color: theme.text }}>
+                            Best in:
+                          </strong>{" "}
+                          {v.best_in}
+                        </p>
+                      )}
+                      <Link
+                        href={`/fruits/${slug}`}
+                        className="lv-read-more"
+                        style={{ color: theme.text }}
+                      >
+                        Read More &rarr;
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
       )}
 
       {/* 4. A note on nutrition */}
-      <section className="lv-nutrition" style={{ backgroundImage: "url(/assets/img/fruits-third.png)" }}>
+      <section
+        className="lv-nutrition"
+        style={{ backgroundImage: "url(/assets/img/fruits-third.png)" }}
+      >
         <div className="container lv-nutrition-inner">
           <div className="lv-nutrition-eyebrow">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
+            <svg
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
             <span>A NOTE ON NUTRITION</span>
           </div>
           <h2>Nutrient levels vary by species and growing conditions.</h2>
           <p>
-            Many of our leafy vegetables are rich in vitamins A, C, E and K, folate, potassium, calcium, iron and<br/>magnesium, along with antioxidant compounds such as polyphenols, carotenoids, chlorophyll,<br/>glucosinolates, anthocyanins, betalains and flavonoids. See our full <Link href="/benefits">nutrition & benefits guide</Link><br/>for more detail.
+            Many of our leafy vegetables are rich in vitamins A, C, E and K,
+            folate, potassium, calcium, iron and
+            <br />
+            magnesium, along with antioxidant compounds such as polyphenols,
+            carotenoids, chlorophyll,
+            <br />
+            glucosinolates, anthocyanins, betalains and flavonoids. See our full{" "}
+            <Link href="/benefits">nutrition & benefits guide</Link>
+            <br />
+            for more detail.
           </p>
         </div>
       </section>
 
       {/* 5. Custom mix section */}
-      <section className="lv-custom-mix section" style={{ backgroundImage: "url(/assets/img/fruits-four.png)" }}>
+      <section
+        className="lv-custom-mix section"
+        style={{ backgroundImage: "url(/assets/img/fruits-four.png)" }}
+      >
         <div className="container lv-custom-inner">
           <div className="lv-custom-icon">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+              <path d="M7 2v20" />
+              <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
+            </svg>
           </div>
           <h2>Want a custom mix for your menu?</h2>
-          <p>We can put together seasonal or signature blends for hotels,<br/>restaurants and caterers on request.</p>
-          <Link href="/contact" className="lv-btn">Request a Quote &rarr;</Link>
+          <p>
+            We can put together seasonal or signature blends for hotels,
+            <br />
+            restaurants and caterers on request.
+          </p>
+          <Link href="/contact" className="lv-btn">
+            Request a Quote &rarr;
+          </Link>
         </div>
       </section>
 
@@ -456,10 +616,14 @@ export default async function Fruits() {
 
 function getThemeColors(colorName: string) {
   switch (colorName?.toLowerCase()) {
-    case "purple": return { bg: "#f3e8ff", text: "#7e22ce" };
-    case "orange": return { bg: "#ffedd5", text: "#c2410c" };
-    case "blue": return { bg: "#dbeafe", text: "#1d4ed8" };
+    case "purple":
+      return { bg: "#f3e8ff", text: "#7e22ce" };
+    case "orange":
+      return { bg: "#ffedd5", text: "#c2410c" };
+    case "blue":
+      return { bg: "#dbeafe", text: "#1d4ed8" };
     case "green":
-    default: return { bg: "#dcfce7", text: "#15803d" };
+    default:
+      return { bg: "#dcfce7", text: "#15803d" };
   }
 }
