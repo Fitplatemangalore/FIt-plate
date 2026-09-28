@@ -16,68 +16,17 @@ export interface CropData {
   sort_order?: number;
 }
 
-export function CropIcon({ type, iconUrl }: { type?: string; iconUrl?: string }) {
-  if (iconUrl) {
-    return (
-      <img
-        src={iconUrl}
-        alt="crop icon"
-        className="uv-crop-custom-icon"
-        width="28"
-        height="28"
-      />
-    );
-  }
-
-  switch (type) {
-    case "herbs":
-      return (
-        <svg viewBox="0 0 32 32" fill="none" stroke="#112E81" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
-          <path d="M16 28V8" />
-          <path d="M16 14c-4-1-6-3-6-6 4 0 6 3 6 6Z" />
-          <path d="M16 18c4-1 6-3 6-6-4 0-6 3-6 6Z" />
-          <path d="M16 23c-3-1-5-2.5-5-5 3.5 0 5 2.5 5 5Z" />
-        </svg>
-      );
-    case "flower":
-      return (
-        <svg viewBox="0 0 32 32" fill="none" stroke="#112E81" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
-          <circle cx="16" cy="16" r="3.5" />
-          <path d="M16 5.5a3.5 3.5 0 0 0-3.5 3.5v1.5a3.5 3.5 0 0 0 7 0V9A3.5 3.5 0 0 0 16 5.5Z" />
-          <path d="M16 21.5a3.5 3.5 0 0 0-3.5 3.5V26.5a3.5 3.5 0 0 0 7 0V25a3.5 3.5 0 0 0-3.5-3.5Z" />
-          <path d="M5.5 16a3.5 3.5 0 0 0 3.5-3.5H10.5a3.5 3.5 0 0 0 0 7H9A3.5 3.5 0 0 0 5.5 16Z" />
-          <path d="M21.5 16a3.5 3.5 0 0 0 3.5-3.5H26.5a3.5 3.5 0 0 0 0 7H25A3.5 3.5 0 0 0 21.5 16Z" />
-        </svg>
-      );
-    case "fruits":
-      return (
-        <svg viewBox="0 0 32 32" fill="none" stroke="#112E81" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
-          <path d="M16 8.5c-5.5 0-9.5 4.5-9.5 10 0 5 4 9 9.5 9s9.5-4 9.5-9c0-5.5-4-10-9.5-10Z" />
-          <path d="M16 8.5V4.5c2 0 3.5 1 3.5 2.5" />
-          <path d="M16 4.5c-2 0-3.5 1-3.5 2.5" />
-        </svg>
-      );
-    case "saffron":
-      return (
-        <svg viewBox="0 0 32 32" fill="none" stroke="#112E81" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
-          <path d="M16 28V12" />
-          <path d="M16 12c-4-4-5-8-5-8s4 1 7 5" />
-          <path d="M16 12c4-4 5-8 5-8s-4 1-7 5" />
-          <path d="M11 20c3-2 5-3 5-3s2 1 5 3" />
-        </svg>
-      );
-    case "leaf":
-    case "microgreens":
-    default:
-      // Exact organic twin-leaf icon matching Image 1
-      return (
-        <svg viewBox="0 0 32 32" fill="none" stroke="#112E81" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28" style={{ transform: "scale(1.4) translateY(-2px)" }}>
-          <path d="M15.5 28V14" />
-          <path d="M15.5 14c0-6 4.5-9 10.5-9.5-1 6-4 10-10.5 9.5Z" />
-          <path d="M15.5 18c0-4-3-6-6.5-6.8 0.5 4 2.5 6.8 6.5 6.8Z" />
-        </svg>
-      );
-  }
+export function CropIcon({ type }: { type?: string }) {
+  if (!type) return null;
+  return (
+    <img
+      src={`/assets/icons/${type}.svg`}
+      alt={`${type} icon`}
+      className="uv-crop-custom-icon"
+      width="28"
+      height="28"
+    />
+  );
 }
 
 export default function CropHexagonCard({ crop }: { crop: CropData }) {
@@ -121,7 +70,7 @@ export default function CropHexagonCard({ crop }: { crop: CropData }) {
           <div className="uv-crop-yellow-content">
             {/* Green Icon */}
             <div className="uv-crop-crest-icon">
-              <CropIcon type={iconType} iconUrl={crop.icon_url} />
+              <CropIcon type={iconType} />
             </div>
 
             {/* Crop Title */}
@@ -155,3 +104,4 @@ export default function CropHexagonCard({ crop }: { crop: CropData }) {
     </div>
   );
 }
+
