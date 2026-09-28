@@ -26,9 +26,9 @@ export default async function Fruits() {
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
             <span>Fruits</span>
           </div>
-          <h1 className="lv-hero-title">Multiple varieties, each with its<br/>own <span style={{ color: "#4F993F" }}>flavour</span> and <span style={{ color: "#4F993F" }}>function</span>.</h1>
+          <h1 className="lv-hero-title">Where Freshness Meets Flavour.</h1>
           <p className="lv-hero-sub">
-            Every tray is harvested 7–21 days after germination, at the point of peak<br/>flavour, colour and nutrient density.
+            Premium fruits cultivated for vibrant taste, texture<br/>and everyday freshness.
           </p>
           <div style={{ marginTop: '32px' }}>
             <Link href="/fruits/learn-more" className="uv-learn-more-btn-v2">

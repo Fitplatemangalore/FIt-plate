@@ -275,7 +275,7 @@ export default async function MicrogreensPage() {
             <div className="eyebrow" style={{ justifyContent: "center", color: "var(--brand-secondary)" }}>
               OUR VARIETIES
             </div>
-            <h2 style={{ color: "var(--brand-primary)", marginTop: "10px" }}>Our Microgreens</h2>
+            <h2 style={{ color: "var(--brand-primary)", marginTop: "10px" }}>Our Crops</h2>
           </div>
 
           {(() => {
