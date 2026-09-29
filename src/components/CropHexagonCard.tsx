@@ -18,13 +18,13 @@ export interface CropData {
 
 export function CropIcon({ type }: { type?: string }) {
   if (!type) return null;
+  const isLarge = type === 'leafy-vegetables' || type === 'edible-flowers' || type === 'herbs';
   return (
     <img
       src={`/assets/icons/${type}.png`}
       alt={`${type} icon`}
       className="uv-crop-custom-icon"
-      width="28"
-      height="28"
+      style={isLarge ? { transform: 'scale(0.72) translateY(2px)' } : { transform: 'scale(1)' }}
     />
   );
 }
