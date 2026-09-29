@@ -258,16 +258,11 @@ export default async function Saffron() {
           </div>
           <h2>Nutrient levels vary by species and growing conditions.</h2>
           <p>
-            Many of our leafy vegetables are rich in vitamins A, C, E and K,
-            folate, potassium, calcium, iron and
-            <br />
-            magnesium, along with antioxidant compounds such as polyphenols,
-            carotenoids, chlorophyll,
-            <br />
-            glucosinolates, anthocyanins, betalains and flavonoids. See our full{" "}
-            <Link href="/benefits">nutrition & benefits guide</Link>
-            <br />
-            for more detail.
+            Saffron is rich in antioxidant compounds such as crocin, safranal
+            and crocetin, along with trace minerals, and has long been valued
+            for its aroma, colour and potential health benefits. See our full{" "}
+            <Link href="/benefits">nutrition &amp; benefits guide</Link> for
+            more detail.
           </p>
         </div>
       </section>

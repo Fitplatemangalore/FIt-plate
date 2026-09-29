@@ -255,16 +255,11 @@ export default async function Fruits() {
           </div>
           <h2>Nutrient levels vary by species and growing conditions.</h2>
           <p>
-            Many of our leafy vegetables are rich in vitamins A, C, E and K,
-            folate, potassium, calcium, iron and
-            <br />
-            magnesium, along with antioxidant compounds such as polyphenols,
-            carotenoids, chlorophyll,
-            <br />
-            glucosinolates, anthocyanins, betalains and flavonoids. See our full{" "}
-            <Link href="/benefits">nutrition & benefits guide</Link>
-            <br />
-            for more detail.
+            Many of our fruits are rich in vitamin C, potassium, dietary fibre
+            and antioxidant compounds such as polyphenols and carotenoids,
+            supporting everyday health and immunity. See our full{" "}
+            <Link href="/benefits">nutrition &amp; benefits guide</Link> for
+            more detail.
           </p>
         </div>
       </section>
