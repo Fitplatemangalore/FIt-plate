@@ -622,10 +622,13 @@ export default async function LeafyVegetables() {
       
         @media (max-width: 768px) {
           .lv-hero {
-            background-size: contain;
-            background-position: top center;
-            padding-top: 140px;
-            min-height: auto;
+            margin-top: 68px !important;
+            background-size: 100% auto !important;
+            background-position: top center !important;
+            padding-top: 30px !important;
+            padding-bottom: 40px !important;
+            min-height: auto !important;
+            
           }
         }
       `}</style>
