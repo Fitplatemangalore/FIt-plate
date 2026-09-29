@@ -257,7 +257,11 @@ export default async function Herbs() {
           <p>
             Many of our herbs are rich in essential oils, vitamins A, C and K,
             and antioxidant compounds such as flavonoids and polyphenols, along
-            with trace minerals like iron, calcium and manganese. See our full{" "}
+            with trace minerals like iron, calcium and manganese. Beyond
+            flavour, these compounds are linked to digestive support,
+            anti-inflammatory properties and general wellness. The concentration
+            of these nutrients depends on the herb variety and how it's grown
+            and harvested. See our full{" "}
             <Link href="/benefits">nutrition &amp; benefits guide</Link> for
             more detail.
           </p>

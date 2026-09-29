@@ -260,7 +260,11 @@ export default async function Saffron() {
           <p>
             Saffron is rich in antioxidant compounds such as crocin, safranal
             and crocetin, along with trace minerals, and has long been valued
-            for its aroma, colour and potential health benefits. See our full{" "}
+            for its aroma, colour and potential health benefits. Traditionally
+            used in small quantities, it's prized as much for its unique flavour
+            and colour as for its nutritional properties. Its potency depends on
+            growing conditions, harvest method and how it's dried and stored.
+            See our full{" "}
             <Link href="/benefits">nutrition &amp; benefits guide</Link> for
             more detail.
           </p>

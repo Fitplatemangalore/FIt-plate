@@ -263,7 +263,10 @@ export default async function EdibleFlowers() {
             Many of our edible flowers contain antioxidants, vitamin C, and
             beneficial plant compounds such as anthocyanins and flavonoids,
             offering subtle nutrition alongside their delicate flavour and
-            colour. See our full{" "}
+            colour. While used mainly for garnish and presentation, they can
+            contribute small but meaningful amounts of nutrients to a dish.
+            Their exact nutrient profile varies by flower type and growing
+            conditions. See our full{" "}
             <Link href="/benefits">nutrition &amp; benefits guide</Link> for
             more detail.
           </p>

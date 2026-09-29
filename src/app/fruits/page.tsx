@@ -257,7 +257,10 @@ export default async function Fruits() {
           <p>
             Many of our fruits are rich in vitamin C, potassium, dietary fibre
             and antioxidant compounds such as polyphenols and carotenoids,
-            supporting everyday health and immunity. See our full{" "}
+            supporting everyday health and immunity. Regular consumption can
+            support heart health, digestion and overall vitality. As with all
+            produce, nutrient levels vary by fruit type, ripeness and growing
+            conditions. See our full{" "}
             <Link href="/benefits">nutrition &amp; benefits guide</Link> for
             more detail.
           </p>

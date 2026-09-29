@@ -266,7 +266,11 @@ export default async function LeafyVegetables() {
             Many of our leafy vegetables are rich in vitamins A, C, E and K,
             folate, potassium, calcium, iron and magnesium, along with
             antioxidant compounds such as polyphenols, carotenoids, chlorophyll,
-            glucosinolates, anthocyanins, betalains and flavonoids. See our full{" "}
+            glucosinolates, anthocyanins, betalains and flavonoids. These
+            nutrients support immunity, bone health and overall wellbeing when
+            eaten regularly as part of a balanced diet. Nutrient levels can vary
+            depending on the variety, growing conditions and harvest time. See
+            our full{" "}
             <Link href="/benefits">nutrition &amp; benefits guide</Link> for
             more detail.
           </p>
