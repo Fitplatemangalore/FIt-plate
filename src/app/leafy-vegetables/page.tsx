@@ -619,6 +619,15 @@ export default async function LeafyVegetables() {
         .leafy-page ~ footer {
           background-color: #61AA7C !important;
         }
+      
+        @media (max-width: 768px) {
+          .lv-hero {
+            background-size: contain;
+            background-position: top center;
+            padding-top: 140px;
+            min-height: auto;
+          }
+        }
       `}</style>
     </main>
   );

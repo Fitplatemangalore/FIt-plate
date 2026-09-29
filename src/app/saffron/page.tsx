@@ -257,7 +257,7 @@ export default async function Saffron() {
             <span>A NOTE ON NUTRITION</span>
           </div>
           <h2>Nutrient levels vary by species and growing conditions.</h2>
-          <p>
+          <p style={{ color: "#E5E5E5" }}>
             Saffron is rich in antioxidant compounds such as crocin, safranal
             and crocetin, along with trace minerals, and has long been valued
             for its aroma, colour and potential health benefits. Traditionally
@@ -610,6 +610,15 @@ export default async function Saffron() {
         }
         .saffron-page ~ footer {
           background-color: #513171 !important;
+        }
+      
+        @media (max-width: 768px) {
+          .lv-hero {
+            background-size: contain;
+            background-position: top center;
+            padding-top: 140px;
+            min-height: auto;
+          }
         }
       `}</style>
     </main>

@@ -613,6 +613,15 @@ export default async function EdibleFlowers() {
         .edible-flowers-page ~ footer {
           background-color: #745B96 !important;
         }
+      
+        @media (max-width: 768px) {
+          .lv-hero {
+            background-size: contain;
+            background-position: top center;
+            padding-top: 140px;
+            min-height: auto;
+          }
+        }
       `}</style>
     </main>
   );

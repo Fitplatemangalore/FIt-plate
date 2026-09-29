@@ -608,6 +608,15 @@ export default async function Herbs() {
         .herbs-page ~ footer {
           background-color: #577143 !important;
         }
+      
+        @media (max-width: 768px) {
+          .lv-hero {
+            background-size: contain;
+            background-position: top center;
+            padding-top: 140px;
+            min-height: auto;
+          }
+        }
       `}</style>
     </main>
   );

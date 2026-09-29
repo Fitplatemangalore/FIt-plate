@@ -40,7 +40,8 @@ const defaultTestimonials: UrbanTestimonialItem[] = [
     id: "t-4",
     name: "Ramesh",
     role: "Local Chef",
-    quote: "The microgreens are incredibly fresh and flavorful. They elevate every dish we serve.",
+    quote:
+      "The microgreens are incredibly fresh and flavorful. They elevate every dish we serve.",
     stars: 5,
     link: "https://maps.google.com/?q=Fitplate+Ventures+Mangalore",
   },
@@ -48,35 +49,53 @@ const defaultTestimonials: UrbanTestimonialItem[] = [
     id: "t-5",
     name: "Sneha",
     role: "Fitness Enthusiast",
-    quote: "I love the nutrient density! Perfect for my post-workout smoothies and salads.",
+    quote:
+      "I love the nutrient density! Perfect for my post-workout smoothies and salads.",
     stars: 5,
     link: "https://maps.google.com/?q=Fitplate+Ventures+Mangalore",
   },
 ];
 
 const GoogleIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style={{ color: "#fff" }}>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    style={{ color: "#fff" }}
+  >
     <path d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114-3.483 0-6.312-2.829-6.312-6.312 0-3.483 2.829-6.312 6.312-6.312 1.624 0 3.097.621 4.225 1.63l3.24-3.24C19.336 2.222 15.992 1 12.24 1 6.033 1 1 6.033 1 12.24s5.033 11.24 11.24 11.24c6.478 0 11.24-4.553 11.24-11.24 0-.761-.077-1.498-.216-2.185H12.24z" />
   </svg>
 );
 
 const UserIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
     <circle cx="12" cy="7" r="4" />
   </svg>
 );
 
-export default function UrbanTestimonials({ items }: { items?: UrbanTestimonialItem[] }) {
+export default function UrbanTestimonials({
+  items,
+}: {
+  items?: UrbanTestimonialItem[];
+}) {
   const testimonials = items && items.length > 0 ? items : defaultTestimonials;
   const [page, setPage] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  
+
   const CARDS_PER_PAGE = 4;
   const desktopTotalPages = Math.ceil(testimonials.length / CARDS_PER_PAGE);
   const showSliderDesktop = desktopTotalPages > 1;
-  
+
   const totalPages = isMobile ? testimonials.length : desktopTotalPages;
   const showSlider = isMobile ? true : showSliderDesktop;
 
@@ -90,12 +109,12 @@ export default function UrbanTestimonials({ items }: { items?: UrbanTestimonialI
   useEffect(() => {
     if (!isMobile) return;
     const interval = setInterval(() => {
-      setPage(p => {
-        const next = (p + 1) % testimonials.length;
+      setPage((p) => {
+        const next = p + 1;
         if (scrollRef.current) {
           scrollRef.current.scrollTo({
             left: next * scrollRef.current.clientWidth,
-            behavior: "smooth"
+            behavior: "smooth",
           });
         }
         return next;
@@ -104,40 +123,62 @@ export default function UrbanTestimonials({ items }: { items?: UrbanTestimonialI
     return () => clearInterval(interval);
   }, [isMobile, testimonials.length]);
 
+  // Handle seamless loop jump back
+  useEffect(() => {
+    if (!isMobile) return;
+    if (page === testimonials.length) {
+      const timer = setTimeout(() => {
+        if (scrollRef.current) {
+          scrollRef.current.scrollTo({ left: 0, behavior: "auto" });
+        }
+        setPage(0);
+      }, 600); // Wait for smooth scroll to finish
+      return () => clearTimeout(timer);
+    }
+  }, [page, isMobile, testimonials.length]);
+
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     if (!isMobile) return;
     const el = e.currentTarget;
     const index = Math.round(el.scrollLeft / el.clientWidth);
-    setPage(index);
+    // Don't setPage if we are snapping back
+    if (index !== testimonials.length) {
+      setPage(index);
+    }
   };
-  
-  const visibleItems = isMobile 
-    ? testimonials 
-    : (showSliderDesktop 
-        ? testimonials.slice(page * CARDS_PER_PAGE, (page + 1) * CARDS_PER_PAGE) 
-        : testimonials);
+
+  // On mobile, duplicate the first testimonial at the end for the seamless loop effect
+  const visibleItems = isMobile
+    ? [
+        ...testimonials,
+        { ...testimonials[0], id: testimonials[0].id + "_clone" },
+      ]
+    : showSliderDesktop
+      ? testimonials.slice(page * CARDS_PER_PAGE, (page + 1) * CARDS_PER_PAGE)
+      : testimonials;
 
   const handleDotClick = (idx: number) => {
     setPage(idx);
     if (isMobile && scrollRef.current) {
       scrollRef.current.scrollTo({
         left: idx * scrollRef.current.clientWidth,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }
   };
-
   return (
     <div className="home-testimonials-container">
-      <div 
-        className="testimonials-grid" 
-        ref={scrollRef} 
+      <div
+        className="testimonials-grid"
+        ref={scrollRef}
         onScroll={handleScroll}
       >
         {visibleItems.map((t, i) => (
           <a
             key={t.id}
-            href={t.link || "https://maps.google.com/?q=Fitplate+Ventures+Mangalore"}
+            href={
+              t.link || "https://maps.google.com/?q=Fitplate+Ventures+Mangalore"
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="testimonial-link-card"
@@ -173,7 +214,7 @@ export default function UrbanTestimonials({ items }: { items?: UrbanTestimonialI
           {[...Array(totalPages)].map((_, idx) => (
             <button
               key={idx}
-              className={`home-testimonials-dot ${page === idx ? "active" : ""}`}
+              className={`home-testimonials-dot ${page % testimonials.length === idx ? "active" : ""}`}
               onClick={() => handleDotClick(idx)}
               aria-label={`Go to page ${idx + 1}`}
             />

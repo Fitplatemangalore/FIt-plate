@@ -607,6 +607,15 @@ export default async function Fruits() {
         .fruits-page ~ footer {
           background-color: #072E6D !important;
         }
+      
+        @media (max-width: 768px) {
+          .lv-hero {
+            background-size: contain;
+            background-position: top center;
+            padding-top: 140px;
+            min-height: auto;
+          }
+        }
       `}</style>
     </main>
   );
