@@ -227,7 +227,7 @@ export default function Benefits() {
               and flavonoids. Nutrient levels vary by species and growing
               conditions &mdash; explore our{" "}
               <Link
-                href="/varieties"
+                href="/#our-crops"
                 style={{
                   color: "var(--forest-800)",
                   textDecoration: "underline",
