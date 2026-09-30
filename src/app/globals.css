@@ -6058,3 +6058,14 @@ body.splash-active {
     flex-shrink: 0 !important;
   }
 }
+.mobile-icon-only {
+  display: none !important;
+}
+@media (max-width: 580px) {
+  .desktop-icon-only {
+    display: none !important;
+  }
+  .mobile-icon-only {
+    display: block !important;
+  }
+}
