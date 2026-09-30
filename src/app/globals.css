@@ -6021,7 +6021,7 @@ body.splash-active {
 @media (max-width: 580px) {
   .uv-crop-yellow-content {
     justify-content: flex-start !important;
-    padding: 22px 10px 16px !important;
+    padding: 16px 10px 30px !important;
     height: 72% !important;
   }
   .uv-crop-crest-icon {
