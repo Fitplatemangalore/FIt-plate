@@ -214,7 +214,7 @@ export default async function Home() {
       {/* ─────────────────────────────────────────────────────────────
           SECTION 2 — OUR CROPS
       ───────────────────────────────────────────────────────────── */}
-      <section className="uv-crops-section" id="crops">
+      <section className="uv-crops-section" id="our-crops">
         <div className="container">
           {/* Heading with yellow line accents */}
           <div className="uv-section-head reveal">
