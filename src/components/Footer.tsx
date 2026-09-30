@@ -9,7 +9,10 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <img src="/assets/logo-white.png" alt="Fit Plate" style={{ maxHeight: '80px', width: 'auto' }} />
-            <p>Pure. Fresh. Nutritious. Made for a better you. Farm Fresh microgreens for hotels, restaurants and caterers.</p>
+            <p>
+              Freshness, Cultivated Differently.<br />
+              Smart urban vertical farming for fresher, cleaner and more nutritious produce—grown closer to you.
+            </p>
             <div className="social-row">
               <a href="https://instagram.com/fitplateventures" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -35,7 +38,7 @@ export default function Footer() {
             <h4>Explore</h4>
             <ul>
               <li><Link href="/about">About Us</Link></li>
-              <li><Link href="/varieties">Our Crops</Link></li>
+              <li><Link href="/#our-crops">Our Crops</Link></li>
               <li><Link href="/gallery">Gallery</Link></li>
               <li><Link href="/blogs">Blogs</Link></li>
             </ul>
@@ -51,7 +54,10 @@ export default function Footer() {
           <div>
             <h4>Contact</h4>
             <ul>
-              <li><a href="#">Fitplate Ventures Private Limited, Kodikal, Mangalore</a></li>
+              <li style={{ lineHeight: '1.6' }}>
+                <a href="#">Fitplate Ventures Private Limited, Kodikal, Mangalore</a><br />
+                <span style={{ fontSize: '0.9em', opacity: 0.8 }}>CIN: U01139KA2026PTC227101</span>
+              </li>
               <li><a href="mailto:greens@fitplate.in">greens@fitplate.in</a></li>
               <li><a href="tel:8217304370">+91 82173 04370</a></li>
             </ul>
